@@ -1,0 +1,102 @@
+{
+  "example_string": {
+    "message": "This is an example string",
+    "_description": "The _description property gives context to the translator as to how the string is used in the product"
+  },
+  "app_nav_about": {
+    "message": "About",
+    "_description": "The text for the About top-level navigation item"
+  },
+  "app_nav_contacts": {
+    "message": "Contacts",
+    "_description": "The text for the Contacts top-level navigation item"
+  },
+  "app_nav_home": {
+    "message": "Home",
+    "_description": "The text for the Home top-level navigation item"
+  },
+  "app_nav_scholarship": {
+    "message": "Scholarship",
+    "_description": "The text for the Scholarship top-level navigation item"
+  },
+  "app_nav_users": {
+    "message": "Users",
+    "_description": "The text for the Users top-level navigation item"
+  },
+  "home_title": {
+    "message": "SKY UX Template",
+    "_description": "Title for the home component"
+  },
+  "scholarship_name_label": {
+    "message": "Name of Scholarship"
+  },
+  "sponsor_label": {
+    "message": "Sponsor"
+  },
+  "contact_email_label": {
+    "message": "Contact Email"
+  },
+  "contact_type_label": {
+    "message": "Type",
+    "_description": "Replace with description for contact_type_label"
+  },
+  "contact_name_label": {
+    "message": "Name",
+    "_description": "Replace with description for contact_name_label"
+  },
+  "contact_addresses_label": {
+    "message": "Addresses",
+    "_description": "Replace with description for contact_addresses_label"
+  },
+  "contact_contactMethods_label": {
+    "message": "Contact Methods",
+    "_description": "Replace with description for contact_contactMethods_label"
+  },
+  "contact_select_type": {
+    "message": "Please select a contact type",
+    "_description": "Replace with description for contact_select_type"
+  },
+  "scholarship_scholarshipName_label": {
+    "message": "Scholarship Name",
+    "_description": "Replace with description for scholarship_scholarshipName_label"
+  },
+  "scholarship_sponsor_label": {
+    "message": "Sponsor",
+    "_description": "Replace with description for scholarship_sponsor_label"
+  },
+  "scholarship_sponsorContactInfo_label": {
+    "message": "Contact Info",
+    "_description": "Replace with description for scholarship_sponsorContactInfo_label"
+  },
+  "scholarship_contactPhone_label": {
+    "message": "Contact Phone",
+    "_description": "Replace with description for scholarship_contactPhone_label"
+  },
+  "scholarship_contactEmail_label": {
+    "message": "Contact Email",
+    "_description": "Replace with description for scholarship_contactEmail_label"
+  },
+  "scholarship_status_label": {
+    "message": "Status",
+    "_description": "Replace with description for scholarship_status_label"
+  },
+  "sponsor_contact_info_label": {
+    "message": "Contact Info"
+  },
+  "user_id_label": {
+    "message": "ID",
+    "_description": "Replace with description for user_id"
+  },
+  "user_provider_label": {
+    "message": "Provider",
+    "_description": "Replace with description for provider"
+  },
+  "user_name_label": {
+    "message": "Name",
+    "_description": "Replace with description for name"
+  },
+  "user_email_label": {
+    "message": "Email",
+    "_description": "Replace with description for email"
+  }
+}
