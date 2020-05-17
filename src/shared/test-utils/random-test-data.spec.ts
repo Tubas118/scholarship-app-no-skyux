@@ -1,6 +1,6 @@
 import { randomTestData } from './random-test-data';
 
-fdescribe('Random test data', () => {
+describe('Random test data', () => {
   const minNumber = 3;
   const maxNumber = 10;
 
