@@ -4,17 +4,20 @@ import { catchError } from 'rxjs/operators';
 import { BasicData } from './basic-data';
 import { BasicService } from './basic-service';
 import { IdService } from './basic-id-service';
+import { AppConfigService } from '../services/app-config/app-config.service';
 
 export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements BasicService<T, ID> {
-  public readonly appSettings: AppConfigSettings;
-  public readonly apiUrl: string;
+  public appSettings: AppConfigSettings;
+  public apiUrl: string;
 
   constructor(protected http: HttpClient,
-    protected config: AppConfigSettings,
+    protected config: AppConfigService,
     protected urlSuffix: string,
     protected idService: IdService<ID>) {
-      this.appSettings = config;
+    config.getAppConfig().subscribe(appSettings => {
+      this.appSettings = appSettings;
       this.apiUrl = this.appSettings.apiUrl + '/' + urlSuffix;
+    });
   }
 
   public newId(): ID {
@@ -59,6 +62,7 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
 
   public getAll(filter?: string): Observable<T[]> {
     const useUrl = (filter === undefined) ? this.apiUrl : this.apiUrl + filter;
+    console.log(`getAll() => ${useUrl}`);
     return this.http
       .get<T[]>(useUrl)
       .pipe(catchError(this.handleError));

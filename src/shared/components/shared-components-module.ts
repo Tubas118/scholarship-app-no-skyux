@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -17,6 +19,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     UserListComponent
   ],
   imports: [
+    BrowserModule,
+    CommonModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
@@ -27,6 +31,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     })
   ],
   exports: [
+    BrowserModule,
+    CommonModule,
     TranslateModule
   ]
 })

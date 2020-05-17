@@ -1,5 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,7 +12,6 @@ import { SharedComponentsModule } from 'src/shared/components/shared-components-
     AppComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     SharedComponentsModule,

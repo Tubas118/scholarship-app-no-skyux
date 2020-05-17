@@ -4,13 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { UuidIdService } from './uuid-id-service';
 import { LoginDetails } from '../models/login-details';
 import { Observable } from 'rxjs';
+import { AppConfigService } from './app-config/app-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService extends BasicServiceImpl<LoginDetails, string> {
   constructor(protected http: HttpClient,
-    protected config: AppConfigSettings,
+    protected config: AppConfigService,
     protected idService: UuidIdService) {
       super(http, config, 'users', idService);
   }

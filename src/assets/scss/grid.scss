@@ -3,18 +3,28 @@
 }
 
 .lrock-header {
-  background-color: darkgray;
-  color: yellow;
+  background-color: lightgray;
+  border: 1px solid #c3c3c3;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  -webkit-flex-direction: row;
   font-weight: bold;
+  text-align: center;
 }
 
 .lrock-row {
   background-color: white;
+  border: 1px solid #c3c3c3;
   color: black;
+  display: flex;
+  flex-direction: row;
+  -webkit-flex-direction: row;
 }
 
 .lrock-column {
   background-color: transparent;
+  border: 1px solid #c3c3c3;
 }
 
 .grid-buffer-on-right {
