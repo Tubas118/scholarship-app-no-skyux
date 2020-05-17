@@ -1,13 +1,8 @@
 import { randomTestData } from './random-test-data';
-import { customMatchers } from './customMatchers';
 
 fdescribe('Random test data', () => {
   const minNumber = 3;
   const maxNumber = 10;
-
-  beforeAll(() => {
-    jasmine.addMatchers(customMatchers);
-  });
 
   describe('pickNumberBetween', () => {
     it('should return number in range', () => {
@@ -25,19 +20,19 @@ fdescribe('Random test data', () => {
       expect(randomTestData.text().length).toBe(7);
 
       let length = randomTestData.pickNumberBetween(minNumber, maxNumber);
-      expect(length).toBeWithinRange(minNumber, maxNumber);
+      expect(valueWithinRange(length)).toBeTrue();
       expect(randomTestData.text(length).length).toBe(length);
     });
 
     it(`should return a list of ${minNumber} strings`, () => {
       let textList = randomTestData.textList(minNumber);
-      expect(textList.length).toBeWithinRange(minNumber, maxNumber);
+      expect(valueWithinRange(textList.length)).toBeTrue();
       expect(listNotNullElements(textList)).toBeTruthy();
     });
 
     it(`should return a list of strings within a range`, () => {
       let textList = randomTestData.textListBetween(minNumber, maxNumber);
-      expect(textList.length).toBeWithinRange(minNumber, maxNumber);
+      expect(valueWithinRange(textList.length)).toBeTrue();
       expect(listNotNullElements(textList)).toBeTruthy();
     });
 
@@ -49,6 +44,10 @@ fdescribe('Random test data', () => {
         }
       });
       return count === checkList.length;
+    }
+
+    function valueWithinRange(checkValue: number) {
+      return minNumber <= checkValue && checkValue <= maxNumber;
     }
   });
 });
