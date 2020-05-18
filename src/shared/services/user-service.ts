@@ -11,9 +11,9 @@ import { AppConfigService } from './app-config/app-config.service';
 })
 export class UserService extends BasicServiceImpl<LoginDetails, string> {
   constructor(protected http: HttpClient,
-    protected config: AppConfigService,
+    protected configService: AppConfigService,
     protected idService: UuidIdService) {
-      super(http, config, 'users', idService);
+      super(http, configService, 'users', idService);
   }
 
   public add(data: LoginDetails): Observable<LoginDetails> {

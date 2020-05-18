@@ -2,8 +2,9 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigSettings } from '../../basic/basic-service-impl';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, retryWhen } from 'rxjs/operators';
 import { ConfigData } from '../../models/config-data';
+import { delayedRetryCall } from 'src/shared/utils/delayed-retry-call';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +41,9 @@ export class AppConfigService {
             this.config = data;
             this.appConfigSettings = data.appSettings;
             return this.appConfigSettings;
-          }));
+          }),
+          retryWhen(error => delayedRetryCall(error))
+        );
     } else {
       console.log(`loadAppConfigObservable (c): ${this.appConfigSettings}`);
       return of(this.appConfigSettings);

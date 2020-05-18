@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['../../../../assets/scss/grid.scss', './user-list.component.scss']
+  styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
   @Input()

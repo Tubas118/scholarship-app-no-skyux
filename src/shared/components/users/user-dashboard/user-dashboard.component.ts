@@ -25,8 +25,9 @@ export class UserDashboardComponent implements OnInit {
   public ngOnInit(): void {
     this.userService.getAll()
       .subscribe((records: LoginDetails[]) => {
+        console.log(`user-dashboard (1) => LEN ${records.length}: ${JSON.stringify(records)}`);
         this.userData = of(records);
-        console.log(`user-dashboard: ${JSON.stringify(records)}`);
+        console.log(`user-dashboard (2): ${JSON.stringify(records)}`);
       },
       err => {
         console.error('Error ' + err);
