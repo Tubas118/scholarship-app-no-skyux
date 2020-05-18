@@ -19,8 +19,8 @@ export class UserListComponent implements OnInit {
   protected pageNum: number;
 
   constructor(public translate: TranslateService) {
-    translate.setDefaultLang('en');
-    translate.use('en');
+    // translate.setDefaultLang('en');
+    // translate.use('en');
 }
 
   public ngOnInit() {
