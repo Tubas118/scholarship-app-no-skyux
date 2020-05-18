@@ -1,0 +1,86 @@
+.lrock-table {
+  width: 100%;
+}
+
+.lrock-header {
+  background-color: lightgray;
+  border: 1px solid #c3c3c3;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  -webkit-flex-direction: row;
+  font-weight: bold;
+  text-align: center;
+}
+
+.lrock-row {
+  background-color: white;
+  border: 1px solid #c3c3c3;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  -webkit-flex-direction: row;
+}
+
+.lrock-cell {
+  background-color: transparent;
+  border: 1px solid #c3c3c3;
+}
+
+.grid-buffer-on-right {
+  padding-right: 50px;
+}
+
+.data-outer, .data-outer:hover {
+  z-index: 10;
+}
+
+.data-outer:hover {
+  background-color: goldenrod;
+  color: darkred;
+}
+
+.toolbar {
+  background-color: lightgray;
+  float: none;
+  z-index: 20;
+}
+
+.data-cell {
+  padding: 0px 10px 5px 10px;
+}
+
+.data-header sky-column {
+  background-color: lightgray;
+  border-bottom-style: dotted;
+  border-bottom-width: 1px;
+}
+
+sky-column {
+  border-right-style: dotted;
+  border-right-width: 1px;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}

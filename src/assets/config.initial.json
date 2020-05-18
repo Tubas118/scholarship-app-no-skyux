@@ -1,0 +1,9 @@
+{
+  "appSettings": {
+    "apiUrl": "http://localhost:3000",
+    "pageSize": 20
+  },
+  "secrets": {
+    "jwt": "I am a secret 2"
+  }
+}

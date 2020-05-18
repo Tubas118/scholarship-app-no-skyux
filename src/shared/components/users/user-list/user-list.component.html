@@ -1,0 +1,23 @@
+<main>
+  <div class="lrock-table">
+    <div class="lrock-header">
+      <div class="lrock-cell">{{ 'user_name_label.message' | translate }}</div>
+      <div class="lrock-cell">{{ 'user_email_label.message' | translate }}</div>
+    </div>
+    <div *ngFor="let entry of gridData | async" class="data-outer">
+      <div>
+        <div class="lrock-row">
+          <div class="lrock-cell">
+            <div class="data-cell">
+              <!-- <img src="{{ entry.image }}"> -->
+              <span>{{ entry.name }}</span>
+            </div>
+          </div>
+          <div class="lrock-cell">
+            <div class="data-cell">{{ entry.email }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
