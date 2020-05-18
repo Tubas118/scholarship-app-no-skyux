@@ -23,6 +23,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    console.log(`UserDashboardComponent - ngOnInit`);
     this.userService.getAll()
       .subscribe((records: LoginDetails[]) => {
         console.log(`user-dashboard (1) => LEN ${records.length}: ${JSON.stringify(records)}`);

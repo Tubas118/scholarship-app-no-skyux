@@ -1,25 +1,20 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { BasicData } from './basic-data';
 import { BasicService } from './basic-service';
 import { IdService } from './basic-id-service';
 import { AppConfigService } from '../services/app-config/app-config.service';
-import { delayedRetryCall } from '../utils/delayed-retry-call';
-import { catchError, retryWhen } from 'rxjs/operators';
 
 export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements BasicService<T, ID> {
-  public appSettings: AppConfigSettings;
-  public apiUrl: string;
-
   constructor(protected http: HttpClient,
-    protected configService: AppConfigService,
+    protected config: AppConfigService,
     protected urlSuffix: string,
     protected idService: IdService<ID>) {
-    configService.getAppConfig().subscribe(appSettings => {
-      console.log(`getAppConfig loading: ${appSettings.apiUrl}`);
-      this.appSettings = appSettings;
-      this.apiUrl = this.appSettings.apiUrl + '/' + urlSuffix;
-    });
+  }
+
+  public get apiUrl(): string {
+    return this.config.appConfigSettings.apiUrl + '/' + this.urlSuffix;
   }
 
   public newId(): ID {
@@ -43,7 +38,7 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
     };
     return this.http
       .put<T>(`${this.apiUrl}/${data.id}`, data, httpOptions)
-      .pipe(retryWhen(error => delayedRetryCall(error)));
+      .pipe(catchError(this.handleError));
   }
 
   public find(id: ID): Observable<T> {
@@ -54,7 +49,7 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
     };
     return this.http
       .get<T>(`${this.apiUrl}/${id}`, httpOptions)
-      .pipe(retryWhen(error => delayedRetryCall(error)));
+      .pipe(catchError(this.handleError));
   }
 
   public getPage(page: number): Observable<T[]> {
@@ -67,7 +62,7 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
     console.log(`getAll() => ${useUrl}`);
     return this.http
       .get<T[]>(useUrl)
-      .pipe(retryWhen(error => delayedRetryCall(error)));
+      .pipe(catchError(this.handleError));
   }
 
   protected addWithAssignedId(data: T): Observable<T> {
@@ -78,7 +73,7 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
     };
     return this.http
       .post<T>(this.apiUrl, data, httpOptions)
-      .pipe(retryWhen(error => delayedRetryCall(error)));
+      .pipe(catchError(this.handleError));
   }
 
   protected handleError(error: HttpErrorResponse) {

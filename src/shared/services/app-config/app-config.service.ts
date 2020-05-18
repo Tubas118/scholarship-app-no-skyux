@@ -1,52 +1,44 @@
-import { Injectable, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AppConfigSettings } from '../../basic/basic-service-impl';
-import { Observable, of } from 'rxjs';
-import { map, retryWhen } from 'rxjs/operators';
+import {throwError } from 'rxjs';
 import { ConfigData } from '../../models/config-data';
-import { delayedRetryCall } from 'src/shared/utils/delayed-retry-call';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppConfigService {
-  private config: any;
-  private appConfigSettings: AppConfigSettings;
-  private initComplete = false;
+  public config: any;
+  public appConfigSettings: AppConfigSettings;
 
-  constructor(private http: HttpClient) { this.loadAppConfig(); }
+  constructor(private http: HttpClient) { }
 
-  public loadAppConfig(): void {
-    console.log('AppConfigService->loadAppConfig()');
-    this.loadAppConfigObservable();
-  }
-
-  public getAppConfig(): Observable<AppConfigSettings> {
-    return this.loadAppConfigObservable();
+  public loadAppConfig(): Promise<any> {
+    return this.http
+      .get('/assets/config.json')
+      .toPromise()
+      .then((data: ConfigData<AppConfigSettings>) => {
+        this.config = data;
+        this.appConfigSettings = data.appSettings;
+      });
   }
 
   public secret(): string {
-    if (this.config === undefined) {
-      this.loadAppConfig();
-    }
     return this.config.secrets.jwt;
   }
 
-  private loadAppConfigObservable(): Observable<AppConfigSettings> {
-    if (this.appConfigSettings === undefined) {
-      return this.http
-        .get('/assets/config.json')
-        .pipe(
-          map((data: ConfigData<AppConfigSettings>) => {
-            this.config = data;
-            this.appConfigSettings = data.appSettings;
-            return this.appConfigSettings;
-          }),
-          retryWhen(error => delayedRetryCall(error))
-        );
+  protected handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
     } else {
-      console.log(`loadAppConfigObservable (c): ${this.appConfigSettings}`);
-      return of(this.appConfigSettings);
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
     }
+    // return an observable with a user-facing error message
+    return throwError(error);
   }
 }
