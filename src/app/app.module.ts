@@ -7,7 +7,6 @@ import { SharedServicesModule } from 'src/shared/services/shared-services.module
 import { SharedComponentsModule } from 'src/shared/components/shared-components-module';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
