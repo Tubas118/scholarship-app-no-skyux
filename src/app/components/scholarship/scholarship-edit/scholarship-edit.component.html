@@ -42,7 +42,10 @@
           <label for="scholarship_status" class="lrock-label lrock-stacked">
             {{ 'scholarship_status_label.message' | translate }}
           </label>
-          <input class="lrock-control lrock-stacked" formControlName="status" type="text">
+          <select formControlName="status" (change)="onSelectedItemChanged($event)">
+            <option *ngFor="let status of scholarshipStatusList" [ngValue]="status">{{ status }}</option>
+          </select>
+          <!-- <input class="lrock-control lrock-stacked" formControlName="status" type="text"> -->
           <!-- <dropdown-list [selectedItem]="selectedStatus"
                         [items]="scholarshipStatusList"
                         class="ng-invalid ng-touched"

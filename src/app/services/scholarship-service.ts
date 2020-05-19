@@ -27,7 +27,6 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
       const enumValues = Object.keys(ScholarshipStatus);
       ScholarshipService._scholarshipStatus = Array.from(enumValues);
     }
-    console.log(`masterScholarshipStatusList; ${JSON.stringify(ScholarshipService._scholarshipStatus)}`);
     return ScholarshipService._scholarshipStatus;
   }
 }

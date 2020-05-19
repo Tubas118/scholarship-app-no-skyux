@@ -32,12 +32,12 @@ export class ScholarshipEditComponent implements OnChanges {
   }
 
   public get scholarshipStatusList(): string[] {
-    console.log('ScholarshipEditComponent - scholarshipStatusList');
-    return ScholarshipService.masterScholarshipStatusList();
+    let answer = ScholarshipService.masterScholarshipStatusList();
+    console.log(`scholarshipStatusList: ${answer}`);
+    return answer;
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    console.log(`ngOnChanges: ${this.showEditForm}`);
     if (this.showEditForm) {
       this.scholarshipForm = this.intializeFormGroup(this.scholarshipDetails);
       this.selectedStatus = this.scholarshipDetails.status;
