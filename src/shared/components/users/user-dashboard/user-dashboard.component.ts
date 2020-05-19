@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ChangeDetectionStrategy
+  Component, OnInit
 } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { LoginDetails } from '../../../models/login-details';
@@ -26,9 +26,7 @@ export class UserDashboardComponent implements OnInit {
     console.log(`UserDashboardComponent - ngOnInit`);
     this.userService.getAll()
       .subscribe((records: LoginDetails[]) => {
-        console.log(`user-dashboard (1) => LEN ${records.length}: ${JSON.stringify(records)}`);
         this.userData = of(records);
-        console.log(`user-dashboard (2): ${JSON.stringify(records)}`);
       },
       err => {
         console.error('Error ' + err);

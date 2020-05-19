@@ -1,0 +1,20 @@
+<main>
+  <div class="lrock-table">
+    <div class="lrock-header">
+      <div class="lrock-cell-2">{{ 'scholarship_scholarshipName_label.message' | translate }}</div>
+      <div class="lrock-cell-2">{{ 'scholarship_sponsor_label.message' | translate }}</div>
+      <div class="lrock-cell-2">{{ 'scholarship_sponsorContactInfo_label.message' | translate }}</div>
+      <div class="lrock-cell-2">{{ 'scholarship_contactPhone_label.message' | translate }}</div>
+      <div class="lrock-cell-2">{{ 'scholarship_contactEmail_label.message' | translate }}</div>
+      <div class="lrock-cell-2">{{ 'scholarship_status_label.message' | translate }}</div>
+    </div>
+    <div *ngFor="let entry of gridData | async" class="lrock-row" (click)="editRecord(entry.id)">
+      <div class="lrock-cell-2">{{ entry.scholarshipName }}</div>
+      <div class="lrock-cell-2">{{ entry.sponsor }}</div>
+      <div class="lrock-cell-2">{{ entry.sponsorContactInfo }}</div>
+      <div class="lrock-cell-2">{{ entry.contactPhone }}</div>
+      <div class="lrock-cell-2">{{ entry.contactEmail }}</div>
+      <div class="lrock-cell-2">{{ entry.status }}</div>
+    </div>
+  </div>
+</main>

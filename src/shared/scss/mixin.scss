@@ -1,0 +1,29 @@
+$header-bgcolor: lightblue;
+$header-textcolor: darkblue;
+$fontname: Georgia;
+$margin: 5px;
+$padding: 5px;
+$row-even-bgcolor: white;
+$row-even-textcolor: darkblue;
+$row-odd-bgcolor: antiquewhite;
+$row-odd-textcolor: darkblue;
+$width-sections: 12;
+$word-break-type: break-word;
+
+@mixin lrock-header-mixin {
+  background-color: $header-bgcolor;
+  color: $header-textcolor;
+  font-family: $fontname;
+}
+
+@mixin lrock-row-even-mixin {
+  background-color: $row-even-bgcolor;
+  color: $row-even-textcolor;
+  font-family: $fontname;
+}
+
+@mixin lrock-row-odd-mixin {
+  background-color: $row-odd-bgcolor;
+  color: $row-odd-textcolor;
+  font-family: $fontname;
+}
