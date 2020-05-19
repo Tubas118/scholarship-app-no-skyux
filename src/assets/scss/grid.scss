@@ -16,19 +16,28 @@
   text-align: center;
 }
 
+.lrock-row, .lrock-row:hover {
+  z-index: $row-z-index;
+}
+
+.lrock-row:hover {
+  background-color: $row-hover-bgcolor;
+  color: $row-hover-fgcolor;
+}
+
 .lrock-row {
   display: flex;
   flex-direction: row;
   -webkit-flex-direction: row;
 }
 
-.lrock-row:nth-child(even) {
-  @include lrock-row-even-mixin;
-}
+// .lrock-row:nth-child(even) {
+//   @include lrock-row-even-mixin;
+// }
 
-.lrock-row:nth-child(odd) {
-  @include lrock-row-odd-mixin;
-}
+// .lrock-row:nth-child(odd) {
+//   @include lrock-row-odd-mixin;
+// }
 
 @mixin create_lrock_cell($width-indicator) {
   .lrock-cell-#{$width-indicator} {

@@ -3,6 +3,8 @@ $header-textcolor: darkblue;
 $fontname: Georgia;
 $margin: 5px;
 $padding: 5px;
+$row-hover-bgcolor: goldenrod;
+$row-hover-fgcolor: darkred;
 $row-even-bgcolor: white;
 $row-even-textcolor: darkblue;
 $row-odd-bgcolor: antiquewhite;
@@ -27,3 +29,7 @@ $word-break-type: break-word;
   color: $row-odd-textcolor;
   font-family: $fontname;
 }
+
+// Do not change values below this line
+// ------------------------------------
+$row-z-index: 10;
