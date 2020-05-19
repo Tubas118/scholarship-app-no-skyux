@@ -9,7 +9,7 @@ import { AppConfigService } from 'src/shared/services/app-config/app-config.serv
   providedIn: 'root'
 })
 export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
-  private static _scholarshipStatus: string[] = undefined;
+  private static scholarshipStatus: string[] = undefined;
 
   constructor(protected http: HttpClient,
     protected configService: AppConfigService,
@@ -23,10 +23,10 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
 
   public static masterScholarshipStatusList(): string[] {
     console.log('masterScholarshipStatusList (start)');
-    if (ScholarshipService._scholarshipStatus === undefined) {
+    if (ScholarshipService.scholarshipStatus === undefined) {
       const enumValues = Object.keys(ScholarshipStatus);
-      ScholarshipService._scholarshipStatus = Array.from(enumValues);
+      ScholarshipService.scholarshipStatus = Array.from(enumValues);
     }
-    return ScholarshipService._scholarshipStatus;
+    return ScholarshipService.scholarshipStatus;
   }
 }
