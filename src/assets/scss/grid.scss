@@ -16,11 +16,11 @@
   text-align: center;
 }
 
-.lrock-row, .lrock-row:hover {
+.lrock-selectable, .lrock-selectable:hover {
   z-index: $row-z-index;
 }
 
-.lrock-row:nth-child(even):hover, .lrock-row:nth-child(odd):hover {
+.lrock-selectable:nth-child(even):hover, .lrock-selectable:nth-child(odd):hover {
   background-color: $row-hover-bgcolor;
   color: $row-hover-fgcolor;
 }

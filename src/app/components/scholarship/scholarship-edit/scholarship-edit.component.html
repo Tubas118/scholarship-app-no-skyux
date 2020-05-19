@@ -1,0 +1,61 @@
+<main>
+  <form *ngIf="showEditForm"
+        [formGroup]="scholarshipForm"
+        (ngSubmit)="onSubmit()">
+    <div class="lrock-table">
+      <div class="lrock-row">
+        <div class="lrock-cell-3">
+          <label for="scholarship_scholarshipName" class="lrock-label lrock-stacked">
+            {{ 'scholarship_scholarshipName_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="scholarshipName" type="text">
+
+          <label for="scholarship_sponsor" class="lrock-label lrock-stacked">
+            {{ 'scholarship_sponsor_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="sponsor" type="text">
+
+          <label for="scholarship_sponsorContactInfo" class="lrock-label lrock-stacked">
+            {{ 'scholarship_sponsorContactInfo_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="sponsorContactInfo" type="text">
+        </div>
+
+        <div class="lrock-cell-3">
+          <label for="scholarship_contactPhone" class="lrock-label lrock-stacked">
+            {{ 'scholarship_contactPhone_label.message' | translate }}
+          </label>
+          <!-- <sky-phone-field> -->
+            <input class="lrock-control lrock-stacked" formControlName="contactPhone">
+          <!-- </sky-phone-field> -->
+
+          <label for="scholarship_contactEmail" class="lrock-label lrock-stacked">
+            {{ 'scholarship_contactEmail_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="contactEmail">
+          <div *ngIf="isEmailInvalid" class="sky-error-label">
+            <span [hidden]="!scholarshipForm.get('contactEmail').errors.skyEmail.invalid">
+              Enter a valid email in the joe@abc.com format.
+            </span>
+          </div>
+
+          <label for="scholarship_status" class="lrock-label lrock-stacked">
+            {{ 'scholarship_status_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="status" type="text">
+          <!-- <dropdown-list [selectedItem]="selectedStatus"
+                        [items]="scholarshipStatusList"
+                        class="ng-invalid ng-touched"
+                        (changeSelectedItem)="onSelectedItemChanged($event)"></dropdown-list>
+          <div *ngIf="submitAttempted && !isContactTypeValid" class="alert alert-danger"></div> -->
+
+          <!-- <div *ngIf="submitAttempted && !isContactTypeValid">
+            {{ 'contact_select_type.message' | translate }}
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+    <button type="button" (click)="onCancel($event)">Cancel</button>
+  </form>
+</main>

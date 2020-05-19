@@ -8,17 +8,23 @@ import { SharedComponentsModule } from 'src/shared/components/shared-components-
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ScholarshipListComponent } from './components/scholarship/scholarship-list/scholarship-list.component';
 import { ScholarshipDashboardComponent } from './components/scholarship/scholarship-dashboard/scholarship-dashboard.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { ScholarshipEditComponent } from './components/scholarship/scholarship-edit/scholarship-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ScholarshipDashboardComponent,
+    ScholarshipEditComponent,
     ScholarshipListComponent,
     WelcomeComponent
   ],
   imports: [
     AppRoutingModule,
+    BrowserModule,
     HttpClientModule,
+    ReactiveFormsModule,
     SharedComponentsModule,
     SharedServicesModule
   ],

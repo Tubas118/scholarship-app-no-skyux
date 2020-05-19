@@ -1,5 +1,5 @@
 <main>
-  <!-- <scholarship-edit *ngIf="showEditForm" [scholarshipDetails]="selectedScholarship" [showEditForm]="showEditForm" (closeEvent)="onCloseEdit($event)"></scholarship-edit> -->
+  <scholarship-edit *ngIf="showEditForm" [scholarshipDetails]="selectedScholarship" [showEditForm]="showEditForm" (closeEvent)="onCloseEdit($event)"></scholarship-edit>
   <button id="newscholarshipButton" *ngIf="showEditForm === false" class="sky-btn sky-btn-link sky-no-focus" (click)="onNewScholarship()">New Scholarship</button>
   <scholarship-list *ngIf="showEditForm === false" [gridData]="gridData" (selectedScholarship)="onSelectedScholarship($event)"></scholarship-list>
 </main>
