@@ -5,31 +5,36 @@
     <div class="lrock-table">
       <div class="lrock-row">
         <div class="lrock-cell-3">
-          <label for="scholarship_scholarshipName" class="lrock-label lrock-stacked">
+          <label for="scholarshipName" class="lrock-label lrock-stacked">
             {{ 'scholarship_scholarshipName_label.message' | translate }}
           </label>
           <input class="lrock-control lrock-stacked" formControlName="scholarshipName" type="text">
 
-          <label for="scholarship_sponsor" class="lrock-label lrock-stacked">
+          <label for="scholarshipTargetAmount" class="lrock-label lrock-stacked">
+            {{ 'scholarship_targetAmount_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="scholarshipTargetAmount" type="text">
+
+          <label for="sponsor" class="lrock-label lrock-stacked">
             {{ 'scholarship_sponsor_label.message' | translate }}
           </label>
           <input class="lrock-control lrock-stacked" formControlName="sponsor" type="text">
 
-          <label for="scholarship_sponsorContactInfo" class="lrock-label lrock-stacked">
+          <label for="sponsorContactInfo" class="lrock-label lrock-stacked">
             {{ 'scholarship_sponsorContactInfo_label.message' | translate }}
           </label>
           <input class="lrock-control lrock-stacked" formControlName="sponsorContactInfo" type="text">
         </div>
 
         <div class="lrock-cell-3">
-          <label for="scholarship_contactPhone" class="lrock-label lrock-stacked">
+          <label for="contactPhone" class="lrock-label lrock-stacked">
             {{ 'scholarship_contactPhone_label.message' | translate }}
           </label>
           <!-- <sky-phone-field> -->
             <input class="lrock-control lrock-stacked" formControlName="contactPhone">
           <!-- </sky-phone-field> -->
 
-          <label for="scholarship_contactEmail" class="lrock-label lrock-stacked">
+          <label for="contactEmail" class="lrock-label lrock-stacked">
             {{ 'scholarship_contactEmail_label.message' | translate }}
           </label>
           <input class="lrock-control lrock-stacked" formControlName="contactEmail">
@@ -39,7 +44,7 @@
             </span>
           </div>
 
-          <label for="scholarship_status" class="lrock-label lrock-stacked">
+          <label for="status" class="lrock-label lrock-stacked">
             {{ 'scholarship_status_label.message' | translate }}
           </label>
           <select formControlName="status" (change)="onSelectedItemChanged($event)">

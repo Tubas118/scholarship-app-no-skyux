@@ -80,6 +80,10 @@
     "message": "Status",
     "_description": "Replace with description for scholarship_status_label"
   },
+  "scholarship_targetAmount_label": {
+    "message": "Target Amount",
+    "_description": "Replace with description for scholarship_targetAmount_label"
+  },
   "sponsor_contact_info_label": {
     "message": "Contact Info"
   },

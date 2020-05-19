@@ -7,6 +7,8 @@ export interface Scholarship extends BasicData<string> {
   contactPhone: string;
   contactEmail: string;
   status: string;
+  targetAmount?: number;
+  awaredAmount?: number;
 }
 
 export enum ScholarshipStatus {

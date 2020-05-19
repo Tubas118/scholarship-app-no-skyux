@@ -102,6 +102,7 @@ export class ScholarshipEditComponent implements OnChanges {
     this.scholarshipDetails = (this.newEntryMode) ? newScholarship() : scholarship;
     return this.formBuilder.group({
       scholarshipName: new FormControl(this.scholarshipDetails.scholarshipName),
+      scholarshipTargetAmount: new FormControl(this.scholarshipDetails.targetAmount),
       sponsor: new FormControl(this.scholarshipDetails.sponsor),
       sponsorContactInfo: new FormControl(this.scholarshipDetails.sponsorContactInfo),
       contactPhone: new FormControl(this.scholarshipDetails.contactPhone),
@@ -112,6 +113,7 @@ export class ScholarshipEditComponent implements OnChanges {
 
   private updateInternalData() {
     this.scholarshipDetails.scholarshipName = this.scholarshipForm.controls['scholarshipName'].value;
+    this.scholarshipDetails.targetAmount = this.scholarshipForm.controls['targetAmount'].value;
     this.scholarshipDetails.sponsor = this.scholarshipForm.controls['sponsor'].value;
     this.scholarshipDetails.sponsorContactInfo = this.scholarshipForm.controls['sponsorContactInfo'].value;
     this.scholarshipDetails.contactPhone = this.scholarshipForm.controls['contactPhone'].value;
