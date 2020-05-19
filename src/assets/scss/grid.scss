@@ -20,7 +20,7 @@
   z-index: $row-z-index;
 }
 
-.lrock-row:hover {
+.lrock-row:nth-child(even):hover, .lrock-row:nth-child(odd):hover {
   background-color: $row-hover-bgcolor;
   color: $row-hover-fgcolor;
 }
@@ -31,13 +31,13 @@
   -webkit-flex-direction: row;
 }
 
-// .lrock-row:nth-child(even) {
-//   @include lrock-row-even-mixin;
-// }
+.lrock-row:nth-child(even) {
+  @include lrock-row-even-mixin;
+}
 
-// .lrock-row:nth-child(odd) {
-//   @include lrock-row-odd-mixin;
-// }
+.lrock-row:nth-child(odd) {
+  @include lrock-row-odd-mixin;
+}
 
 @mixin create_lrock_cell($width-indicator) {
   .lrock-cell-#{$width-indicator} {
