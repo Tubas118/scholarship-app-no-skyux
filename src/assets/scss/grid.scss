@@ -1,11 +1,14 @@
+@import '../../shared/scss/mixin.scss';
+
 .lrock-table {
   width: 100%;
 }
 
 .lrock-header {
-  background-color: lightgray;
+  @include lrock-header-mixin;
+  // background-color: lightgray;
   border: 1px solid #c3c3c3;
-  color: black;
+  // color: black;
   display: flex;
   flex-direction: row;
   -webkit-flex-direction: row;
@@ -14,18 +17,41 @@
 }
 
 .lrock-row {
-  background-color: white;
-  border: 1px solid #c3c3c3;
-  color: black;
   display: flex;
   flex-direction: row;
   -webkit-flex-direction: row;
 }
 
-.lrock-cell {
-  background-color: transparent;
-  border: 1px solid #c3c3c3;
+.lrock-row:nth-child(even) {
+  @include lrock-row-even-mixin;
 }
+
+.lrock-row:nth-child(odd) {
+  @include lrock-row-odd-mixin;
+}
+
+@mixin create_lrock_cell($width-indicator) {
+  .lrock-cell-#{$width-indicator} {
+    background-color: transparent;
+    border: 1px solid #c3c3c3;
+    padding: $padding;
+    width: percentage(100 / ($width-sections / $width-indicator));
+    word-break: $word-break-type;
+  }
+}
+
+@include create_lrock_cell(1);
+@include create_lrock_cell(2);
+@include create_lrock_cell(3);
+@include create_lrock_cell(4);
+@include create_lrock_cell(5);
+@include create_lrock_cell(6);
+@include create_lrock_cell(7);
+@include create_lrock_cell(8);
+@include create_lrock_cell(9);
+@include create_lrock_cell(10);
+@include create_lrock_cell(11);
+@include create_lrock_cell(12);
 
 .grid-buffer-on-right {
   padding-right: 50px;

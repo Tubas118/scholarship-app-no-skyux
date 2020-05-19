@@ -1,5 +1,7 @@
+@import 'shared/scss/mixin.scss';
+
 body {
-  font-family: Georgia;
+  font-family: $fontname;
 }
 
 input[readonly]

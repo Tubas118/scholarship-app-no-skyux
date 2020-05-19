@@ -46,5 +46,8 @@
     "tslint": "6.1.2",
     "typescript": "3.8.3",
     "unroll": "1.6.0"
+  },
+  "peerDependencies": {
+    "sass": "^1.26.5"
   }
 }
