@@ -2,19 +2,29 @@
   <div class="lrock-table">
     <div class="lrock-header">
       <div class="lrock-cell-2">{{ 'scholarship_scholarshipName_label.message' | translate }}</div>
+      <div class="lrock-cell-2">{{ 'scholarship_targetAmount_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'scholarship_sponsor_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'scholarship_sponsorContactInfo_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'scholarship_contactPhone_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'scholarship_contactEmail_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'scholarship_status_label.message' | translate }}</div>
     </div>
-    <div *ngFor="let entry of gridData | async" class="lrock-row" (click)="editRecord(entry.id)">
-      <div class="lrock-cell-2">{{ entry.scholarshipName }}</div>
+    <div *ngFor="let entry of gridData | async" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
+      <div class="lrock-cell-2">{{ entry.scholarshipName }}
+        <div *ngIf="entry.code" class="lrock-sub-cell">
+          ({{ 'scholarship_code_short_label.message' | translate }}: {{ entry.code }})
+        </div>
+      </div>
+      <div class="lrock-cell-2">{{ entry.targetAmount }}</div>
       <div class="lrock-cell-2">{{ entry.sponsor }}</div>
       <div class="lrock-cell-2">{{ entry.sponsorContactInfo }}</div>
       <div class="lrock-cell-2">{{ entry.contactPhone }}</div>
       <div class="lrock-cell-2">{{ entry.contactEmail }}</div>
-      <div class="lrock-cell-2">{{ entry.status }}</div>
+      <div class="lrock-cell-2">{{ entry.status }}
+        <div *ngIf="entry.deadlineDate" class="lrock-sub-cell">
+          ({{ 'scholarship_deadlineDate_label.message' | translate }}: {{ entry.deadlineDate }})
+        </div>
+      </div>
     </div>
   </div>
 </main>

@@ -1,0 +1,74 @@
+<main>
+  <form *ngIf="showEditForm"
+        [formGroup]="scholarshipForm"
+        (ngSubmit)="onSubmit()">
+    <div class="lrock-table">
+      <div class="lrock-row">
+        <div class="lrock-cell-3">
+          <label for="scholarshipName" class="lrock-label lrock-stacked">
+            {{ 'scholarship_scholarshipName_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="scholarshipName" type="text">
+
+          <label for="scholarshipCode" class="lrock-label lrock-stacked">
+            {{ 'scholarship_code_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="scholarshipCode" type="text">
+
+          <label for="targetAmount" class="lrock-label lrock-stacked">
+            {{ 'scholarship_targetAmount_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="targetAmount" type="text">
+
+          <label for="sponsor" class="lrock-label lrock-stacked">
+            {{ 'scholarship_sponsor_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="sponsor" type="text">
+
+          <label for="submitDate" class="lrock-label lrock-stacked">
+            {{ 'scholarship_submitDate_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="submitDate" type="date">
+
+          <label for="deadlineDate" class="lrock-label lrock-stacked">
+            {{ 'scholarship_deadlineDate_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="deadlineDate" type="date">
+        </div>
+
+        <div class="lrock-cell-3">
+          <label for="sponsorContactInfo" class="lrock-label lrock-stacked">
+            {{ 'scholarship_sponsorContactInfo_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="sponsorContactInfo" type="text">
+
+          <label for="contactPhone" class="lrock-label lrock-stacked">
+            {{ 'scholarship_contactPhone_label.message' | translate }}
+          </label>
+          <!-- <sky-phone-field> -->
+            <input class="lrock-control lrock-stacked" formControlName="contactPhone">
+          <!-- </sky-phone-field> -->
+
+          <label for="contactEmail" class="lrock-label lrock-stacked">
+            {{ 'scholarship_contactEmail_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="contactEmail">
+          <div *ngIf="isEmailInvalid" class="sky-error-label">
+            <span [hidden]="!scholarshipForm.get('contactEmail').errors.skyEmail.invalid">
+              Enter a valid email in the joe@abc.com format.
+            </span>
+          </div>
+
+          <label for="status" class="lrock-label lrock-stacked">
+            {{ 'scholarship_status_label.message' | translate }}
+          </label>
+          <select formControlName="status" (change)="onSelectedItemChanged($event)">
+            <option *ngFor="let status of scholarshipStatusList" [ngValue]="status">{{ status }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+    <button type="button" (click)="onCancel($event)">Cancel</button>
+  </form>
+</main>

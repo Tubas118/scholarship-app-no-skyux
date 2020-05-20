@@ -1,15 +1,15 @@
 <main>
   <div class="lrock-table">
     <div class="lrock-header">
-      <div class="lrock-cell-2">{{ 'user_name_label.message' | translate }}</div>
-      <div class="lrock-cell-4">{{ 'user_email_label.message' | translate }}</div>
+      <div class="lrock-cell-3">{{ 'user_name_label.message' | translate }}</div>
+      <div class="lrock-cell-3">{{ 'user_email_label.message' | translate }}</div>
     </div>
     <div *ngFor="let entry of gridData | async" class="lrock-row">
-      <div class="lrock-cell-2">
+      <div class="lrock-cell-3">
         <!-- <img src="{{ entry.image }}"> -->
         <span>{{ entry.name }}</span>
       </div>
-      <div class="lrock-cell-4">
+      <div class="lrock-cell-3">
         {{ entry.email }}
       </div>
     </div>
