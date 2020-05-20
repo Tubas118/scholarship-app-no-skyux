@@ -20,6 +20,8 @@ export function newScholarship(assignedFields?: Scholarship): Scholarship {
     sponsor: '',
     sponsorContactInfo: '',
     contactEmail: '',
+    submitDate: new Date(),
+    deadlineDate: undefined,
     status: ''
   } as Scholarship;
   return {

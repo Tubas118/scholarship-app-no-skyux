@@ -62,6 +62,11 @@
 @include create_lrock_cell(11);
 @include create_lrock_cell(12);
 
+.lrock-sub-cell {
+  font-style: italic;
+  text-align: right;
+}
+
 .grid-buffer-on-right {
   padding-right: 50px;
 }

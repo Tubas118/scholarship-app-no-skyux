@@ -32,9 +32,7 @@ export class ScholarshipEditComponent implements OnChanges {
   }
 
   public get scholarshipStatusList(): string[] {
-    let answer = ScholarshipService.masterScholarshipStatusList();
-    console.log(`scholarshipStatusList: ${answer}`);
-    return answer;
+    return ScholarshipService.masterScholarshipStatusList();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -44,8 +42,8 @@ export class ScholarshipEditComponent implements OnChanges {
     }
   }
 
-  public onSelectedItemChanged(entry: string) {
-    this.selectedStatus = entry;
+  public onSelectedItemChanged(entry: any) {
+    this.selectedStatus = this.scholarshipForm.controls['status'].value;
   }
 
   public onCancel(event: any) {
@@ -83,6 +81,7 @@ export class ScholarshipEditComponent implements OnChanges {
   private addNewEntry() {
     if (this.isValid(this.scholarshipDetails.id) && this.scholarshipDetails.id.trim().length === 0) {
       this.scholarshipDetails.id = undefined;
+      this.scholarshipDetails.submitDate = new Date();
     }
     this.scholarshipService.add(this.scholarshipDetails).subscribe(result => {
       this.closeEvent.emit({ scholarshipChanges: result, newEntry: true });
@@ -102,22 +101,28 @@ export class ScholarshipEditComponent implements OnChanges {
     this.scholarshipDetails = (this.newEntryMode) ? newScholarship() : scholarship;
     return this.formBuilder.group({
       scholarshipName: new FormControl(this.scholarshipDetails.scholarshipName),
-      scholarshipTargetAmount: new FormControl(this.scholarshipDetails.targetAmount),
+      scholarshipCode: new FormControl(this.scholarshipDetails.code),
+      targetAmount: new FormControl(this.scholarshipDetails.targetAmount),
       sponsor: new FormControl(this.scholarshipDetails.sponsor),
       sponsorContactInfo: new FormControl(this.scholarshipDetails.sponsorContactInfo),
       contactPhone: new FormControl(this.scholarshipDetails.contactPhone),
       contactEmail: new FormControl(this.scholarshipDetails.contactEmail  /* , SkyValidators.email */),
+      submitDate: new FormControl(this.scholarshipDetails.submitDate),
+      deadlineDate: new FormControl(this.scholarshipDetails.deadlineDate),
       status: new FormControl(this.scholarshipDetails.status)
     });
   }
 
   private updateInternalData() {
     this.scholarshipDetails.scholarshipName = this.scholarshipForm.controls['scholarshipName'].value;
-    this.scholarshipDetails.targetAmount = this.scholarshipForm.controls['targetAmount'].value;
+    this.scholarshipDetails.code = this.scholarshipForm.controls['scholarshipCode'].value;
+    this.scholarshipDetails.targetAmount = Number(this.scholarshipForm.controls['targetAmount'].value);
     this.scholarshipDetails.sponsor = this.scholarshipForm.controls['sponsor'].value;
     this.scholarshipDetails.sponsorContactInfo = this.scholarshipForm.controls['sponsorContactInfo'].value;
     this.scholarshipDetails.contactPhone = this.scholarshipForm.controls['contactPhone'].value;
     this.scholarshipDetails.contactEmail = this.scholarshipForm.controls['contactEmail'].value;
+    this.scholarshipDetails.submitDate = this.scholarshipForm.controls['submitDate'].value;
+    this.scholarshipDetails.deadlineDate = this.scholarshipForm.controls['deadlineDate'].value;
     this.scholarshipDetails.status = this.selectedStatus;
   }
 }

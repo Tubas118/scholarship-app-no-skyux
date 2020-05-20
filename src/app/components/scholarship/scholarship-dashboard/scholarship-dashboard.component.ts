@@ -20,7 +20,7 @@ export class ScholarshipDashboardComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.scholarshipService.getAll()
+    this.scholarshipService.getAll('?_sort=status,scholarshipName&_order=asc')
       .subscribe((records: Scholarship[]) => {
         this.gridData = of(records);
       },

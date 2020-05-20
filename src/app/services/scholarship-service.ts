@@ -22,7 +22,6 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
   }
 
   public static masterScholarshipStatusList(): string[] {
-    console.log('masterScholarshipStatusList (start)');
     if (ScholarshipService.scholarshipStatus === undefined) {
       const enumValues = Object.keys(ScholarshipStatus);
       ScholarshipService.scholarshipStatus = Array.from(enumValues);

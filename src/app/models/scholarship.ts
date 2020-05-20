@@ -2,11 +2,14 @@ import { BasicData } from '../../shared/basic/basic-data';
 
 export interface Scholarship extends BasicData<string> {
   scholarshipName: string;
+  code?: string;
   sponsor: string;
   sponsorContactInfo: string;
   contactPhone: string;
   contactEmail: string;
   status: string;
+  submitDate?: Date;
+  deadlineDate?: Date;
   targetAmount?: number;
   awaredAmount?: number;
 }

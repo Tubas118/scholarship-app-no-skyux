@@ -68,6 +68,14 @@
     "message": "Contact Info",
     "_description": "Replace with description for scholarship_sponsorContactInfo_label"
   },
+  "scholarship_code_label": {
+    "message": "Scholarship Code",
+    "_description": "Replace with description for scholarship_code_label"
+  },
+  "scholarship_code_short_label": {
+    "message": "Code",
+    "_description": "Replace with description for scholarship_code_short_label"
+  },
   "scholarship_contactPhone_label": {
     "message": "Contact Phone",
     "_description": "Replace with description for scholarship_contactPhone_label"
@@ -79,6 +87,14 @@
   "scholarship_status_label": {
     "message": "Status",
     "_description": "Replace with description for scholarship_status_label"
+  },
+  "scholarship_submitDate_label": {
+    "message": "Submit Date",
+    "_description": "Replace with description for scholarship_submitDate_label"
+  },
+  "scholarship_deadlineDate_label": {
+    "message": "Deadline",
+    "_description": "Replace with description for scholarship_deadlineDate_label"
   },
   "scholarship_targetAmount_label": {
     "message": "Target Amount",
