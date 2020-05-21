@@ -1,6 +1,6 @@
 {
   "appSettings": {
-    "apiUrl": "http://localhost:3000",
+    "apiUrl": "http://json-server-svc:3000",
     "pageSize": 20
   },
   "secrets": {
