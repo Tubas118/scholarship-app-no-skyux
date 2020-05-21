@@ -9,6 +9,7 @@ import { AppConfigService } from 'src/shared/services/app-config/app-config.serv
   providedIn: 'root'
 })
 export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
+  private static filterList: string[] = undefined;
   private static scholarshipStatus: string[] = undefined;
 
   constructor(protected http: HttpClient,
@@ -21,11 +22,25 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
     return ScholarshipService.masterScholarshipStatusList();
   }
 
+  public get scholarshipStatusFilterList(): string[] {
+    return ScholarshipService.masterScholarshipStatusFilterList();
+  }
+
   public static masterScholarshipStatusList(): string[] {
     if (ScholarshipService.scholarshipStatus === undefined) {
       const enumValues = Object.keys(ScholarshipStatus);
       ScholarshipService.scholarshipStatus = Array.from(enumValues);
     }
     return ScholarshipService.scholarshipStatus;
+  }
+
+  public static masterScholarshipStatusFilterList(): string[] {
+    if (ScholarshipService.filterList === undefined) {
+      ScholarshipService.filterList = [
+        ...['ALL'],
+        ...ScholarshipService.masterScholarshipStatusList()
+      ]
+    }
+    return ScholarshipService.filterList;
   }
 }
