@@ -1,6 +1,12 @@
 <main>
   <scholarship-edit *ngIf="showEditForm" [scholarshipDetails]="selectedScholarship" [showEditForm]="showEditForm" (closeEvent)="onCloseEdit($event)"></scholarship-edit>
-  <button id="newscholarshipButton" *ngIf="showEditForm === false" class="sky-btn sky-btn-link sky-no-focus" (click)="onNewScholarship()">New Scholarship</button>
-  <scholarship-filter *ngIf="showEditForm === false" [filterLabel]="filterLabel" [filterList]="scholarshipStatusFilterList" (filterChanged)="onSelectedFilterChanged($event)"></scholarship-filter>
+  <div *ngIf="showEditForm === false" class="container lrock-table-plain">
+    <div class="lrock-row-plain">
+      <div class="lrock-cell-plain-6">
+        <button id="newscholarshipButton" (click)="onNewScholarship()">New Scholarship</button>
+      </div>
+      <scholarship-filter class="lrock-cell-plain-6 lrock-right" [filterLabel]="filterLabel" [filterList]="scholarshipStatusFilterList" (filterChanged)="onSelectedFilterChanged($event)"></scholarship-filter>
+    </div>
+  </div>
   <scholarship-list *ngIf="showEditForm === false" [gridData]="gridData" (selectedScholarship)="onSelectedScholarship($event)"></scholarship-list>
 </main>
