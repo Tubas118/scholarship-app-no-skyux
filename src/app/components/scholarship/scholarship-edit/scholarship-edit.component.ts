@@ -44,7 +44,11 @@ export class ScholarshipEditComponent implements OnChanges {
   }
 
   public onSelectedItemChanged(entry: any) {
-    this.selectedStatus = entry.target.value;
+    if (entry.target.value) {
+      const parsed: string[] = entry.target.value.split(' ', 2);
+      console.log(`parsed: ${parsed}`);
+      this.selectedStatus = parsed[1];
+    }
   }
 
   public onCancel(event: any) {
@@ -110,7 +114,8 @@ export class ScholarshipEditComponent implements OnChanges {
       contactEmail: new FormControl(this.scholarshipDetails.contactEmail  /* , SkyValidators.email */),
       submitDate: new FormControl(this.scholarshipDetails.submitDate),
       deadlineDate: new FormControl(this.scholarshipDetails.deadlineDate),
-      status: new FormControl(this.scholarshipDetails.status)
+      status: new FormControl(this.scholarshipDetails.status),
+      scholarshipSubmitted: new FormControl(this.scholarshipDetails.submitted || false)
     });
   }
 
@@ -125,6 +130,7 @@ export class ScholarshipEditComponent implements OnChanges {
     this.scholarshipDetails.submitDate = this.scholarshipForm.controls['submitDate'].value;
     this.scholarshipDetails.deadlineDate = this.scholarshipForm.controls['deadlineDate'].value;
     this.scholarshipDetails.status = this.selectedStatus;
+    this.scholarshipDetails.submitted = this.scholarshipForm.controls['scholarshipSubmitted'].value;
   }
 }
 

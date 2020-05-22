@@ -88,6 +88,10 @@
     "message": "Status",
     "_description": "Replace with description for scholarship_status_label"
   },
+  "scholarship_submitted_label": {
+    "message": "Submitted",
+    "_description": "Replace with description for scholarship_submitted_label"
+  },
   "scholarship_submitDate_label": {
     "message": "Submit Date",
     "_description": "Replace with description for scholarship_submitDate_label"

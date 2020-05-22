@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Scholarship, ScholarshipStatus, CURRENT_SCHEMA_VERSION, statusTypeMap } from '../models/scholarship';
+import { Scholarship, ScholarshipStatus, CURRENT_SCHOLARSHIP_SCHEMA, statusTypeMap } from '../models/scholarship';
 import { BasicServiceImpl } from '../../shared/basic/basic-service-impl';
 import { HttpClient } from '@angular/common/http';
 import { UuidIdService } from '../../shared/services/uuid-id-service';
@@ -42,5 +42,12 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
       ];
     }
     return ScholarshipService.filterList;
+  }
+
+  protected dataPreProcessing(data: Scholarship): void {
+    if (data.schemaVersion === undefined || data.schemaVersion < CURRENT_SCHOLARSHIP_SCHEMA || data.statusType === undefined) {
+      data.schemaVersion = CURRENT_SCHOLARSHIP_SCHEMA;
+    }
+    data.statusType = statusTypeMap[data.status];
   }
 }

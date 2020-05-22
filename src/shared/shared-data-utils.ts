@@ -1,5 +1,5 @@
 import * as uuid from 'uuid';
-import { LoginDetails } from './models/login-details';
+import { LoginDetails, USER_CURRENT_SCHEMA } from './models/login-details';
 
 export class RandomData {
   public uuid() {
@@ -62,7 +62,8 @@ export function newUser(assignedFields?: Partial<LoginDetails>): LoginDetails {
     provider: '',
     email: '',
     name: '',
-    image: ''
+    image: '',
+    schemaVersion: USER_CURRENT_SCHEMA
   } as LoginDetails;
   return { ...user, ...assignedFields };
 }
