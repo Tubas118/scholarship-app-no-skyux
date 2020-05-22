@@ -18,9 +18,4 @@ export class AppComponent {
       translate.setDefaultLang('en');
       translate.use('en');
   }
-
-  public onMigrateStatusToSchema2() {
-    console.log('Start migration...');
-    this.scholarshipService.migrateStatusToSchema2();
-  }
 }
