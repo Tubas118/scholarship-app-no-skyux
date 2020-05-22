@@ -1,5 +1,5 @@
 // import { Contact } from '../contact';
-import { Scholarship } from '../scholarship';
+import { Scholarship, CURRENT_SCHOLARSHIP_SCHEMA } from '../scholarship';
 
 // export function newContact(assignedFields?: Contact): Contact {
 //   let contact = {
@@ -22,7 +22,8 @@ export function newScholarship(assignedFields?: Scholarship): Scholarship {
     contactEmail: '',
     submitDate: new Date(),
     deadlineDate: undefined,
-    status: ''
+    status: '',
+    schemaVersion: CURRENT_SCHOLARSHIP_SCHEMA
   } as Scholarship;
   return {
     ...scholarship,

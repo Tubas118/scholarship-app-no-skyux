@@ -1,5 +1,7 @@
 import { BasicData } from '../../shared/basic/basic-data';
 
+export const CURRENT_SCHOLARSHIP_SCHEMA = 2;
+
 export interface Scholarship extends BasicData<string> {
   scholarshipName: string;
   code?: string;
@@ -13,9 +15,8 @@ export interface Scholarship extends BasicData<string> {
   deadlineDate?: Date;
   targetAmount?: number;
   awaredAmount?: number;
+  submitted?: boolean;
 }
-
-export const CURRENT_SCHEMA_VERSION = 2;
 
 export enum ScholarshipStatus {
   SUBMITTED = 'active-submitted',

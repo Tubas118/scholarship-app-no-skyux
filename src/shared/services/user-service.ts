@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BasicServiceImpl, AppConfigSettings } from '../basic/basic-service-impl';
+import { BasicServiceImpl } from '../basic/basic-service-impl';
 import { HttpClient } from '@angular/common/http';
 import { UuidIdService } from './uuid-id-service';
-import { LoginDetails } from '../models/login-details';
+import { LoginDetails, USER_CURRENT_SCHEMA } from '../models/login-details';
 import { Observable } from 'rxjs';
 import { AppConfigService } from './app-config/app-config.service';
 
@@ -22,5 +22,11 @@ export class UserService extends BasicServiceImpl<LoginDetails, string> {
       return this.addWithAssignedId(data);
     }
     return super.add(data);
+  }
+
+  protected dataPreProcessing(data: LoginDetails): void {
+    if (data.schemaVersion === undefined || data.schemaVersion < USER_CURRENT_SCHEMA) {
+      data.schemaVersion = USER_CURRENT_SCHEMA;
+    }
   }
 }

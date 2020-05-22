@@ -1,6 +1,7 @@
 <main>
   <div class="lrock-table">
     <div class="lrock-header">
+      <div class="lrock-cell-1">{{ 'scholarship_submitted_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'scholarship_scholarshipName_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'scholarship_targetAmount_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'scholarship_sponsor_label.message' | translate }}</div>
@@ -10,6 +11,7 @@
       <div class="lrock-cell-2">{{ 'scholarship_status_label.message' | translate }}</div>
     </div>
     <div *ngFor="let entry of gridData | async" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
+      <div class="lrock-cell-1 lrock-center"><input type="checkbox" [checked]="entry.submitted === true" readonly /></div>
       <div class="lrock-cell-2">{{ entry.scholarshipName }}
         <div *ngIf="entry.code" class="lrock-sub-cell">
           ({{ 'scholarship_code_short_label.message' | translate }}: {{ entry.code }})

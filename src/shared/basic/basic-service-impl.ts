@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { BasicData } from './basic-data';
 import { BasicService } from './basic-service';
 import { IdService } from './basic-id-service';
@@ -22,7 +22,7 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
   }
 
   public add(data: T): Observable<T> {
-    console.log('basic service add');
+    this.dataPreProcessing(data);
     if (data.id !== undefined) {
       throw new Error('Cannot add record that already has an id. Use \'update\'.');
     }
@@ -31,6 +31,7 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
   }
 
   public update(data: T): Observable<T> {
+    this.dataPreProcessing(data);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -64,6 +65,8 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
       .get<T[]>(useUrl)
       .pipe(catchError(this.handleError));
   }
+
+  protected abstract dataPreProcessing(data: T): void;
 
   protected addWithAssignedId(data: T): Observable<T> {
     const httpOptions = {
