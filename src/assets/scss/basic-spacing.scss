@@ -15,6 +15,14 @@ input {
   -webkit-flex-direction: column;
 }
 
+.lrock-right {
+  text-align: right;
+}
+
+.lrock-full-width {
+  width: 100%;
+}
+
 input[readonly]
 {
     background-color: #f5f5f5;

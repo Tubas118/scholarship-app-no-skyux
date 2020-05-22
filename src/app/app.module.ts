@@ -11,6 +11,7 @@ import { ScholarshipDashboardComponent } from './components/scholarship/scholars
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ScholarshipEditComponent } from './components/scholarship/scholarship-edit/scholarship-edit.component';
+import { ScholarshipFilterComponent } from './components/scholarship/scholarship-filter/scholarship-filter.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ScholarshipEditComponent } from './components/scholarship/scholarship-e
     ScholarshipDashboardComponent,
     ScholarshipEditComponent,
     ScholarshipListComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    ScholarshipFilterComponent
   ],
   imports: [
     AppRoutingModule,

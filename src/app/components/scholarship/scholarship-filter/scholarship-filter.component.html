@@ -1,0 +1,6 @@
+<label class="lrock-label lrock-stacked">
+  {{ filterLabel }}
+</label>
+<select (change)="onSelectedItemChanged($event)">
+  <option *ngFor="let filter of filterList" [ngValue]="filter">{{ filter }}</option>
+</select>

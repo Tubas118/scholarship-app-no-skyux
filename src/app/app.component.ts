@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { version } from '../../package.json';
+import { ScholarshipService } from './services/scholarship-service';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +11,16 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
   title = 'Scholarships (no-skyux)';
 
-  constructor(public translate: TranslateService) {
-    translate.setDefaultLang('en');
-    translate.use('en');
+  appVersion: string = version;
+
+  constructor(public translate: TranslateService,
+    private scholarshipService: ScholarshipService) {
+      translate.setDefaultLang('en');
+      translate.use('en');
+  }
+
+  public onMigrateStatusToSchema2() {
+    console.log('Start migration...');
+    this.scholarshipService.migrateStatusToSchema2();
   }
 }

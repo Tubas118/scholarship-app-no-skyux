@@ -32,7 +32,8 @@ export class ScholarshipEditComponent implements OnChanges {
   }
 
   public get scholarshipStatusList(): string[] {
-    return ScholarshipService.masterScholarshipStatusList();
+    const statusList = ScholarshipService.masterScholarshipStatusList();
+    return ['ALL'].concat(statusList);
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -43,7 +44,7 @@ export class ScholarshipEditComponent implements OnChanges {
   }
 
   public onSelectedItemChanged(entry: any) {
-    this.selectedStatus = this.scholarshipForm.controls['status'].value;
+    this.selectedStatus = entry.target.value;
   }
 
   public onCancel(event: any) {

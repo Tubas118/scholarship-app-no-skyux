@@ -6,9 +6,7 @@
 
 .lrock-header {
   @include lrock-header-mixin;
-  // background-color: lightgray;
   border: 1px solid #c3c3c3;
-  // color: black;
   display: flex;
   flex-direction: row;
   -webkit-flex-direction: row;
@@ -25,7 +23,7 @@
   color: $row-hover-fgcolor;
 }
 
-.lrock-row {
+.lrock-row, .lrock-row-plain {
   display: flex;
   flex-direction: row;
   -webkit-flex-direction: row;
@@ -40,12 +38,15 @@
 }
 
 @mixin create_lrock_cell($width-indicator) {
-  .lrock-cell-#{$width-indicator} {
+  .lrock-cell-#{$width-indicator}, .lrock-cell-plain-#{$width-indicator} {
     background-color: transparent;
-    border: 1px solid #c3c3c3;
     padding: $padding;
     width: percentage(100 / ($width-sections / $width-indicator));
     word-break: $word-break-type;
+  }
+
+  .lrock-cell-#{$width-indicator} {
+    border: 1px solid #c3c3c3;
   }
 }
 

@@ -1,11 +1,16 @@
 <nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
-  <div class="container">
-    <a class="navbar-brand">Angular Router 2</a>
+  <div class="container lrock-table">
+    <div class="lrock-row-plain">
+      <a class="navbar-brand lrock-cell-plain-6">Angular Router 2</a>
+      <span class="lrock-cell-plain-6 lrock-right">Version: {{ appVersion }}</span>
+    </div>
     <ul class="nav navbar-nav" routerLinkActive="active">
       <li class="nav-item"><a class="nav-link" routerLink="scholarships">Scholarships</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="users">Users</a></li>
     </ul>
   </div>
 </nav>
+<button type="button" (click)="onMigrateStatusToSchema2()">Migrate</button>
+
 
 <router-outlet></router-outlet>
