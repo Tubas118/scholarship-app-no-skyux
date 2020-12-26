@@ -112,6 +112,7 @@ export class ScholarshipEditComponent implements OnChanges {
       sponsorContactInfo: new FormControl(this.scholarshipDetails.sponsorContactInfo),
       contactPhone: new FormControl(this.scholarshipDetails.contactPhone),
       contactEmail: new FormControl(this.scholarshipDetails.contactEmail  /* , SkyValidators.email */),
+      minimumGpa: new FormControl(this.scholarshipDetails.minimumGpa),
       submitDate: new FormControl(this.scholarshipDetails.submitDate),
       deadlineDate: new FormControl(this.scholarshipDetails.deadlineDate),
       status: new FormControl(this.scholarshipDetails.status),
@@ -127,6 +128,7 @@ export class ScholarshipEditComponent implements OnChanges {
     this.scholarshipDetails.sponsorContactInfo = this.scholarshipForm.controls['sponsorContactInfo'].value;
     this.scholarshipDetails.contactPhone = this.scholarshipForm.controls['contactPhone'].value;
     this.scholarshipDetails.contactEmail = this.scholarshipForm.controls['contactEmail'].value;
+    this.scholarshipDetails.minimumGpa = this.scholarshipForm.controls['minimumGpa'].value;
     this.scholarshipDetails.submitDate = this.scholarshipForm.controls['submitDate'].value;
     this.scholarshipDetails.deadlineDate = this.scholarshipForm.controls['deadlineDate'].value;
     this.scholarshipDetails.status = this.selectedStatus;

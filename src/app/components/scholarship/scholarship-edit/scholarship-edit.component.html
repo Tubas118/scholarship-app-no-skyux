@@ -35,15 +35,20 @@
           <label for="submitDate" class="lrock-label lrock-stacked">
             {{ 'scholarship_submitDate_label.message' | translate }}
           </label>
-          <input class="lrock-control lrock-stacked" formControlName="submitDate" type="date">
+          <input formControlName="submitDate" type="date">
 
           <label for="deadlineDate" class="lrock-label lrock-stacked">
             {{ 'scholarship_deadlineDate_label.message' | translate }}
           </label>
-          <input class="lrock-control lrock-stacked" formControlName="deadlineDate" type="date">
+          <input formControlName="deadlineDate" type="date">
         </div>
 
         <div class="lrock-cell-3">
+          <label for="minimumGpa" class="lrock-label lrock-stacked">
+            {{ 'scholarship_minimumGpa_label.message' | translate }}
+          </label>
+          <input class="lrock-stacked" formControlName="minimumGpa">
+
           <label for="sponsorContactInfo" class="lrock-label lrock-stacked">
             {{ 'scholarship_sponsorContactInfo_label.message' | translate }}
           </label>
@@ -52,9 +57,7 @@
           <label for="contactPhone" class="lrock-label lrock-stacked">
             {{ 'scholarship_contactPhone_label.message' | translate }}
           </label>
-          <!-- <sky-phone-field> -->
-            <input class="lrock-control lrock-stacked" formControlName="contactPhone">
-          <!-- </sky-phone-field> -->
+          <input class="lrock-control lrock-stacked" formControlName="contactPhone">
 
           <label for="contactEmail" class="lrock-label lrock-stacked">
             {{ 'scholarship_contactEmail_label.message' | translate }}

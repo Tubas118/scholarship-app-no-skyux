@@ -9,6 +9,7 @@
       <div class="lrock-cell-2">{{ 'scholarship_contactPhone_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'scholarship_contactEmail_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'scholarship_status_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'scholarship_minimumGpa_label.message' | translate }}</div>
     </div>
     <div *ngFor="let entry of gridData | async" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
       <div class="lrock-cell-1 lrock-center"><input type="checkbox" [checked]="entry.submitted === true" readonly /></div>
@@ -27,6 +28,7 @@
           ({{ 'scholarship_deadlineDate_label.message' | translate }}: {{ entry.deadlineDate }})
         </div>
       </div>
+      <div class="lrock-cell-1">{{ entry.minimumGpa }}</div>
     </div>
   </div>
 </main>

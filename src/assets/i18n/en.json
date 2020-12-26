@@ -52,6 +52,10 @@
     "message": "Contact Methods",
     "_description": "Replace with description for contact_contactMethods_label"
   },
+  "scholarship_minimumGpa_label": {
+    "message": "Minimum GPA",
+    "_description": "Replace with description for scholarship_minimumGpa_label"
+  },
   "contact_select_type": {
     "message": "Please select a contact type",
     "_description": "Replace with description for contact_select_type"

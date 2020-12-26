@@ -12,9 +12,6 @@ export class ScholarshipFilterComponent implements OnChanges {
   public filterLabel: string;
 
   @Input()
-  public controlName: string;
-
-  @Input()
   public filterList: string[];
 
   @Output()

@@ -9,6 +9,7 @@ export interface Scholarship extends BasicData<string> {
   sponsorContactInfo: string;
   contactPhone: string;
   contactEmail: string;
+  minimumGpa: string;
   status: string;
   statusType?: number;
   submitDate?: Date;
