@@ -116,7 +116,9 @@ export class ScholarshipEditComponent implements OnChanges {
       submitDate: new FormControl(this.scholarshipDetails.submitDate),
       deadlineDate: new FormControl(this.scholarshipDetails.deadlineDate),
       status: new FormControl(this.scholarshipDetails.status),
-      scholarshipSubmitted: new FormControl(this.scholarshipDetails.submitted || false)
+      scholarshipSubmitted: new FormControl(this.scholarshipDetails.submitted || false),
+      previouslyApplied: new FormControl(this.scholarshipDetails.previouslyApplied || false),
+      previouslyAwarded: new FormControl(this.scholarshipDetails.previouslyAwarded || false)
     });
   }
 
@@ -133,6 +135,8 @@ export class ScholarshipEditComponent implements OnChanges {
     this.scholarshipDetails.deadlineDate = this.scholarshipForm.controls['deadlineDate'].value;
     this.scholarshipDetails.status = this.selectedStatus;
     this.scholarshipDetails.submitted = this.scholarshipForm.controls['scholarshipSubmitted'].value;
+    this.scholarshipDetails.previouslyApplied = this.scholarshipForm.controls['previouslyApplied'].value;
+    this.scholarshipDetails.previouslyAwarded = this.scholarshipForm.controls['previouslyAwarded'].value;
   }
 }
 

@@ -15,8 +15,10 @@ export interface Scholarship extends BasicData<string> {
   submitDate?: Date;
   deadlineDate?: Date;
   targetAmount?: number;
-  awaredAmount?: number;
+  awardedAmount?: number;
   submitted?: boolean;
+  previouslyApplied?: boolean;
+  previouslyAwarded?: boolean;
 }
 
 export enum ScholarshipStatus {

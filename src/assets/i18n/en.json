@@ -60,6 +60,14 @@
     "message": "Please select a contact type",
     "_description": "Replace with description for contact_select_type"
   },
+  "scholarship_previouslyApplied_label": {
+    "message": "Previously Applied",
+    "_description": "Replace with description for scholarship_previouslyApplied_label"
+  },
+  "scholarship_previouslyAwarded_label": {
+    "message": "Previously Awarded",
+    "_description": "Replace with description for scholarship_previouslyAwarded_label"
+  },
   "scholarship_scholarshipName_label": {
     "message": "Scholarship Name",
     "_description": "Replace with description for scholarship_scholarshipName_label"
