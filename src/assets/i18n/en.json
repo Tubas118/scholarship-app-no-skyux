@@ -52,17 +52,53 @@
     "message": "Contact Methods",
     "_description": "Replace with description for contact_contactMethods_label"
   },
+  "contact_select_type": {
+    "message": "Please select a contact type",
+    "_description": "Replace with description for contact_select_type"
+  },
+  "scholarship_code_label": {
+    "message": "Scholarship Code",
+    "_description": "Replace with description for scholarship_code_label"
+  },
+  "scholarship_code_short_label": {
+    "message": "Code",
+    "_description": "Replace with description for scholarship_code_short_label"
+  },
+  "scholarship_contactPhone_label": {
+    "message": "Contact Phone",
+    "_description": "Replace with description for scholarship_contactPhone_label"
+  },
+  "scholarship_contactEmail_label": {
+    "message": "Contact Email",
+    "_description": "Replace with description for scholarship_contactEmail_label"
+  },
+  "scholarship_deadlineDate_label": {
+    "message": "Deadline",
+    "_description": "Replace with description for scholarship_deadlineDate_label"
+  },
   "scholarship_details_label": {
     "message": "Details",
     "_description": "Replace with description for scholarship_details_label"
   },
+  "scholarship_essayRequired_label": {
+    "message": "Essay Required",
+    "_description": "Replace with description for scholarship_essayRequired_label"
+  },
+  "scholarship_essaySubmitted_label": {
+    "message": "Essay Submitted",
+    "_description": "Replace with description for scholarship_essaySubmitted_label"
+  },
+  "scholarship_financialsRequired_label": {
+    "message": "Financials Required",
+    "_description": "Replace with description for scholarship_financialsRequired_label"
+  },
+  "scholarship_financialsSubmitted_label": {
+    "message": "Financials Submitted",
+    "_description": "Replace with description for scholarship_financialsSubmitted_label"
+  },
   "scholarship_minimumGpa_label": {
     "message": "Minimum GPA",
     "_description": "Replace with description for scholarship_minimumGpa_label"
-  },
-  "contact_select_type": {
-    "message": "Please select a contact type",
-    "_description": "Replace with description for contact_select_type"
   },
   "scholarship_previouslyApplied_label": {
     "message": "Previously Applied",
@@ -84,22 +120,6 @@
     "message": "Contact Info",
     "_description": "Replace with description for scholarship_sponsorContactInfo_label"
   },
-  "scholarship_code_label": {
-    "message": "Scholarship Code",
-    "_description": "Replace with description for scholarship_code_label"
-  },
-  "scholarship_code_short_label": {
-    "message": "Code",
-    "_description": "Replace with description for scholarship_code_short_label"
-  },
-  "scholarship_contactPhone_label": {
-    "message": "Contact Phone",
-    "_description": "Replace with description for scholarship_contactPhone_label"
-  },
-  "scholarship_contactEmail_label": {
-    "message": "Contact Email",
-    "_description": "Replace with description for scholarship_contactEmail_label"
-  },
   "scholarship_status_label": {
     "message": "Status",
     "_description": "Replace with description for scholarship_status_label"
@@ -111,10 +131,6 @@
   "scholarship_submitDate_label": {
     "message": "Submit Date",
     "_description": "Replace with description for scholarship_submitDate_label"
-  },
-  "scholarship_deadlineDate_label": {
-    "message": "Deadline",
-    "_description": "Replace with description for scholarship_deadlineDate_label"
   },
   "scholarship_targetAmount_label": {
     "message": "Target Amount",

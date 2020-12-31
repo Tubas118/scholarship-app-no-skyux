@@ -1,21 +1,57 @@
 <main>
   <div class="lrock-table">
     <div class="lrock-header">
-      <div class="lrock-cell-1">{{ 'scholarship_submitted_label.message' | translate }}</div>
+      <div class="lrock-cell-3">{{ 'scholarship_submitted_label.message' | translate }}</div>
       <div class="lrock-cell-3">{{ 'scholarship_scholarshipName_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'scholarship_targetAmount_label.message' | translate }}</div>
-      <div class="lrock-cell-3">{{ 'scholarship_sponsor_label.message' | translate }}</div>
-      <div class="lrock-cell-5">{{ 'scholarship_details_label.message' | translate }}</div>
-      <!--
-      <div class="lrock-cell-3">{{ 'scholarship_sponsorContactInfo_label.message' | translate }}</div>
-      <div class="lrock-cell-2">{{ 'scholarship_contactPhone_label.message' | translate }}</div>
-      <div class="lrock-cell-3">{{ 'scholarship_contactEmail_label.message' | translate }}</div>
-      <div class="lrock-cell-3">{{ 'scholarship_status_label.message' | translate }}</div>
-      <div class="lrock-cell-2">{{ 'scholarship_minimumGpa_label.message' | translate }}</div>
-      -->
+      <div class="lrock-cell-4">{{ 'scholarship_sponsor_label.message' | translate }}</div>
+      <div class="lrock-cell-4">{{ 'scholarship_details_label.message' | translate }}</div>
     </div>
     <div *ngFor="let entry of gridData | async" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
-      <div class="lrock-cell-1 lrock-center"><input type="checkbox" [checked]="entry.submitted === true" readonly /></div>
+      <div class="lrock-cell-3">
+        <div class="lrock-row-plain">
+          <input class="lrock-inline" type="checkbox" [checked]="entry.submitted === true" readonly />
+          <label for="scholarshipSubmitted" class="lrock-label">
+            {{ 'scholarship_submitted_label.message' | translate }}
+          </label>
+        </div>
+        <div class="lrock-row-plain">
+          <input class="lrock-inline" type="checkbox" [checked]="entry.previouslyApplied === true" readonly />
+          <label for="scholarshipSubmitted" class="lrock-label">
+            {{ 'scholarship_previouslyApplied_label.message' | translate }}
+          </label>
+        </div>
+        <div class="lrock-row-plain">
+          <input class="lrock-inline" type="checkbox" [checked]="entry.previouslyAwarded === true" readonly />
+          <label for="scholarshipSubmitted" class="lrock-label">
+            {{ 'scholarship_previouslyAwarded_label.message' | translate }}
+          </label>
+        </div>
+        <div class="lrock-row-plain">
+          <input class="lrock-inline" type="checkbox" [checked]="entry.essayRequired === true" readonly />
+          <label for="scholarshipSubmitted" class="lrock-label">
+            {{ 'scholarship_essayRequired_label.message' | translate }}
+          </label>
+        </div>
+        <div class="lrock-row-plain">
+          <input class="lrock-inline" type="checkbox" [checked]="entry.essaySubmitted === true" readonly />
+          <label for="scholarshipSubmitted" class="lrock-label">
+            {{ 'scholarship_essaySubmitted_label.message' | translate }}
+          </label>
+        </div>
+        <div class="lrock-row-plain">
+          <input class="lrock-inline" type="checkbox" [checked]="entry.financialsRequired === true" readonly />
+          <label for="scholarshipSubmitted" class="lrock-label">
+            {{ 'scholarship_financialsRequired_label.message' | translate }}
+          </label>
+        </div>
+        <div class="lrock-row-plain">
+          <input class="lrock-inline" type="checkbox" [checked]="entry.financialsSubmitted === true" readonly />
+          <label for="scholarshipSubmitted" class="lrock-label">
+            {{ 'scholarship_financialsSubmitted_label.message' | translate }}
+          </label>
+        </div>
+      </div>
       <div class="lrock-cell-3">{{ entry.scholarshipName }}
         <div *ngIf="entry.code" class="lrock-sub-cell">
           <br/>
@@ -23,46 +59,42 @@
         </div>
       </div>
       <div class="lrock-cell-2 lrock-right">{{ entry.targetAmount | currency }}</div>
-      <div class="lrock-cell-3">{{ entry.sponsor }}</div>
-      <div class="lrock-cell-5">
+      <div class="lrock-cell-4">
         <div class="lrock-table">
           <div class="lrock-row">
-            <div class="lrock-cell-1">{{ 'scholarship_status_label.message' | translate }}:</div>
-            <div class="lrock-cell-3">{{ entry.status }}</div>
+            <div class="lrock-cell-2">{{ 'contact_name_label.message' | translate }}:</div>
+            <div class="lrock-cell-4">{{ entry.sponsor }}</div>
           </div>
           <div class="lrock-row">
-            <div class="lrock-cell-1">{{ 'scholarship_deadlineDate_label.message' | translate }}:</div>
-            <div class="lrock-cell-3">{{ entry.deadlineDate }}</div>
+            <div class="lrock-cell-2">{{ 'scholarship_sponsorContactInfo_label.message' | translate }}:</div>
+            <div class="lrock-cell-4">{{ entry.sponsorContactInfo }}</div>
           </div>
           <div class="lrock-row">
-            <div class="lrock-cell-1">{{ 'scholarship_sponsorContactInfo_label.message' | translate }}:</div>
-            <div class="lrock-cell-3">{{ entry.sponsorContactInfo }}</div>
+            <div class="lrock-cell-2">{{ 'scholarship_contactPhone_label.message' | translate }}:</div>
+            <div class="lrock-cell-4">{{ entry.contactPhone }}</div>
           </div>
           <div class="lrock-row">
-            <div class="lrock-cell-1">{{ 'scholarship_contactPhone_label.message' | translate }}:</div>
-            <div class="lrock-cell-3">{{ entry.contactPhone }}</div>
-          </div>
-          <div class="lrock-row">
-            <div class="lrock-cell-1">{{ 'scholarship_contactEmail_label.message' | translate }}:</div>
-            <div class="lrock-cell-3">{{ entry.contactEmail }}</div>
-          </div>
-          <div class="lrock-row">
-            <div class="lrock-cell-1">{{ 'scholarship_minimumGpa_label.message' | translate }}:</div>
-            <div class="lrock-cell-3">{{ entry.minimumGpa }}</div>
+            <div class="lrock-cell-2">{{ 'scholarship_contactEmail_label.message' | translate }}:</div>
+            <div class="lrock-cell-4">{{ entry.contactEmail }}</div>
           </div>
         </div>
       </div>
-      <!--
-      <div class="lrock-cell-3">{{ entry.sponsorContactInfo }}</div>
-      <div class="lrock-cell-2">{{ entry.contactPhone }}</div>
-      <div class="lrock-cell-3">{{ entry.contactEmail }}</div>
-      <div class="lrock-cell-3">{{ entry.status }}
-        <div *ngIf="entry.deadlineDate" class="lrock-sub-cell">
-          ({{ 'scholarship_deadlineDate_label.message' | translate }}: {{ entry.deadlineDate }})
+      <div class="lrock-cell-4">
+        <div class="lrock-table">
+          <div class="lrock-row">
+            <div class="lrock-cell-2">{{ 'scholarship_status_label.message' | translate }}:</div>
+            <div class="lrock-cell-4">{{ entry.status }}</div>
+          </div>
+          <div class="lrock-row">
+            <div class="lrock-cell-2">{{ 'scholarship_deadlineDate_label.message' | translate }}:</div>
+            <div class="lrock-cell-4">{{ entry.deadlineDate }}</div>
+          </div>
+          <div class="lrock-row">
+            <div class="lrock-cell-2">{{ 'scholarship_minimumGpa_label.message' | translate }}:</div>
+            <div class="lrock-cell-4">{{ entry.minimumGpa }}</div>
+          </div>
         </div>
       </div>
-      <div class="lrock-cell-2">{{ entry.minimumGpa }}</div>
-      -->
     </div>
   </div>
 </main>

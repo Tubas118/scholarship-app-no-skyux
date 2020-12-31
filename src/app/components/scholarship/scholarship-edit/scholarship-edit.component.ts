@@ -118,7 +118,11 @@ export class ScholarshipEditComponent implements OnChanges {
       status: new FormControl(this.scholarshipDetails.status),
       scholarshipSubmitted: new FormControl(this.scholarshipDetails.submitted || false),
       previouslyApplied: new FormControl(this.scholarshipDetails.previouslyApplied || false),
-      previouslyAwarded: new FormControl(this.scholarshipDetails.previouslyAwarded || false)
+      previouslyAwarded: new FormControl(this.scholarshipDetails.previouslyAwarded || false),
+      essayRequired: new FormControl(this.scholarshipDetails.essayRequired || false),
+      essaySubmitted: new FormControl(this.scholarshipDetails.essaySubmitted || false),
+      financialsRequired: new FormControl(this.scholarshipDetails.financialsRequired || false),
+      financialsSubmitted: new FormControl(this.scholarshipDetails.financialsSubmitted || false)
     });
   }
 
@@ -137,6 +141,10 @@ export class ScholarshipEditComponent implements OnChanges {
     this.scholarshipDetails.submitted = this.scholarshipForm.controls['scholarshipSubmitted'].value;
     this.scholarshipDetails.previouslyApplied = this.scholarshipForm.controls['previouslyApplied'].value;
     this.scholarshipDetails.previouslyAwarded = this.scholarshipForm.controls['previouslyAwarded'].value;
+    this.scholarshipDetails.essayRequired = this.scholarshipForm.controls['essayRequired'].value;
+    this.scholarshipDetails.essaySubmitted = this.scholarshipForm.controls['essaySubmitted'].value;
+    this.scholarshipDetails.financialsRequired = this.scholarshipForm.controls['financialsRequired'].value;
+    this.scholarshipDetails.financialsSubmitted = this.scholarshipForm.controls['financialsSubmitted'].value;
   }
 }
 
