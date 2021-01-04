@@ -23,6 +23,7 @@ export interface Scholarship extends BasicData<string> {
   essaySubmitted?: boolean;
   financialsRequired?: boolean;
   financialsSubmitted?: boolean;
+  membershipRequired?: boolean;
 }
 
 export enum ScholarshipStatus {

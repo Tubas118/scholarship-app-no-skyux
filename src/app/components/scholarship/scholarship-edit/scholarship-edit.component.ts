@@ -122,7 +122,8 @@ export class ScholarshipEditComponent implements OnChanges {
       essayRequired: new FormControl(this.scholarshipDetails.essayRequired || false),
       essaySubmitted: new FormControl(this.scholarshipDetails.essaySubmitted || false),
       financialsRequired: new FormControl(this.scholarshipDetails.financialsRequired || false),
-      financialsSubmitted: new FormControl(this.scholarshipDetails.financialsSubmitted || false)
+      financialsSubmitted: new FormControl(this.scholarshipDetails.financialsSubmitted || false),
+      membershipRequired: new FormControl(this.scholarshipDetails.membershipRequired || false)
     });
   }
 
@@ -145,6 +146,7 @@ export class ScholarshipEditComponent implements OnChanges {
     this.scholarshipDetails.essaySubmitted = this.scholarshipForm.controls['essaySubmitted'].value;
     this.scholarshipDetails.financialsRequired = this.scholarshipForm.controls['financialsRequired'].value;
     this.scholarshipDetails.financialsSubmitted = this.scholarshipForm.controls['financialsSubmitted'].value;
+    this.scholarshipDetails.membershipRequired = this.scholarshipForm.controls['membershipRequired'].value;
   }
 }
 

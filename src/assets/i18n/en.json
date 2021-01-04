@@ -96,6 +96,10 @@
     "message": "Financials Submitted",
     "_description": "Replace with description for scholarship_financialsSubmitted_label"
   },
+  "scholarship_membershipRequired_label": {
+    "message": "Membership required",
+    "_description": "Replace with description for scholarship_membershipRequired_label"
+  },
   "scholarship_minimumGpa_label": {
     "message": "Minimum GPA",
     "_description": "Replace with description for scholarship_minimumGpa_label"

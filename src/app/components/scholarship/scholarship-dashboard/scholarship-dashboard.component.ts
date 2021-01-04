@@ -61,7 +61,7 @@ export class ScholarshipDashboardComponent implements OnInit {
     } else {
       if (selectedFilter === 'SUBMITTED') {
         console.log('23');
-        this.activeFilter = `submitted`;
+        this.activeFilter = `submitted=true`;
       }
       else {
         console.log('234');

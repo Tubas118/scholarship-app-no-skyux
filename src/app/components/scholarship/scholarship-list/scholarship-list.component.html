@@ -51,6 +51,12 @@
             {{ 'scholarship_financialsSubmitted_label.message' | translate }}
           </label>
         </div>
+        <div class="lrock-row-plain">
+          <input class="lrock-inline" type="checkbox" [checked]="entry.membershipRequired === true" readonly />
+          <label for="membershipRequired" class="lrock-label">
+            {{ 'scholarship_membershipRequired_label.message' | translate }}
+          </label>
+        </div>
       </div>
       <div class="lrock-cell-3">{{ entry.scholarshipName }}
         <div *ngIf="entry.code" class="lrock-sub-cell">
