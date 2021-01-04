@@ -5,29 +5,17 @@
     <div class="lrock-table">
       <div class="lrock-row">
         <div class="lrock-cell-3">
-          <!-- <label for="scholarshipName" class="lrock-label lrock-stacked">
-            {{ 'scholarship_scholarshipName_label.message' | translate }}
-          </label>
-          <input class="lrock-control lrock-stacked" formControlName="scholarshipName" type="text"> -->
+          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_scholarshipName_label" name="scholarshipName">
+          </lrock-textbox>
 
-          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_scholarshipName_label" name="scholarshipName"></lrock-textbox>
+          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_code_label" name="scholarshipCode">
+          </lrock-textbox>
 
-          <!-- <label for="scholarshipCode" class="lrock-label lrock-stacked">
-            {{ 'scholarship_code_label.message' | translate }}
-          </label>
-          <input class="lrock-control lrock-stacked" formControlName="scholarshipCode" type="text"> -->
-          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_code_label"
-            name="scholarshipCode"></lrock-textbox>
+          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_targetAmount_label" name="targetAmount">
+          </lrock-textbox>
 
-          <label for="targetAmount" class="lrock-label lrock-stacked">
-            {{ 'scholarship_targetAmount_label.message' | translate }}
-          </label>
-          <input class="lrock-control lrock-stacked" formControlName="targetAmount" type="text">
-
-          <label for="sponsor" class="lrock-label lrock-stacked">
-            {{ 'scholarship_sponsor_label.message' | translate }}
-          </label>
-          <input class="lrock-control lrock-stacked" formControlName="sponsor" type="text">
+          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_sponsor_label" name="sponsor">
+          </lrock-textbox>
         </div>
 
         <div class="lrock-cell-2">
@@ -38,10 +26,8 @@
             </label>
           </div>
 
-          <label for="minimumGpa" class="lrock-label lrock-stacked">
-            {{ 'scholarship_minimumGpa_label.message' | translate }}
-          </label>
-          <input class="lrock-stacked" formControlName="minimumGpa">
+          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_minimumGpa_label" name="minimumGpa">
+          </lrock-textbox>
 
           <label for="submitDate" class="lrock-label lrock-stacked">
             {{ 'scholarship_submitDate_label.message' | translate }}
@@ -97,15 +83,11 @@
         </div>
 
         <div class="lrock-cell-3">
-          <label for="sponsorContactInfo" class="lrock-label lrock-stacked">
-            {{ 'scholarship_sponsorContactInfo_label.message' | translate }}
-          </label>
-          <input class="lrock-control lrock-stacked" formControlName="sponsorContactInfo" type="text">
+          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_sponsorContactInfo_label" name="sponsorContactInfo">
+          </lrock-textbox>
 
-          <label for="contactPhone" class="lrock-label lrock-stacked">
-            {{ 'scholarship_contactPhone_label.message' | translate }}
-          </label>
-          <input class="lrock-control lrock-stacked" formControlName="contactPhone">
+          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_contactPhone_label" name="contactPhone">
+          </lrock-textbox>
 
           <label for="contactEmail" class="lrock-label lrock-stacked">
             {{ 'scholarship_contactEmail_label.message' | translate }}
