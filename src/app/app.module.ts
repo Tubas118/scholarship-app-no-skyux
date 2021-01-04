@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ScholarshipEditComponent } from './components/scholarship/scholarship-edit/scholarship-edit.component';
 import { ScholarshipFilterComponent } from './components/scholarship/scholarship-filter/scholarship-filter.component';
+import { TextboxComponent } from '../lib/textbox/textbox.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ScholarshipFilterComponent } from './components/scholarship/scholarship
     ScholarshipEditComponent,
     ScholarshipListComponent,
     WelcomeComponent,
-    ScholarshipFilterComponent
+    ScholarshipFilterComponent,
+    TextboxComponent
   ],
   imports: [
     AppRoutingModule,

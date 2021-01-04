@@ -5,15 +5,19 @@
     <div class="lrock-table">
       <div class="lrock-row">
         <div class="lrock-cell-3">
-          <label for="scholarshipName" class="lrock-label lrock-stacked">
+          <!-- <label for="scholarshipName" class="lrock-label lrock-stacked">
             {{ 'scholarship_scholarshipName_label.message' | translate }}
           </label>
-          <input class="lrock-control lrock-stacked" formControlName="scholarshipName" type="text">
+          <input class="lrock-control lrock-stacked" formControlName="scholarshipName" type="text"> -->
 
-          <label for="scholarshipCode" class="lrock-label lrock-stacked">
+          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_scholarshipName_label" name="scholarshipName"></lrock-textbox>
+
+          <!-- <label for="scholarshipCode" class="lrock-label lrock-stacked">
             {{ 'scholarship_code_label.message' | translate }}
           </label>
-          <input class="lrock-control lrock-stacked" formControlName="scholarshipCode" type="text">
+          <input class="lrock-control lrock-stacked" formControlName="scholarshipCode" type="text"> -->
+          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_code_label"
+            name="scholarshipCode"></lrock-textbox>
 
           <label for="targetAmount" class="lrock-label lrock-stacked">
             {{ 'scholarship_targetAmount_label.message' | translate }}
