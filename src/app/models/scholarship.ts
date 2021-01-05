@@ -1,4 +1,5 @@
 import { BasicData } from '../../shared/basic/basic-data';
+import { Task } from './task';
 
 export const CURRENT_SCHOLARSHIP_SCHEMA = 3;
 
@@ -24,6 +25,7 @@ export interface Scholarship extends BasicData<string> {
   financialsRequired?: boolean;
   financialsSubmitted?: boolean;
   membershipRequired?: boolean;
+  qualified?: boolean;
 }
 
 export enum ScholarshipStatus {

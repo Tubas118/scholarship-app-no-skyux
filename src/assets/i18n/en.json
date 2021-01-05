@@ -143,6 +143,34 @@
   "sponsor_contact_info_label": {
     "message": "Contact Info"
   },
+  "task_summary_label": {
+    "message": "Summary",
+    "_description": "Replace with description for task_summary_label"
+  },
+  "task_assignedTo_label": {
+    "message": "Assigned To",
+    "_description": "Replace with description for task_assignedTo_label"
+  },
+  "task_notes_label": {
+    "message": "Notes",
+    "_description": "Replace with description for task_notes_label"
+  },
+  "task_done_label": {
+    "message": "Done",
+    "_description": "Replace with description for task_done_label"
+  },
+  "task_details_label": {
+    "message": "Details",
+    "_description": "Replace with description for task_details_label"
+  },
+  "task_timestamp_label": {
+    "message": "Timestamp",
+    "_description": "Replace with description for task_timestamp_label"
+  },
+  "task_userId_label": {
+    "message": "User Id",
+    "_description": "Replace with description for task_userId_label"
+  },
   "user_id_label": {
     "message": "ID",
     "_description": "Replace with description for user_id"

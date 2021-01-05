@@ -14,6 +14,10 @@ import { ScholarshipEditComponent } from './components/scholarship/scholarship-e
 import { ScholarshipFilterComponent } from './components/scholarship/scholarship-filter/scholarship-filter.component';
 import { TextboxComponent } from '../lib/textbox/textbox.component';
 import { CheckboxComponent } from 'src/lib/checkbox/checkbox.component';
+import { TaskDashboardComponent } from './components/task/task-dashboard/task-dashboard.component';
+import { TaskEditComponent } from './components/task/task-edit/task-edit.component';
+import { TaskListComponent } from './components/task/task-list/task-list.component';
+import { TextAreaComponent } from 'src/lib/textarea/textarea.component';
 
 @NgModule({
   declarations: [
@@ -21,9 +25,13 @@ import { CheckboxComponent } from 'src/lib/checkbox/checkbox.component';
     ScholarshipDashboardComponent,
     ScholarshipEditComponent,
     ScholarshipListComponent,
+    TaskDashboardComponent,
+    TaskEditComponent,
+    TaskListComponent,
     WelcomeComponent,
     CheckboxComponent,
     ScholarshipFilterComponent,
+    TextAreaComponent,
     TextboxComponent
   ],
   imports: [
