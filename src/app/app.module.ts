@@ -13,6 +13,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ScholarshipEditComponent } from './components/scholarship/scholarship-edit/scholarship-edit.component';
 import { ScholarshipFilterComponent } from './components/scholarship/scholarship-filter/scholarship-filter.component';
 import { TextboxComponent } from '../lib/textbox/textbox.component';
+import { CheckboxComponent } from 'src/lib/checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { TextboxComponent } from '../lib/textbox/textbox.component';
     ScholarshipEditComponent,
     ScholarshipListComponent,
     WelcomeComponent,
+    CheckboxComponent,
     ScholarshipFilterComponent,
     TextboxComponent
   ],

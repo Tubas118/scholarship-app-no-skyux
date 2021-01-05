@@ -19,12 +19,8 @@
         </div>
 
         <div class="lrock-cell-2">
-          <div class="lrock-inline">
-            <input formControlName="scholarshipSubmitted" type="checkbox">
-            <label for="scholarshipSubmitted" class="lrock-label">
-              {{ 'scholarship_submitted_label.message' | translate }}
-            </label>
-          </div>
+          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_submitted_label" name="submitted">
+          </lrock-checkbox>
 
           <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_minimumGpa_label" name="minimumGpa">
           </lrock-textbox>
@@ -39,56 +35,26 @@
           </label>
           <input formControlName="deadlineDate" type="date">
 
-          <div class="lrock-inline">
-            <input formControlName="previouslyApplied" type="checkbox">
-            <label for="previouslyApplied" class="lrock-label">
-              {{ 'scholarship_previouslyApplied_label.message' | translate }}
-            </label>
-          </div>
+          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_previouslyApplied_label" name="previouslyApplied">
+          </lrock-checkbox>
 
-          <div class="lrock-inline">
-            <input formControlName="previouslyAwarded" type="checkbox">
-            <label for="previouslyAwarded" class="lrock-label">
-              {{ 'scholarship_previouslyAwarded_label.message' | translate }}
-            </label>
-          </div>
+          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_previouslyAwarded_label" name="previouslyAwarded">
+          </lrock-checkbox>
 
-          <div class="lrock-inline">
-            <input formControlName="essayRequired" type="checkbox">
-            <label for="essayRequired" class="lrock-label">
-              {{ 'scholarship_essayRequired_label.message' | translate }}
-            </label>
-          </div>
+          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_essayRequired_label" name="essayRequired">
+          </lrock-checkbox>
 
-          <div class="lrock-inline">
-            <input formControlName="essaySubmitted" type="checkbox">
-            <label for="essaySubmitted" class="lrock-label">
-              {{ 'scholarship_essaySubmitted_label.message' | translate }}
-            </label>
-          </div>
+          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_essaySubmitted_label" name="essaySubmitted">
+          </lrock-checkbox>
 
-          <div class="lrock-inline">
-            <input formControlName="financialsRequired" type="checkbox">
-            <label for="financialsRequired" class="lrock-label">
-              {{ 'scholarship_financialsRequired_label.message' | translate }}
-            </label>
-          </div>
+          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_financialsRequired_label" name="financialsRequired">
+          </lrock-checkbox>
 
-          <div class="lrock-inline">
-            <input formControlName="financialsSubmitted" type="checkbox">
-            <label for="financialsSubmitted" class="lrock-label">
-              {{ 'scholarship_financialsSubmitted_label.message' | translate }}
-            </label>
-          </div>
+          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_financialsSubmitted_label" name="financialsSubmitted">
+          </lrock-checkbox>
 
-          <div class="lrock-inline">
-            <input formControlName="membershipRequired" type="checkbox">
-            <label for="membershipRequired" class="lrock-label">
-              {{ 'scholarship_membershipRequired_label.message' | translate }}
-            </label>
-          </div>
-
-
+          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_membershipRequired_label" name="membershipRequired">
+          </lrock-checkbox>
         </div>
 
         <div class="lrock-cell-3">
