@@ -65,7 +65,8 @@ export class RandomTestData extends RandomData {
       provider: randomTestData.text(),
       email: randomTestData.email(),
       name: randomTestData.text(),
-      image: randomTestData.text()
+      image: randomTestData.text(),
+      schemaVersion: randomTestData.pickNumberBetween(0, 100)
     };
     return { ...user, ...assignedFields };
   }

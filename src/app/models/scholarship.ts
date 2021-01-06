@@ -1,5 +1,4 @@
 import { BasicData } from '../../shared/basic/basic-data';
-import { Task } from './task';
 
 export const CURRENT_SCHOLARSHIP_SCHEMA = 3;
 

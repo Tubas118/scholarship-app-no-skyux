@@ -3,6 +3,8 @@ import { Task } from '../../../models/task';
 import { FormGroup, FormControl } from '@angular/forms';
 import { TaskService } from '../../../services/task-service';
 import { newTask } from '../../../models/model-support/app-data-utils';
+import { ScholarshipService } from 'src/app/services/scholarship-service';
+import { ScholarshipTrimmedView } from 'src/app/views/scholarship-trimmed-view';
 
 @Component({
   selector: 'task-edit',
@@ -21,11 +23,15 @@ export class TaskEditComponent implements OnChanges {
   @Output()
   public closeEvent: EventEmitter<TaskChangeEvent> = new EventEmitter<TaskChangeEvent>();
 
+  public trimmedScholarshipList: ScholarshipTrimmedView[];
+
   public taskForm: FormGroup;
 
   private newEntryMode: boolean;
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService,
+              private scholarshipService: ScholarshipService) {
+    this.initScholarshipNames();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -52,6 +58,14 @@ export class TaskEditComponent implements OnChanges {
 
   public close() {
     this.showEditForm = false;
+  }
+
+  private initScholarshipNames() {
+    this.scholarshipService.refreshValidScholarshipNames();
+    this.scholarshipService.trimmedScholarshipList.subscribe(scholarships => {
+      console.log('initScholarshipNames => count: ' + scholarships.length);
+      this.trimmedScholarshipList = scholarships;
+    });
   }
 
   private isValid(checkValue: any) {

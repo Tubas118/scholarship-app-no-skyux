@@ -5,6 +5,9 @@
     <div class="lrock-table">
       <div class="lrock-row">
         <div class="lrock-cell-3">
+          <select-scholarship [parentForm]="taskForm" labelResourceName="scholarship_name_label" [list]="trimmedScholarshipList" displayField="scholarshipName" name="scholarshipId">
+          </select-scholarship>
+
           <lrock-textarea [parentForm]="taskForm" labelResourceName="task_summary_label" name="summary" rows="5">
           </lrock-textarea>
 

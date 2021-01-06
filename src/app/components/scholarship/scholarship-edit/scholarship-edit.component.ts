@@ -65,6 +65,9 @@ export class ScholarshipEditComponent implements OnChanges {
     } else {
       this.updateExistingEntry();
     }
+
+    this.scholarshipService.refreshValidScholarshipNames();
+    this.scholarshipService.refreshValidScholarshipNames();
   }
 
   public close() {

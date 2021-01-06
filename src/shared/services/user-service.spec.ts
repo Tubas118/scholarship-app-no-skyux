@@ -8,6 +8,7 @@ import { randomTestData } from '../test-utils/random-test-data';
 import { copyData } from '../shared-data-utils';
 import { LoginDetails } from '../models/login-details';
 import { AppConfigSettings } from '../basic/basic-service-impl';
+import { AppConfigService } from './app-config/app-config.service';
 
 const unroll = require('unroll');
 unroll.use(it);
@@ -16,10 +17,13 @@ describe('User service', () => {
   const spyHttpClient = jasmine.createSpyObj('HttpClient', ['post', 'put', 'get']);
   const spyIdService = jasmine.createSpyObj('UuidIdService', ['newId']);
   let userService: UserService;
-  const config: AppConfigSettings = {
+  const configSettings: AppConfigSettings = {
     apiUrl: 'some-url',
     pageSize: 20
   } as AppConfigSettings;
+  const config: AppConfigService = {
+    appConfigSettings: configSettings
+  } as AppConfigService;
 
   /**
    * This configureTestingModule function imports SkyAppTestModule, which brings in all of

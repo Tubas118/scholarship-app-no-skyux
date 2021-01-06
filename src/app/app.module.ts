@@ -18,6 +18,8 @@ import { TaskDashboardComponent } from './components/task/task-dashboard/task-da
 import { TaskEditComponent } from './components/task/task-edit/task-edit.component';
 import { TaskListComponent } from './components/task/task-list/task-list.component';
 import { TextAreaComponent } from 'src/lib/textarea/textarea.component';
+import { SelectValueComponent } from 'src/lib/selectbox/selectbox.component';
+import { SelectScholarshipComponent } from './components/scholarship/select-scholarship/select-scholarship.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { TextAreaComponent } from 'src/lib/textarea/textarea.component';
     WelcomeComponent,
     CheckboxComponent,
     ScholarshipFilterComponent,
+    SelectScholarshipComponent,
+    SelectValueComponent,
     TextAreaComponent,
     TextboxComponent
   ],
