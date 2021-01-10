@@ -1,6 +1,7 @@
 // import { Contact } from '../contact';
 import { Scholarship, CURRENT_SCHOLARSHIP_SCHEMA } from '../scholarship';
 import { CURRENT_TASK_SCHEMA, Task } from '../task';
+import { ScholarshipTaskView } from '../views/scholarship-task-view';
 
 // export function newContact(assignedFields?: Contact): Contact {
 //   let contact = {
@@ -30,6 +31,24 @@ export function newScholarship(assignedFields?: Scholarship): Scholarship {
     ...scholarship,
     ...assignedFields
   };
+}
+
+export function newScholarshipTaskView(assignedFields?: ScholarshipTaskView): ScholarshipTaskView {
+  let scholarshipTaskView = {
+    id: '',
+    scholarshipId: '',
+    scholarshipName: '',
+    sponsor: '',
+    summary: '',
+    assignedTo: '',
+    notes: [],
+    done: false,
+    invalid: false
+  } as ScholarshipTaskView;
+  return {
+    ...scholarshipTaskView,
+    ...assignedFields
+  }
 }
 
 export function newTask(assignedFields?: Task): Task {

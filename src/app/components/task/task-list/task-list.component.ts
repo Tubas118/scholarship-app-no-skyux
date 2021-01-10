@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { TaskService } from 'src/app/services/task-service';
 import { Task } from '../../../models/task';
 
 @Component({
@@ -18,12 +20,21 @@ export class TaskListComponent implements OnInit {
   protected errorDetail: any;
   protected pageNum: number;
 
+  constructor(protected taskService: TaskService) { }
+
   public ngOnInit() {
     this.pageNum = 0;
   }
 
   public editRecord(recordId: string) {
     console.log(recordId);
+    this.taskService.find(recordId).pipe(
+      map(scholarshipTaskView => {
+        console.log('taskId: ' + recordId + ' => ' + JSON.stringify(scholarshipTaskView));
+      })
+    );
+    //.unsubscribe();
+
     this.selectedTask.emit(recordId);
   }
 }

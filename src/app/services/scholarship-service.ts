@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { observable, of, pipe } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 import { Scholarship, ScholarshipStatus, CURRENT_SCHOLARSHIP_SCHEMA, statusTypeMap } from '../models/scholarship';
 import { BasicServiceImpl } from '../../shared/basic/basic-service-impl';
 import { HttpClient } from '@angular/common/http';
@@ -8,6 +7,8 @@ import { UuidIdService } from '../../shared/services/uuid-id-service';
 import { AppConfigService } from 'src/shared/services/app-config/app-config.service';
 import { Observable } from 'rxjs';
 import { ScholarshipTrimmedView } from '../views/scholarship-trimmed-view';
+import { TaskService } from './task-service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,9 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
   public trimmedScholarshipList: Observable<ScholarshipTrimmedView[]>;
 
   constructor(protected http: HttpClient,
-    protected configService: AppConfigService,
-    protected idService: UuidIdService) {
+              protected configService: AppConfigService,
+              protected taskService: TaskService,
+              protected idService: UuidIdService) {
       super(http, configService, 'scholarships', idService);
       this.refreshValidScholarshipNames();
   }
@@ -31,6 +33,16 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
 
   public get scholarshipStatusFilterList(): string[] {
     return ScholarshipService.masterScholarshipStatusFilterList();
+  }
+
+  public getAllScholarshipTaskViewsById(scholarshipId: string) {
+    return this.find(scholarshipId).pipe(
+      map(scholarship => {
+        if (scholarship !== undefined) {
+
+        }
+      })
+    )
   }
 
   public refreshValidScholarshipNames(): void {

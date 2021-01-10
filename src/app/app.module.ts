@@ -20,6 +20,9 @@ import { TaskListComponent } from './components/task/task-list/task-list.compone
 import { TextAreaComponent } from 'src/lib/textarea/textarea.component';
 import { SelectValueComponent } from 'src/lib/selectbox/selectbox.component';
 import { SelectScholarshipComponent } from './components/scholarship/select-scholarship/select-scholarship.component';
+import { ScholarshipTaskViewDashboardComponent } from './components/scholarship-task-view/scholarship-task-view-dashboard/scholarship-task-view-dashboard.component';
+import { ScholarshipTaskViewEditComponent } from './components/scholarship-task-view/scholarship-task-view-edit/scholarship-task-view-edit.component';
+import { ScholarshipTaskViewListComponent } from './components/scholarship-task-view/scholarship-task-view-list/scholarship-task-view-list.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { SelectScholarshipComponent } from './components/scholarship/select-scho
     WelcomeComponent,
     CheckboxComponent,
     ScholarshipFilterComponent,
+    ScholarshipTaskViewDashboardComponent,
+    ScholarshipTaskViewEditComponent,
+    ScholarshipTaskViewListComponent,
     SelectScholarshipComponent,
     SelectValueComponent,
     TextAreaComponent,

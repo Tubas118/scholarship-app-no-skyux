@@ -5,6 +5,7 @@ import { TaskService } from '../../../services/task-service';
 import { newTask } from '../../../models/model-support/app-data-utils';
 import { ScholarshipService } from 'src/app/services/scholarship-service';
 import { ScholarshipTrimmedView } from 'src/app/views/scholarship-trimmed-view';
+import { TaskChangeEvent } from '../task-change-event';
 
 @Component({
   selector: 'task-edit',
@@ -110,9 +111,4 @@ export class TaskEditComponent implements OnChanges {
     this.taskDetails.done = this.taskForm.controls['done'].value;
     this.taskDetails.invalid = this.taskForm.controls['invalid'].value;
   }
-}
-
-export class TaskChangeEvent {
-  public taskChanges: Task;
-  public newEntry: boolean;
 }

@@ -140,6 +140,42 @@
     "message": "Target Amount",
     "_description": "Replace with description for scholarship_targetAmount_label"
   },
+  "scholarshipTaskView_id_label": {
+    "message": "id",
+    "_description": "Replace with description for scholarshipTaskView_id_label"
+  },
+  "scholarshipTaskView_scholarshipId_label": {
+    "message": "scholarshipId",
+    "_description": "Replace with description for scholarshipTaskView_scholarshipId_label"
+  },
+  "scholarshipTaskView_scholarshipName_label": {
+    "message": "scholarshipName",
+    "_description": "Replace with description for scholarshipTaskView_scholarshipName_label"
+  },
+  "scholarshipTaskView_sponsor_label": {
+    "message": "sponsor",
+    "_description": "Replace with description for scholarshipTaskView_sponsor_label"
+  },
+  "scholarshipTaskView_summary_label": {
+    "message": "summary",
+    "_description": "Replace with description for scholarshipTaskView_summary_label"
+  },
+  "scholarshipTaskView_assignedTo_label": {
+    "message": "assignedTo",
+    "_description": "Replace with description for scholarshipTaskView_assignedTo_label"
+  },
+  "scholarshipTaskView_notes_label": {
+    "message": "notes",
+    "_description": "Replace with description for scholarshipTaskView_notes_label"
+  },
+  "scholarshipTaskView_done_label": {
+    "message": "done",
+    "_description": "Replace with description for scholarshipTaskView_done_label"
+  },
+  "scholarshipTaskView_invalid_label": {
+    "message": "invalid",
+    "_description": "Replace with description for scholarshipTaskView_invalid_label"
+  },
   "sponsor_contact_info_label": {
     "message": "Contact Info"
   },

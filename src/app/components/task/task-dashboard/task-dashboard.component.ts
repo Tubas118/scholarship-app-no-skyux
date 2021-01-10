@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { Task } from '../../../models/task';
-import { TaskChangeEvent } from '../task-edit/task-edit.component';
 import { TaskService } from '../../../services/task-service';
+import { TaskChangeEvent } from '../task-change-event';
 
 @Component({
   selector: 'task-dashboard',

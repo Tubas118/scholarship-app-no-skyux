@@ -1,0 +1,59 @@
+<main>
+  <form *ngIf="showEditForm"
+        [formGroup]="scholarshipTaskViewForm"
+        (ngSubmit)="onSubmit()">
+    <div class="lrock-table">
+      <div class="lrock-row">
+        <div class="lrock-cell-3">
+          <label for="scholarshipTaskView_id" class="lrock-label lrock-stacked">
+            {{ 'scholarshipTaskView_id_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="id" type="text">
+
+          <label for="scholarshipTaskView_scholarshipId" class="lrock-label lrock-stacked">
+            {{ 'scholarshipTaskView_scholarshipId_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="scholarshipId" type="text">
+
+          <label for="scholarshipTaskView_scholarshipName" class="lrock-label lrock-stacked">
+            {{ 'scholarshipTaskView_scholarshipName_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="scholarshipName" type="text">
+
+          <label for="scholarshipTaskView_sponsor" class="lrock-label lrock-stacked">
+            {{ 'scholarshipTaskView_sponsor_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="sponsor" type="text">
+
+          <label for="scholarshipTaskView_summary" class="lrock-label lrock-stacked">
+            {{ 'scholarshipTaskView_summary_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="summary" type="text">
+
+          <label for="scholarshipTaskView_assignedTo" class="lrock-label lrock-stacked">
+            {{ 'scholarshipTaskView_assignedTo_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="assignedTo" type="text">
+
+          <label for="scholarshipTaskView_notes" class="lrock-label lrock-stacked">
+            {{ 'scholarshipTaskView_notes_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="notes" type="text">
+
+          <label for="scholarshipTaskView_done" class="lrock-label lrock-stacked">
+            {{ 'scholarshipTaskView_done_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="done" type="text">
+
+          <label for="scholarshipTaskView_invalid" class="lrock-label lrock-stacked">
+            {{ 'scholarshipTaskView_invalid_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="invalid" type="text">
+
+        </div>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+    <button type="button" (click)="onCancel($event)">Cancel</button>
+  </form>
+</main>
