@@ -2,6 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { ScholarshipListComponent } from './scholarship-list.component';
 import { ScholarshipService } from '../../../services/scholarship-service';
 
+const unroll = require('unroll');
+unroll.use(it);
+
 describe('scholarship-list component', () => {
 
   beforeEach(() => {

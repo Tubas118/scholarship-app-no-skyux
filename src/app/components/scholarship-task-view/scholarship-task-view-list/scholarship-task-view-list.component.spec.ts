@@ -1,6 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { ScholarshipTaskViewListComponent } from './scholarship-task-view-list.component';
 
+const unroll = require('unroll');
+unroll.use(it);
+
 describe('scholarship-task-view-list component', () => {
 
   beforeEach(() => {

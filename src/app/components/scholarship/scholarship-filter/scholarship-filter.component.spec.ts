@@ -2,6 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScholarshipFilterComponent } from './scholarship-filter.component';
 
+const unroll = require('unroll');
+unroll.use(it);
+
 describe('ScholarshipFilterComponent', () => {
   let component: ScholarshipFilterComponent;
   let fixture: ComponentFixture<ScholarshipFilterComponent>;
