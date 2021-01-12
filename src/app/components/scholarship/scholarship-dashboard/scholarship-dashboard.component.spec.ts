@@ -2,9 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { ScholarshipDashboardComponent } from './scholarship-dashboard.component';
 import { ScholarshipService } from '../../../services/scholarship-service';
 
-const unroll = require('unroll');
-unroll.use(it);
-
 describe('scholarship-dashboard component', () => {
 
   beforeEach(() => {

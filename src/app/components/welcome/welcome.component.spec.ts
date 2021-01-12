@@ -2,9 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WelcomeComponent } from './welcome.component';
 
-const unroll = require('unroll');
-unroll.use(it);
-
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
   let fixture: ComponentFixture<WelcomeComponent>;

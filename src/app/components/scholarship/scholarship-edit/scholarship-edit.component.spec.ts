@@ -1,9 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { ScholarshipEditComponent } from './scholarship-edit.component';
 
-const unroll = require('unroll');
-unroll.use(it);
-
 describe('scholarship-edit component', () => {
 
   /**

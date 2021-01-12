@@ -2,9 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { TaskEditComponent } from './task-edit.component';
 import { TaskService } from '../../../services/task-service';
 
-const unroll = require('unroll');
-unroll.use(it);
-
 describe('task-edit component', () => {
 
   beforeEach(() => {

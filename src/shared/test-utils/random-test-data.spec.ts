@@ -1,8 +1,5 @@
 import { randomTestData } from './random-test-data';
 
-const unroll = require('unroll');
-unroll.use(it);
-
 describe('Random test data', () => {
   const minNumber = 3;
   const maxNumber = 10;
