@@ -8,7 +8,7 @@ import { TaskEditComponent } from './components/task/task-edit/task-edit.compone
 import { TaskDashboardComponent } from './components/task/task-dashboard/task-dashboard.component';
 import { ScholarshipTaskViewDashboardComponent } from './components/scholarship-task-view/scholarship-task-view-dashboard/scholarship-task-view-dashboard.component';
 import { ScholarshipTaskViewEditComponent } from './components/scholarship-task-view/scholarship-task-view-edit/scholarship-task-view-edit.component';
-//scholarshipTasks
+
 const routes: Routes = [
   { path: 'scholarships', component: ScholarshipDashboardComponent },
   { path: 'scholarship/new', component: ScholarshipDashboardComponent },

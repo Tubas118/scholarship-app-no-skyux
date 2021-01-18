@@ -17,7 +17,7 @@ unroll.use(it);
 describe('task-service', () => {
   let spyHttpClient = jasmine.createSpyObj('HttpClient', ['post', 'put', 'get']);
   let spyIdService = jasmine.createSpyObj('UuidIdService', ['newId']);
-  let spyScholarshipService = jasmine.createSpyObj('ScholarshipService', []);
+  //let spyScholarshipService = jasmine.createSpyObj('ScholarshipService', []);
   let taskService: TaskService;
 
   let appConfigService = new AppConfigService(spyHttpClient);
@@ -34,7 +34,7 @@ describe('task-service', () => {
       providers: [
         { provide: UuidIdService, useValue: spyIdService },
         { provide: HttpClient, useValue: spyHttpClient },
-        { provide: ScholarshipService, useValue: spyScholarshipService}
+        ScholarshipService
       ]
     });
 

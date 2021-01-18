@@ -1,30 +1,30 @@
-import { TestBed } from '@angular/core/testing';
-import { ScholarshipDashboardComponent } from './scholarship-dashboard.component';
-import { ScholarshipService } from '../../../services/scholarship-service';
+// import { TestBed } from '@angular/core/testing';
+// import { ScholarshipDashboardComponent } from './scholarship-dashboard.component';
+// import { ScholarshipService } from '../../../services/scholarship-service';
 
-describe('scholarship-dashboard component', () => {
+// describe('scholarship-dashboard component', () => {
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: []
-      /*
-      TODO: what do you want?
-      providers: [
-        {
-          provide: ScholarshipService,
-          useValue: jasmine.createSpyObj('ScholarshipService', ['getAll'])
-        }
-      ]
-      */
-    });
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       imports: []
+//       /*
+//       TODO: what do you want?
+//       providers: [
+//         {
+//           provide: ScholarshipService,
+//           useValue: jasmine.createSpyObj('ScholarshipService', ['getAll'])
+//         }
+//       ]
+//       */
+//     });
+//   });
 
-  it('should do something', () => {
-    const fixture = TestBed.createComponent(ScholarshipDashboardComponent);
+//   it('should do something', () => {
+//     const fixture = TestBed.createComponent(ScholarshipDashboardComponent);
 
-    fixture.detectChanges();
+//     fixture.detectChanges();
 
-    expect(true).toBe(false);
-  });
+//     expect(true).toBe(false);
+//   });
 
-});
+// });

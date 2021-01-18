@@ -16,7 +16,7 @@ import { TextboxComponent } from '../lib/textbox/textbox.component';
 import { CheckboxComponent } from 'src/lib/checkbox/checkbox.component';
 import { TaskDashboardComponent } from './components/task/task-dashboard/task-dashboard.component';
 import { TaskEditComponent } from './components/task/task-edit/task-edit.component';
-import { TaskListComponent } from './components/task/task-list/task-list.component';
+//import { TaskListComponent } from './components/task/task-list/task-list.component';
 import { TextAreaComponent } from 'src/lib/textarea/textarea.component';
 import { SelectValueComponent } from 'src/lib/selectbox/selectbox.component';
 import { SelectScholarshipComponent } from './components/scholarship/select-scholarship/select-scholarship.component';
@@ -32,7 +32,7 @@ import { ScholarshipTaskViewListComponent } from './components/scholarship-task-
     ScholarshipListComponent,
     TaskDashboardComponent,
     TaskEditComponent,
-    TaskListComponent,
+    //TaskListComponent,
     WelcomeComponent,
     CheckboxComponent,
     ScholarshipFilterComponent,
