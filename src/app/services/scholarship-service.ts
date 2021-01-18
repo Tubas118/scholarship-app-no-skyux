@@ -7,7 +7,7 @@ import { UuidIdService } from '../../shared/services/uuid-id-service';
 import { AppConfigService } from 'src/shared/services/app-config/app-config.service';
 import { Observable } from 'rxjs';
 import { ScholarshipTrimmedView } from '../views/scholarship-trimmed-view';
-import { TaskService } from './task-service';
+//import { TaskService } from './task-service';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -21,7 +21,7 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
 
   constructor(protected http: HttpClient,
               protected configService: AppConfigService,
-              protected taskService: TaskService,
+//              protected taskService: TaskService,
               protected idService: UuidIdService) {
       super(http, configService, 'scholarships', idService);
       this.refreshValidScholarshipNames();
