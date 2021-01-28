@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Scholarship } from '../../../models/scholarship';
 import { TranslateService } from '@ngx-translate/core';
+import { ScholarshipView } from 'src/app/models/views/scholarship-view';
 
 @Component({
   selector: 'scholarship-list',
@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ScholarshipListComponent implements OnInit {
   @Input()
-  public gridData: Observable<Scholarship[]>;
+  public scholarshipGridData: Observable<ScholarshipView[]>;
 
   @Output()
   public selectedScholarship: EventEmitter<string> = new EventEmitter<string>();
@@ -26,7 +26,7 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   public editRecord(recordId: string) {
-    console.log(recordId);
+    console.log(`Scholarship id: ${recordId}`);
     this.selectedScholarship.emit(recordId);
   }
 }

@@ -43,6 +43,7 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
   }
 
   public find(id: ID): Observable<T> {
+    console.log(`find - url=${this.apiUrl}, id=${id}`);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -63,6 +64,14 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
     console.log(`getAll() => ${useUrl}`);
     return this.http
       .get<T[]>(useUrl)
+      .pipe(catchError(this.handleError));
+  }
+
+  public getAllRaw(filter? : string): Observable<any[]> {
+    const useUrl = (filter === undefined) ? this.apiUrl : this.apiUrl + filter;
+    console.log(`getAllRaw() => ${useUrl}`);
+    return this.http
+      .get<any[]>(useUrl)
       .pipe(catchError(this.handleError));
   }
 

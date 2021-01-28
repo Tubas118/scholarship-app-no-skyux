@@ -1,0 +1,17 @@
+<!-- <div [formGroup]="parentForm">
+  <label for="{{name}}" class="lrock-label lrock-stacked">
+    {{controlLabel}}
+  </label>
+  <input class="lrock-control lrock-stacked" formControlName="{{name}}" type="text">
+</div> -->
+
+<div [formGroup]="parentForm">
+  <label for="{{name}}" class="lrock-label lrock-stacked">
+    {{controlLabel}}
+  </label>
+  <textarea class="lrock-control lrock-stacked"
+            formControlName="{{name}}"
+            rows="{{rows}}"
+            cols="{{columns}}"
+            ></textarea>
+</div>

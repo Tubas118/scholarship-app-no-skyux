@@ -24,7 +24,7 @@
     "_description": "The text for the Users top-level navigation item"
   },
   "home_title": {
-    "message": "SKY UX Template",
+    "message": "Scholarships",
     "_description": "Title for the home component"
   },
   "scholarship_name_label": {
@@ -56,18 +56,6 @@
     "message": "Please select a contact type",
     "_description": "Replace with description for contact_select_type"
   },
-  "scholarship_scholarshipName_label": {
-    "message": "Scholarship Name",
-    "_description": "Replace with description for scholarship_scholarshipName_label"
-  },
-  "scholarship_sponsor_label": {
-    "message": "Sponsor",
-    "_description": "Replace with description for scholarship_sponsor_label"
-  },
-  "scholarship_sponsorContactInfo_label": {
-    "message": "Contact Info",
-    "_description": "Replace with description for scholarship_sponsorContactInfo_label"
-  },
   "scholarship_code_label": {
     "message": "Scholarship Code",
     "_description": "Replace with description for scholarship_code_label"
@@ -84,6 +72,58 @@
     "message": "Contact Email",
     "_description": "Replace with description for scholarship_contactEmail_label"
   },
+  "scholarship_deadlineDate_label": {
+    "message": "Deadline",
+    "_description": "Replace with description for scholarship_deadlineDate_label"
+  },
+  "scholarship_details_label": {
+    "message": "Details",
+    "_description": "Replace with description for scholarship_details_label"
+  },
+  "scholarship_essayRequired_label": {
+    "message": "Essay Required",
+    "_description": "Replace with description for scholarship_essayRequired_label"
+  },
+  "scholarship_essaySubmitted_label": {
+    "message": "Essay Submitted",
+    "_description": "Replace with description for scholarship_essaySubmitted_label"
+  },
+  "scholarship_financialsRequired_label": {
+    "message": "Financials Required",
+    "_description": "Replace with description for scholarship_financialsRequired_label"
+  },
+  "scholarship_financialsSubmitted_label": {
+    "message": "Financials Submitted",
+    "_description": "Replace with description for scholarship_financialsSubmitted_label"
+  },
+  "scholarship_membershipRequired_label": {
+    "message": "Membership required",
+    "_description": "Replace with description for scholarship_membershipRequired_label"
+  },
+  "scholarship_minimumGpa_label": {
+    "message": "Minimum GPA",
+    "_description": "Replace with description for scholarship_minimumGpa_label"
+  },
+  "scholarship_previouslyApplied_label": {
+    "message": "Previously Applied",
+    "_description": "Replace with description for scholarship_previouslyApplied_label"
+  },
+  "scholarship_previouslyAwarded_label": {
+    "message": "Previously Awarded",
+    "_description": "Replace with description for scholarship_previouslyAwarded_label"
+  },
+  "scholarship_scholarshipName_label": {
+    "message": "Scholarship Name",
+    "_description": "Replace with description for scholarship_scholarshipName_label"
+  },
+  "scholarship_sponsor_label": {
+    "message": "Sponsor",
+    "_description": "Replace with description for scholarship_sponsor_label"
+  },
+  "scholarship_sponsorContactInfo_label": {
+    "message": "Contact Info",
+    "_description": "Replace with description for scholarship_sponsorContactInfo_label"
+  },
   "scholarship_status_label": {
     "message": "Status",
     "_description": "Replace with description for scholarship_status_label"
@@ -96,16 +136,96 @@
     "message": "Submit Date",
     "_description": "Replace with description for scholarship_submitDate_label"
   },
-  "scholarship_deadlineDate_label": {
-    "message": "Deadline",
-    "_description": "Replace with description for scholarship_deadlineDate_label"
-  },
   "scholarship_targetAmount_label": {
     "message": "Target Amount",
     "_description": "Replace with description for scholarship_targetAmount_label"
   },
+  "scholarshipTaskView_id_label": {
+    "message": "id",
+    "_description": "Replace with description for scholarshipTaskView_id_label"
+  },
+  "scholarshipTaskView_scholarshipId_label": {
+    "message": "scholarshipId",
+    "_description": "Replace with description for scholarshipTaskView_scholarshipId_label"
+  },
+  "scholarshipTaskView_scholarshipName_label": {
+    "message": "scholarshipName",
+    "_description": "Replace with description for scholarshipTaskView_scholarshipName_label"
+  },
+  "scholarshipTaskView_sponsor_label": {
+    "message": "sponsor",
+    "_description": "Replace with description for scholarshipTaskView_sponsor_label"
+  },
+  "scholarshipTaskView_summary_label": {
+    "message": "summary",
+    "_description": "Replace with description for scholarshipTaskView_summary_label"
+  },
+  "scholarshipTaskView_assignedTo_label": {
+    "message": "assignedTo",
+    "_description": "Replace with description for scholarshipTaskView_assignedTo_label"
+  },
+  "scholarshipTaskView_notes_label": {
+    "message": "notes",
+    "_description": "Replace with description for scholarshipTaskView_notes_label"
+  },
+  "scholarshipTaskView_done_label": {
+    "message": "done",
+    "_description": "Replace with description for scholarshipTaskView_done_label"
+  },
+  "scholarshipTaskView_invalid_label": {
+    "message": "invalid",
+    "_description": "Replace with description for scholarshipTaskView_invalid_label"
+  },
   "sponsor_contact_info_label": {
     "message": "Contact Info"
+  },
+  "tasks_label": {
+    "message": "Tasks",
+    "_description": "Replace with description for tasks_label"
+  },
+  "tasks_open_label": {
+    "message": "Open",
+    "_description": "Replace with description for tasks_open_label"
+  },
+  "tasks_done_label": {
+    "message": "Done",
+    "_description": "Replace with description for tasks_done_label"
+  },
+  "tasks_total_label": {
+    "message": "Total",
+    "_description": "Replace with description for tasks_total_label"
+  },
+  "tasks_archived_label": {
+    "message": "Archived",
+    "_description": "Replace with description for tasks_archived_label"
+  },
+  "task_summary_label": {
+    "message": "Summary",
+    "_description": "Replace with description for task_summary_label"
+  },
+  "task_assignedTo_label": {
+    "message": "Assigned To",
+    "_description": "Replace with description for task_assignedTo_label"
+  },
+  "task_notes_label": {
+    "message": "Notes",
+    "_description": "Replace with description for task_notes_label"
+  },
+  "task_done_label": {
+    "message": "Done",
+    "_description": "Replace with description for task_done_label"
+  },
+  "task_details_label": {
+    "message": "Details",
+    "_description": "Replace with description for task_details_label"
+  },
+  "task_timestamp_label": {
+    "message": "Timestamp",
+    "_description": "Replace with description for task_timestamp_label"
+  },
+  "task_userId_label": {
+    "message": "User Id",
+    "_description": "Replace with description for task_userId_label"
   },
   "user_id_label": {
     "message": "ID",

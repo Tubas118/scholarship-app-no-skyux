@@ -1,5 +1,4 @@
 import { Component, OnChanges, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { ScholarshipService } from 'src/app/services/scholarship-service';
 
 @Component({
   selector: 'scholarship-filter',
@@ -10,9 +9,6 @@ export class ScholarshipFilterComponent implements OnChanges {
 
   @Input()
   public filterLabel: string;
-
-  @Input()
-  public controlName: string;
 
   @Input()
   public filterList: string[];

@@ -1,3 +1,13 @@
+# skyux-sdk-template
+Template for SKY UX applications created by the SKY UX CLI
+
+# json-server
+To run json-server for test purposes, use following command:
+```
+json-server --watch data.json
+```
+
+
 # ScholarshipAppNoSkyux
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.

@@ -20,19 +20,19 @@ describe('Random test data', () => {
       expect(randomTestData.text().length).toBe(7);
 
       let length = randomTestData.pickNumberBetween(minNumber, maxNumber);
-      expect(valueWithinRange(length)).toBeTrue();
+      expect(valueWithinRange(length)).toBeTruthy();
       expect(randomTestData.text(length).length).toBe(length);
     });
 
     it(`should return a list of ${minNumber} strings`, () => {
       let textList = randomTestData.textList(minNumber);
-      expect(valueWithinRange(textList.length)).toBeTrue();
+      expect(valueWithinRange(textList.length)).toBeTruthy();
       expect(listNotNullElements(textList)).toBeTruthy();
     });
 
     it(`should return a list of strings within a range`, () => {
       let textList = randomTestData.textListBetween(minNumber, maxNumber);
-      expect(valueWithinRange(textList.length)).toBeTrue();
+      expect(valueWithinRange(textList.length)).toBeTruthy();
       expect(listNotNullElements(textList)).toBeTruthy();
     });
 
