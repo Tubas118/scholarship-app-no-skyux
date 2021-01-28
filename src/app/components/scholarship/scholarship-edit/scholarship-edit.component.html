@@ -1,9 +1,13 @@
 <main>
-  <form *ngIf="showEditForm"
+  <form *ngIf="showScholarshipEditForm"
         [formGroup]="scholarshipForm"
         (ngSubmit)="onSubmit()">
+    <button type="submit">Save Scholarship</button>
+    <button type="button" (click)="onCancel($event)">Cancel</button>
     <div class="lrock-table">
       <div class="lrock-row">
+        <div formControlName="tasks">{{ tasks?.length || -1 }}</div>
+
         <div class="lrock-cell-3">
           <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_scholarshipName_label" name="scholarshipName">
           </lrock-textbox>
@@ -24,37 +28,6 @@
 
           <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_minimumGpa_label" name="minimumGpa">
           </lrock-textbox>
-
-          <label for="submitDate" class="lrock-label lrock-stacked">
-            {{ 'scholarship_submitDate_label.message' | translate }}
-          </label>
-          <input formControlName="submitDate" type="date">
-
-          <label for="deadlineDate" class="lrock-label lrock-stacked">
-            {{ 'scholarship_deadlineDate_label.message' | translate }}
-          </label>
-          <input formControlName="deadlineDate" type="date">
-
-          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_previouslyApplied_label" name="previouslyApplied">
-          </lrock-checkbox>
-
-          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_previouslyAwarded_label" name="previouslyAwarded">
-          </lrock-checkbox>
-
-          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_essayRequired_label" name="essayRequired">
-          </lrock-checkbox>
-
-          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_essaySubmitted_label" name="essaySubmitted">
-          </lrock-checkbox>
-
-          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_financialsRequired_label" name="financialsRequired">
-          </lrock-checkbox>
-
-          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_financialsSubmitted_label" name="financialsSubmitted">
-          </lrock-checkbox>
-
-          <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_membershipRequired_label" name="membershipRequired">
-          </lrock-checkbox>
         </div>
 
         <div class="lrock-cell-3">
@@ -83,7 +56,8 @@
         </div>
       </div>
     </div>
-    <button type="submit">Submit</button>
-    <button type="button" (click)="onCancel($event)">Cancel</button>
+    <!-- <div *ngFor="let task of tasks | async">{{ task }}</div> -->
+    <!-- <task-dashboard [parentForm]="scholarshipForm" [gridData]="tasks" formControlName="tasks">
+    </task-dashboard> -->
   </form>
 </main>

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import { of, Observable, forkJoin } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { MigrateUtil } from 'src/app/models/migrate/migrate';
+import { ScholarshipView } from 'src/app/models/views/scholarship-view';
+import { SponsorService } from 'src/app/services/sponsor-service';
 import { Scholarship } from '../../../models/scholarship';
-// import { ScholarshipChangeEvent } from '../scholarship-edit/scholarship-edit.component';
 import { ScholarshipService } from '../../../services/scholarship-service';
 
 @Component({
@@ -13,21 +16,28 @@ export class ScholarshipDashboardComponent implements OnInit {
   public readonly filterLabel = 'Filter';
   public readonly filterControlName = 'scholarshipFilter';
 
-  public gridData: Observable<Scholarship[]>;
+  public scholarshipGridData: Observable<ScholarshipView[]>;
   public errorDetail: any;
 
   public selectedScholarship: Scholarship;
-  public showEditForm: boolean = false;
+  public showScholarshipEditForm: boolean = false;
 
   public activeFilter: string = undefined;
   public activeSort: string = undefined;
 
-  constructor(private scholarshipService: ScholarshipService) {
+  constructor(private scholarshipService: ScholarshipService,
+              private sponsorService: SponsorService) {
     this.activeFilter = undefined;
     this.activeSort = '_sort=status,scholarshipName&_order=asc';
   }
 
   public ngOnInit(): void {
+    /*
+    Migration code
+    const migrateUtil = new MigrateUtil(this.scholarshipService, this.sponsorService);
+    migrateUtil.migrate();
+    */
+
     this.refreshList();
   }
 
@@ -44,14 +54,22 @@ export class ScholarshipDashboardComponent implements OnInit {
   }
 
   public onSelectedScholarship(selectedScholarshipId: string) {
+    console.log(`scholarship-dashboard.onSelectedScholarship: ${selectedScholarshipId}`);
     if (selectedScholarshipId === undefined) {
       this.selectedScholarship = undefined;
-      this.showEditForm = true;
+      this.showScholarshipEditForm = true;
     } else {
-      this.scholarshipService.find(selectedScholarshipId).subscribe(scholarship => {
-        this.selectedScholarship = scholarship;
-        this.showEditForm = true;
-      });
+      this.scholarshipService.find(selectedScholarshipId)
+        .pipe(
+          take(1)
+        )
+        .subscribe(scholarship => {
+          console.log(`scholarship-dashboard.onSelectedScholarship: ${JSON.stringify(scholarship)}`);
+          this.showScholarshipEditForm = true;
+          this.selectedScholarship = {
+            ...scholarship
+          } as ScholarshipView;
+        });
     }
   }
 
@@ -60,11 +78,9 @@ export class ScholarshipDashboardComponent implements OnInit {
       this.activeFilter = undefined;
     } else {
       if (selectedFilter === 'SUBMITTED') {
-        console.log('23');
         this.activeFilter = `submitted=true`;
       }
       else {
-        console.log('234');
         this.activeFilter = `status=${selectedFilter}`;
       }
     }
@@ -72,16 +88,17 @@ export class ScholarshipDashboardComponent implements OnInit {
   }
 
   public onCloseEdit(event: any /* TODO: ScholarshipChangeEvent */) {
-    this.showEditForm = false;
+    this.showScholarshipEditForm = false;
     if (event !== undefined) {
       this.ngOnInit();
     }
   }
 
   private refreshList() {
-    this.scholarshipService.getAll(this.getFilterSortValue())
-      .subscribe((records: Scholarship[]) => {
-        this.gridData = of(records);
+    this.scholarshipService.getAllViews(this.getFilterSortValue())
+      .pipe(take(1))
+      .subscribe((records: ScholarshipView[]) => {
+        this.scholarshipGridData = of(records);
       },
       err => {
         console.error('Error ' + err);

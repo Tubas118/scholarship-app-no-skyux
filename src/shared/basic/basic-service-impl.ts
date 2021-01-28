@@ -67,6 +67,14 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
       .pipe(catchError(this.handleError));
   }
 
+  public getAllRaw(filter? : string): Observable<any[]> {
+    const useUrl = (filter === undefined) ? this.apiUrl : this.apiUrl + filter;
+    console.log(`getAllRaw() => ${useUrl}`);
+    return this.http
+      .get<any[]>(useUrl)
+      .pipe(catchError(this.handleError));
+  }
+
   protected abstract dataPreProcessing(data: T): void;
 
   protected addWithAssignedId(data: T): Observable<T> {

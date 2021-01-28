@@ -1,11 +1,7 @@
 import { Component, OnChanges, Output, EventEmitter, Input, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { Task } from '../../../models/task';
 import { FormGroup, FormControl } from '@angular/forms';
-import { TaskService } from '../../../services/task-service';
 import { newTask } from '../../../models/model-support/app-data-utils';
-import { ScholarshipService } from 'src/app/services/scholarship-service';
-import { ScholarshipTrimmedView } from 'src/app/views/scholarship-trimmed-view';
-import { TaskChangeEvent } from '../task-change-event';
 
 @Component({
   selector: 'task-edit',
@@ -24,16 +20,11 @@ export class TaskEditComponent implements OnChanges {
   @Output()
   public closeEvent: EventEmitter<TaskChangeEvent> = new EventEmitter<TaskChangeEvent>();
 
-  public trimmedScholarshipList: ScholarshipTrimmedView[];
-
   public taskForm: FormGroup;
 
   private newEntryMode: boolean;
 
-  constructor(private taskService: TaskService,
-              private scholarshipService: ScholarshipService) {
-    this.initScholarshipNames();
-  }
+  constructor() { }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (this.showEditForm) {
@@ -61,33 +52,25 @@ export class TaskEditComponent implements OnChanges {
     this.showEditForm = false;
   }
 
-  private initScholarshipNames() {
-    this.scholarshipService.refreshValidScholarshipNames();
-    this.scholarshipService.trimmedScholarshipList.subscribe(scholarships => {
-      console.log('initScholarshipNames => count: ' + scholarships.length);
-      this.trimmedScholarshipList = scholarships;
-    });
-  }
-
   private isValid(checkValue: any) {
     return checkValue !== undefined && checkValue !== null;
   }
 
   private addNewEntry() {
-    if (this.isValid(this.taskDetails.id) && this.taskDetails.id.trim().length === 0) {
-      this.taskDetails.id = undefined;
-    }
-    this.taskService.add(this.taskDetails).subscribe(result => {
-      this.closeEvent.emit({ taskChanges: result, newEntry: true });
-      this.close();
-    });
+    // if (this.isValid(this.taskDetails.id) && this.taskDetails.id.trim().length === 0) {
+    //   this.taskDetails.id = undefined;
+    // }
+    // this.taskService.add(this.taskDetails).subscribe(result => {
+    //   this.closeEvent.emit({ taskChanges: result, newEntry: true });
+    //   this.close();
+    // });
   }
 
   private updateExistingEntry() {
-    this.taskService.update(this.taskDetails).subscribe(result => {
-      this.closeEvent.emit({ taskChanges: result, newEntry: false });
-      this.close();
-    });
+    // this.taskService.update(this.taskDetails).subscribe(result => {
+    //   this.closeEvent.emit({ taskChanges: result, newEntry: false });
+    //   this.close();
+    // });
   }
 
   private intializeFormGroup(task: Task): FormGroup {
@@ -111,4 +94,9 @@ export class TaskEditComponent implements OnChanges {
     this.taskDetails.done = this.taskForm.controls['done'].value;
     this.taskDetails.invalid = this.taskForm.controls['invalid'].value;
   }
+}
+
+export class TaskChangeEvent {
+  public taskChanges: Task;
+  public newEntry: boolean;
 }

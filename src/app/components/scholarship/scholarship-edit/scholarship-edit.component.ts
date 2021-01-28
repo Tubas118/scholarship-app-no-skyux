@@ -1,25 +1,30 @@
-import { Component, OnChanges, Output, EventEmitter, Input, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnChanges, Output, EventEmitter, Input, SimpleChanges, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Scholarship } from '../../../models/scholarship';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ScholarshipService } from '../../../services/scholarship-service';
 import { newScholarship } from '../../../models/model-support/app-data-utils';
 import { TranslateService } from '@ngx-translate/core';
+import { ScholarshipView } from 'src/app/models/views/scholarship-view';
+import { Task } from 'src/app/models/task';
 
 @Component({
   selector: 'scholarship-edit',
   templateUrl: './scholarship-edit.component.html',
   styleUrls: ['./scholarship-edit.component.scss']
 })
-export class ScholarshipEditComponent implements OnChanges {
+export class ScholarshipEditComponent implements OnInit, OnChanges {
 
   @Input()
-  public scholarshipDetails: Scholarship;
+  public scholarshipDetails: ScholarshipView;
 
   @Input()
-  public showEditForm: boolean = false;
+  public showScholarshipEditForm: boolean = false;
 
   @Output()
   public closeEvent: EventEmitter<ScholarshipChangeEvent> = new EventEmitter<ScholarshipChangeEvent>();
+
+  @Output()
+  public tasksEvent: EventEmitter<Task[]> = new EventEmitter<Task[]>();
 
   public scholarshipForm: FormGroup;
 
@@ -27,8 +32,13 @@ export class ScholarshipEditComponent implements OnChanges {
   private newEntryMode: boolean;
 
   constructor(public translate: TranslateService,
-    private formBuilder: FormBuilder,
-    private scholarshipService: ScholarshipService) {
+              private formBuilder: FormBuilder,
+              private scholarshipService: ScholarshipService) {
+  }
+
+  public ngOnInit(): void {
+    console.log(`emit tasks: ${JSON.stringify(this.scholarshipDetails?.tasks)}`);
+    this.tasksEvent.emit(this.scholarshipDetails?.tasks);
   }
 
   public get scholarshipStatusList(): string[] {
@@ -37,7 +47,7 @@ export class ScholarshipEditComponent implements OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (this.showEditForm) {
+    if (this.showScholarshipEditForm) {
       this.scholarshipForm = this.intializeFormGroup(this.scholarshipDetails);
       this.selectedStatus = this.scholarshipDetails.status;
     }
@@ -71,7 +81,7 @@ export class ScholarshipEditComponent implements OnChanges {
   }
 
   public close() {
-    this.showEditForm = false;
+    this.showScholarshipEditForm = false;
   }
 
   public get isEmailInvalid(): boolean {
@@ -104,9 +114,18 @@ export class ScholarshipEditComponent implements OnChanges {
     });
   }
 
-  private intializeFormGroup(scholarship: Scholarship): FormGroup {
+  private selectScholarshipView(scholarship: ScholarshipView): ScholarshipView {
+    if (this.newEntryMode) {
+      return {
+        ...newScholarship()
+      } as ScholarshipView;
+    }
+    return scholarship;
+  }
+
+  private intializeFormGroup(scholarship: ScholarshipView): FormGroup {
     this.newEntryMode = (scholarship === undefined);
-    this.scholarshipDetails = (this.newEntryMode) ? newScholarship() : scholarship;
+    this.scholarshipDetails = this.selectScholarshipView(scholarship);
     return this.formBuilder.group({
       scholarshipName: new FormControl(this.scholarshipDetails.scholarshipName),
       scholarshipCode: new FormControl(this.scholarshipDetails.code),

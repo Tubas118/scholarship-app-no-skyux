@@ -7,11 +7,8 @@ import { randomTestData } from 'src/shared/test-utils/random-test-data';
 import { AppConfigService } from 'src/shared/services/app-config/app-config.service';
 import { AppConfigSettings } from 'src/shared/basic/basic-service-impl';
 import { ScholarshipService } from './scholarship-service';
-import { TaskService } from './task-service';
 import { ScholarshipRandomBuilder } from '../models/scholarship-random-builder';
 import { Scholarship } from '../models/scholarship';
-import { Task } from '../models/task';
-import { TaskRandomBuilder } from '../models/task-random-builder';
 
 let unroll = require('unroll');
 unroll.use(it);

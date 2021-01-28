@@ -1,6 +1,6 @@
 import { BasicData } from 'src/shared/basic/basic-data';
 
-export const CURRENT_TASK_SCHEMA = 1;
+export const CURRENT_TASK_SCHEMA = 10;
 
 export interface Task extends BasicData<string> {
   scholarshipId: string;

@@ -7,8 +7,9 @@ import { UuidIdService } from '../../shared/services/uuid-id-service';
 import { AppConfigService } from 'src/shared/services/app-config/app-config.service';
 import { Observable } from 'rxjs';
 import { ScholarshipTrimmedView } from '../views/scholarship-trimmed-view';
-//import { TaskService } from './task-service';
-import { map } from 'rxjs/operators';
+import { ScholarshipView } from '../models/views/scholarship-view';
+import { map, take } from 'rxjs/operators';
+import { Task } from '../models/task';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,6 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
 
   constructor(protected http: HttpClient,
               protected configService: AppConfigService,
-//              protected taskService: TaskService,
               protected idService: UuidIdService) {
       super(http, configService, 'scholarships', idService);
       this.refreshValidScholarshipNames();
@@ -35,31 +35,24 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
     return ScholarshipService.masterScholarshipStatusFilterList();
   }
 
-  public getAllScholarshipTaskViewsById(scholarshipId: string) {
-    return this.find(scholarshipId).pipe(
-      map(scholarship => {
-        if (scholarship !== undefined) {
-
-        }
-      })
-    )
-  }
-
-  public refreshValidScholarshipNames(): void {
-    this.getAll().subscribe((records: Scholarship[]) => {
-      let trimmedValues: ScholarshipTrimmedView[] = [];
-      records.forEach(record => {
-        if (this.isValidScholarship(record)) {
-          let newRecord = {
-            id: record.id,
-            scholarshipName: record.scholarshipName,
-            sponsor: record.sponsor
-          } as ScholarshipTrimmedView;
-          trimmedValues.push(newRecord);
-        }
-      });
-      this.trimmedScholarshipList = of(trimmedValues);
-    });
+  public getAllViews(filter?: string): Observable<ScholarshipView[]> {
+    return this.getAll(filter)
+      .pipe(
+        map(scholarships => {
+          let scholarshipViews: ScholarshipView[] = [];
+          scholarships.forEach(scholarship => {
+            const scholarshipView: ScholarshipView = {
+              ...scholarship,
+              openTasks: this.openTasks(scholarship)
+            };
+            if (scholarshipView.tasks === undefined) {
+              scholarshipView.tasks = [];
+            }
+            scholarshipViews.push(scholarshipView);
+          });
+          return scholarshipViews;
+        })
+      );
   }
 
   public isValidScholarship(scholarship: Scholarship): boolean {
@@ -91,4 +84,17 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
     }
     data.statusType = statusTypeMap[data.status];
   }
-}
+
+  protected openTasks(scholarship: Scholarship): Task[] {
+    if (scholarship.tasks === undefined) {
+      scholarship.tasks = [];
+    }
+    const answer: Task[] = scholarship.tasks
+      .filter(task => !this.checkBoolean(task?.done) && !this.checkBoolean(task?.invalid));
+
+    return answer;
+  }
+
+  protected checkBoolean(flag: boolean, defaultValue: boolean = false): boolean {
+    return (flag !== undefined) ? flag : defaultValue;
+  }}
