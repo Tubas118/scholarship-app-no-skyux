@@ -6,7 +6,6 @@ import { HttpClient } from '@angular/common/http';
 import { UuidIdService } from '../../shared/services/uuid-id-service';
 import { AppConfigService } from 'src/shared/services/app-config/app-config.service';
 import { Observable } from 'rxjs';
-import { ScholarshipTrimmedView } from '../views/scholarship-trimmed-view';
 import { ScholarshipView } from '../models/views/scholarship-view';
 import { map, take } from 'rxjs/operators';
 import { Task } from '../models/task';
@@ -17,8 +16,6 @@ import { Task } from '../models/task';
 export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
   private static filterList: string[] = undefined;
   private static scholarshipStatus: string[] = undefined;
-
-  public trimmedScholarshipList: Observable<ScholarshipTrimmedView[]>;
 
   constructor(protected http: HttpClient,
               protected configService: AppConfigService,
