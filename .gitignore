@@ -48,3 +48,4 @@ Thumbs.db
 config.json
 data.json
 data.backup*.json
+*.log

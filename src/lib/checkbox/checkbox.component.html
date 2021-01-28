@@ -1,0 +1,22 @@
+<!-- <div [formGroup]="parentForm">
+  <label for="{{name}}" class="lrock-label lrock-stacked">
+    {{controlLabel}}
+  </label>
+  <input class="lrock-control lrock-stacked" formControlName="{{name}}" type="text">
+</div> -->
+
+<div [formGroup]="parentForm" class="lrock-inline">
+  <input formControlName="{{name}}" type="checkbox" />
+  <label for="{{name}}" class="lrock-label">
+    {{controlLabel}}
+  </label>
+</div>
+
+<!--
+  <div class="lrock-inline">
+    <input formControlName="submitted" type="checkbox">
+    <label for="submitted" class="lrock-label">
+      {{ 'scholarship_submitted_label.message' | translate }}
+    </label>
+  </div>
+-->

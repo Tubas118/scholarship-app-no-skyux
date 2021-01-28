@@ -1,0 +1,22 @@
+<main>
+  <div class="lrock-table">
+    <div class="lrock-header">
+      <div class="lrock-cell-1">{{ 'task_summary_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'task_assignedTo_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'task_notes_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'task_done_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'task_details_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'task_timestamp_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'task_userId_label.message' | translate }}</div>
+    </div>
+    <div *ngFor="let entry of gridData | async" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
+      <div class="lrock-cell-1">{{ entry.summary }}</div>
+      <div class="lrock-cell-1">{{ entry.assignedTo }}</div>
+      <div class="lrock-cell-1">{{ entry.notes }}</div>
+      <div class="lrock-cell-1">{{ entry.done }}</div>
+      <div class="lrock-cell-1">{{ entry.details }}</div>
+      <div class="lrock-cell-1">{{ entry.timestamp }}</div>
+      <div class="lrock-cell-1">{{ entry.userId }}</div>
+    </div>
+  </div>
+</main>

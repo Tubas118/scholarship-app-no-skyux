@@ -1,4 +1,4 @@
-@import 'shared/scss/mixin.scss';
+@import 'src/shared/scss/mixin.scss';
 
 body {
   font-family: $fontname;
@@ -7,6 +7,10 @@ body {
 input {
   font-family: $fontname;
   margin-bottom: $input-margin-bottom;
+}
+
+.lrock-control {
+  width: 95%;
 }
 
 .lrock-stacked {

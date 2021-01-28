@@ -1,0 +1,26 @@
+<main>
+  <div class="lrock-table">
+    <div class="lrock-header">
+      <div class="lrock-cell-1">{{ 'scholarshipTaskView_id_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'scholarshipTaskView_scholarshipId_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'scholarshipTaskView_scholarshipName_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'scholarshipTaskView_sponsor_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'scholarshipTaskView_summary_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'scholarshipTaskView_assignedTo_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'scholarshipTaskView_notes_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'scholarshipTaskView_done_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'scholarshipTaskView_invalid_label.message' | translate }}</div>
+    </div>
+    <div *ngFor="let entry of gridData | async" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
+      <div class="lrock-cell-1">{{ entry.id }}</div>
+      <div class="lrock-cell-1">{{ entry.scholarshipId }}</div>
+      <div class="lrock-cell-1">{{ entry.scholarshipName }}</div>
+      <div class="lrock-cell-1">{{ entry.sponsor }}</div>
+      <div class="lrock-cell-1">{{ entry.summary }}</div>
+      <div class="lrock-cell-1">{{ entry.assignedTo }}</div>
+      <div class="lrock-cell-1">{{ entry.notes }}</div>
+      <div class="lrock-cell-1">{{ entry.done }}</div>
+      <div class="lrock-cell-1">{{ entry.invalid }}</div>
+    </div>
+  </div>
+</main>

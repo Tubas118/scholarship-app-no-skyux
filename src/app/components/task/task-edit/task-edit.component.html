@@ -1,0 +1,46 @@
+<main>
+  <form *ngIf="showEditForm"
+        [formGroup]="taskForm"
+        (ngSubmit)="onSubmit()">
+    <div class="lrock-table">
+      <div class="lrock-row">
+        <div class="lrock-cell-3">
+          <select-scholarship [parentForm]="taskForm" labelResourceName="scholarship_name_label" [list]="trimmedScholarshipList" displayField="scholarshipName" name="scholarshipId">
+          </select-scholarship>
+
+          <lrock-textarea [parentForm]="taskForm" labelResourceName="task_summary_label" name="summary" rows="5">
+          </lrock-textarea>
+
+          <lrock-textbox [parentForm]="taskForm" labelResourceName="task_assignedTo_label" name="assignedTo">
+          </lrock-textbox>
+
+          <!-- <label for="task_notes" class="lrock-label lrock-stacked">
+            {{ 'task_notes_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="notes" type="text"> -->
+
+          <lrock-checkbox [parentForm]="taskForm" labelResourceName="task_done_label" name="done">
+          </lrock-checkbox>
+
+          <!-- <label for="task_details" class="lrock-label lrock-stacked">
+            {{ 'task_details_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="details" type="text">
+
+          <label for="task_timestamp" class="lrock-label lrock-stacked">
+            {{ 'task_timestamp_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="timestamp" type="text">
+
+          <label for="task_userId" class="lrock-label lrock-stacked">
+            {{ 'task_userId_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="userId" type="text"> -->
+
+        </div>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+    <button type="button" (click)="onCancel($event)">Cancel</button>
+  </form>
+</main>

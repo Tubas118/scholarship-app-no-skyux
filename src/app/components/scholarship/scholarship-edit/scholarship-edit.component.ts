@@ -65,6 +65,9 @@ export class ScholarshipEditComponent implements OnChanges {
     } else {
       this.updateExistingEntry();
     }
+
+    this.scholarshipService.refreshValidScholarshipNames();
+    this.scholarshipService.refreshValidScholarshipNames();
   }
 
   public close() {
@@ -112,10 +115,18 @@ export class ScholarshipEditComponent implements OnChanges {
       sponsorContactInfo: new FormControl(this.scholarshipDetails.sponsorContactInfo),
       contactPhone: new FormControl(this.scholarshipDetails.contactPhone),
       contactEmail: new FormControl(this.scholarshipDetails.contactEmail  /* , SkyValidators.email */),
+      minimumGpa: new FormControl(this.scholarshipDetails.minimumGpa),
       submitDate: new FormControl(this.scholarshipDetails.submitDate),
       deadlineDate: new FormControl(this.scholarshipDetails.deadlineDate),
       status: new FormControl(this.scholarshipDetails.status),
-      scholarshipSubmitted: new FormControl(this.scholarshipDetails.submitted || false)
+      submitted: new FormControl(this.scholarshipDetails.submitted || false),
+      previouslyApplied: new FormControl(this.scholarshipDetails.previouslyApplied || false),
+      previouslyAwarded: new FormControl(this.scholarshipDetails.previouslyAwarded || false),
+      essayRequired: new FormControl(this.scholarshipDetails.essayRequired || false),
+      essaySubmitted: new FormControl(this.scholarshipDetails.essaySubmitted || false),
+      financialsRequired: new FormControl(this.scholarshipDetails.financialsRequired || false),
+      financialsSubmitted: new FormControl(this.scholarshipDetails.financialsSubmitted || false),
+      membershipRequired: new FormControl(this.scholarshipDetails.membershipRequired || false)
     });
   }
 
@@ -127,10 +138,18 @@ export class ScholarshipEditComponent implements OnChanges {
     this.scholarshipDetails.sponsorContactInfo = this.scholarshipForm.controls['sponsorContactInfo'].value;
     this.scholarshipDetails.contactPhone = this.scholarshipForm.controls['contactPhone'].value;
     this.scholarshipDetails.contactEmail = this.scholarshipForm.controls['contactEmail'].value;
+    this.scholarshipDetails.minimumGpa = this.scholarshipForm.controls['minimumGpa'].value;
     this.scholarshipDetails.submitDate = this.scholarshipForm.controls['submitDate'].value;
     this.scholarshipDetails.deadlineDate = this.scholarshipForm.controls['deadlineDate'].value;
     this.scholarshipDetails.status = this.selectedStatus;
-    this.scholarshipDetails.submitted = this.scholarshipForm.controls['scholarshipSubmitted'].value;
+    this.scholarshipDetails.submitted = this.scholarshipForm.controls['submitted'].value;
+    this.scholarshipDetails.previouslyApplied = this.scholarshipForm.controls['previouslyApplied'].value;
+    this.scholarshipDetails.previouslyAwarded = this.scholarshipForm.controls['previouslyAwarded'].value;
+    this.scholarshipDetails.essayRequired = this.scholarshipForm.controls['essayRequired'].value;
+    this.scholarshipDetails.essaySubmitted = this.scholarshipForm.controls['essaySubmitted'].value;
+    this.scholarshipDetails.financialsRequired = this.scholarshipForm.controls['financialsRequired'].value;
+    this.scholarshipDetails.financialsSubmitted = this.scholarshipForm.controls['financialsSubmitted'].value;
+    this.scholarshipDetails.membershipRequired = this.scholarshipForm.controls['membershipRequired'].value;
   }
 }
 

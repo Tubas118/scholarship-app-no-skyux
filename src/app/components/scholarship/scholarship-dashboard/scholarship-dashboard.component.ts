@@ -59,7 +59,14 @@ export class ScholarshipDashboardComponent implements OnInit {
     if (selectedFilter === 'ALL') {
       this.activeFilter = undefined;
     } else {
-      this.activeFilter = `status=${selectedFilter}`;
+      if (selectedFilter === 'SUBMITTED') {
+        console.log('23');
+        this.activeFilter = `submitted=true`;
+      }
+      else {
+        console.log('234');
+        this.activeFilter = `status=${selectedFilter}`;
+      }
     }
     this.refreshList();
   }
@@ -96,6 +103,7 @@ export class ScholarshipDashboardComponent implements OnInit {
       filterSortUrl = '?' + filterSortList.join('&');
     }
 
+    console.log(`filterSortUrl=${filterSortUrl}`);
     return filterSortUrl;
   }
 }

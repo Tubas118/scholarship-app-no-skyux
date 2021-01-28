@@ -1,0 +1,16 @@
+<!-- <div [formGroup]="parentForm">
+  <label for="{{name}}" class="lrock-label lrock-stacked">
+    {{controlLabel}}
+  </label>
+  <input class="lrock-control lrock-stacked" formControlName="{{name}}" type="text">
+</div> -->
+
+<div [formGroup]="parentForm">
+  <label for="{{name}}" class="lrock-label lrock-stacked">
+    {{controlLabel}}
+  </label>
+  <select formControlName="{{name}}" (change)="onSelectedItemChanged($event)">
+    <option *ngFor="let entry of displayList" [ngValue]="entry.id">{{ entry.display }}</option>
+  </select>
+</div>
+

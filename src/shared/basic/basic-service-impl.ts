@@ -43,6 +43,7 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
   }
 
   public find(id: ID): Observable<T> {
+    console.log(`find - url=${this.apiUrl}, id=${id}`);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

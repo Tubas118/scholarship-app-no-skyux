@@ -12,6 +12,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ScholarshipEditComponent } from './components/scholarship/scholarship-edit/scholarship-edit.component';
 import { ScholarshipFilterComponent } from './components/scholarship/scholarship-filter/scholarship-filter.component';
+import { TextboxComponent } from '../lib/textbox/textbox.component';
+import { CheckboxComponent } from 'src/lib/checkbox/checkbox.component';
+import { TaskDashboardComponent } from './components/task/task-dashboard/task-dashboard.component';
+import { TaskEditComponent } from './components/task/task-edit/task-edit.component';
+//import { TaskListComponent } from './components/task/task-list/task-list.component';
+import { TextAreaComponent } from 'src/lib/textarea/textarea.component';
+import { SelectValueComponent } from 'src/lib/selectbox/selectbox.component';
+import { SelectScholarshipComponent } from './components/scholarship/select-scholarship/select-scholarship.component';
+import { ScholarshipTaskViewDashboardComponent } from './components/scholarship-task-view/scholarship-task-view-dashboard/scholarship-task-view-dashboard.component';
+import { ScholarshipTaskViewEditComponent } from './components/scholarship-task-view/scholarship-task-view-edit/scholarship-task-view-edit.component';
+import { ScholarshipTaskViewListComponent } from './components/scholarship-task-view/scholarship-task-view-list/scholarship-task-view-list.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +30,19 @@ import { ScholarshipFilterComponent } from './components/scholarship/scholarship
     ScholarshipDashboardComponent,
     ScholarshipEditComponent,
     ScholarshipListComponent,
+    TaskDashboardComponent,
+    TaskEditComponent,
+    //TaskListComponent,
     WelcomeComponent,
-    ScholarshipFilterComponent
+    CheckboxComponent,
+    ScholarshipFilterComponent,
+    ScholarshipTaskViewDashboardComponent,
+    ScholarshipTaskViewEditComponent,
+    ScholarshipTaskViewListComponent,
+    SelectScholarshipComponent,
+    SelectValueComponent,
+    TextAreaComponent,
+    TextboxComponent
   ],
   imports: [
     AppRoutingModule,
