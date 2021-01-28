@@ -1,0 +1,5 @@
+<main>
+  <scholarship-task-view-edit *ngIf="showEditForm" [scholarshipTaskViewDetails]="selectedScholarshipTaskView" [showEditForm]="showEditForm" (closeEvent)="onCloseEdit($event)"></scholarship-task-view-edit>
+  <button id="newscholarshipTaskViewButton" *ngIf="showEditForm === false" class="" (click)="onNewScholarshipTaskView()">New ScholarshipTaskView</button>
+  <scholarship-task-view-list *ngIf="showEditForm === false" [gridData]="gridData" (selectedScholarshipTaskView)="onSelectedScholarshipTaskView($event)"></scholarship-task-view-list>
+</main>

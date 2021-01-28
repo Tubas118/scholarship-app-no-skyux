@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { TaskEditComponent } from './task-edit.component';
-import { TaskService } from '../../../services/task-service';
 
 describe('task-edit component', () => {
 
