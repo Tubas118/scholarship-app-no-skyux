@@ -9,7 +9,7 @@
       <div class="lrock-cell-1">{{ 'task_timestamp_label.message' | translate }}</div>
       <div class="lrock-cell-1">{{ 'task_userId_label.message' | translate }}</div>
     </div>
-    <div *ngFor="let entry of gridData | async" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
+    <div *ngFor="let entry of gridData" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
       <div class="lrock-cell-1">{{ entry.summary }}</div>
       <div class="lrock-cell-1">{{ entry.assignedTo }}</div>
       <div class="lrock-cell-1">{{ entry.notes }}</div>

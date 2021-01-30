@@ -1,7 +1,7 @@
 // import { Contact } from '../contact';
 import { Scholarship, CURRENT_SCHOLARSHIP_SCHEMA } from '../scholarship';
+import { Sponsor } from '../sponsor';
 import { CURRENT_TASK_SCHEMA, Task } from '../task';
-import { ScholarshipTaskView } from '../views/scholarship-task-view';
 
 // export function newContact(assignedFields?: Contact): Contact {
 //   let contact = {
@@ -25,6 +25,7 @@ export function newScholarship(assignedFields?: Scholarship): Scholarship {
     submitDate: new Date(),
     deadlineDate: undefined,
     status: '',
+    tasks: [],
     schemaVersion: CURRENT_SCHOLARSHIP_SCHEMA
   } as Scholarship;
   return {
@@ -33,22 +34,17 @@ export function newScholarship(assignedFields?: Scholarship): Scholarship {
   };
 }
 
-export function newScholarshipTaskView(assignedFields?: ScholarshipTaskView): ScholarshipTaskView {
-  let scholarshipTaskView = {
-    id: '',
-    scholarshipId: '',
-    scholarshipName: '',
+export function newSponsor(assignedFields?: Sponsor): Sponsor {
+  let sponsor = {
     sponsor: '',
-    summary: '',
-    assignedTo: '',
-    notes: [],
-    done: false,
-    invalid: false
-  } as ScholarshipTaskView;
+    contactInfo: '',
+    contactPhone: '',
+    contactEmail: ''
+  } as Sponsor;
   return {
-    ...scholarshipTaskView,
+    ...sponsor,
     ...assignedFields
-  }
+  };
 }
 
 export function newTask(assignedFields?: Task): Task {
@@ -56,7 +52,7 @@ export function newTask(assignedFields?: Task): Task {
     scholarshipId: '',
     summary: '',
     assignedTo: '',
-    notes: undefined,
+    notes: [],
     done: false,
     schemaVersion: CURRENT_TASK_SCHEMA
   } as Task;

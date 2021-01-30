@@ -1,12 +1,13 @@
 import { BasicData } from '../../shared/basic/basic-data';
+import { Task } from './task';
 
-export const CURRENT_SCHOLARSHIP_SCHEMA = 3;
+export const CURRENT_SCHOLARSHIP_SCHEMA = 10;
 
 export interface Scholarship extends BasicData<string> {
   scholarshipName: string;
   code?: string;
-  sponsor: string;
-  sponsorContactInfo: string;
+  sponsorId: string;
+  contactInfo: string;
   contactPhone: string;
   contactEmail: string;
   minimumGpa: string;
@@ -17,14 +18,24 @@ export interface Scholarship extends BasicData<string> {
   targetAmount?: number;
   awardedAmount?: number;
   submitted?: boolean;
-  previouslyApplied?: boolean;
-  previouslyAwarded?: boolean;
-  essayRequired?: boolean;
-  essaySubmitted?: boolean;
-  financialsRequired?: boolean;
-  financialsSubmitted?: boolean;
   membershipRequired?: boolean;
   qualified?: boolean;
+  previouslyApplied?: boolean;
+  previouslyAwarded?: boolean;
+  tasks: Task[];
+
+  /** @deprecated */
+  sponsor: string;
+  /** @deprecated */
+  sponsorContactInfo: string;
+  /** @deprecated */
+  essayRequired?: boolean;
+  /** @deprecated */
+  essaySubmitted?: boolean;
+  /** @deprecated */
+  financialsRequired?: boolean;
+  /** @deprecated */
+  financialsSubmitted?: boolean;
 }
 
 export enum ScholarshipStatus {

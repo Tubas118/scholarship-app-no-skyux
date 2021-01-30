@@ -179,6 +179,26 @@
   "sponsor_contact_info_label": {
     "message": "Contact Info"
   },
+  "tasks_label": {
+    "message": "Tasks",
+    "_description": "Replace with description for tasks_label"
+  },
+  "tasks_open_label": {
+    "message": "Open",
+    "_description": "Replace with description for tasks_open_label"
+  },
+  "tasks_done_label": {
+    "message": "Done",
+    "_description": "Replace with description for tasks_done_label"
+  },
+  "tasks_total_label": {
+    "message": "Total",
+    "_description": "Replace with description for tasks_total_label"
+  },
+  "tasks_archived_label": {
+    "message": "Archived",
+    "_description": "Replace with description for tasks_archived_label"
+  },
   "task_summary_label": {
     "message": "Summary",
     "_description": "Replace with description for task_summary_label"

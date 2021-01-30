@@ -1,6 +1,8 @@
 <main>
-  <scholarship-edit *ngIf="showEditForm" [scholarshipDetails]="selectedScholarship" [showEditForm]="showEditForm" (closeEvent)="onCloseEdit($event)"></scholarship-edit>
-  <div *ngIf="showEditForm === false" class="container lrock-table-plain">
+  <div *ngIf="showScholarshipEditForm">
+    <scholarship-edit [scholarshipDetails]="selectedScholarship" [showScholarshipEditForm]="showScholarshipEditForm" (closeEvent)="onCloseEdit($event)"></scholarship-edit>
+  </div>
+  <div *ngIf="showScholarshipEditForm === false" class="container lrock-table-plain">
     <div class="lrock-row-plain">
       <div class="lrock-cell-plain-6">
         <button id="newscholarshipButton" (click)="onNewScholarship()">New Scholarship</button>
@@ -8,7 +10,5 @@
       <scholarship-filter class="lrock-cell-plain-6 lrock-right" [filterLabel]="filterLabel" [filterList]="scholarshipStatusFilterList" (filterChanged)="onSelectedFilterChanged($event)"></scholarship-filter>
     </div>
   </div>
-  <scholarship-list *ngIf="showEditForm === false" [gridData]="gridData" (selectedScholarship)="onSelectedScholarship($event)"></scholarship-list>
+  <scholarship-list *ngIf="showScholarshipEditForm === false" [scholarshipGridData]="scholarshipGridData" (selectedScholarship)="onSelectedScholarship($event)"></scholarship-list>
 </main>
-(ngSubmit)="submitForm(nameForm)"
-<button type="submit">launch to space</button>
