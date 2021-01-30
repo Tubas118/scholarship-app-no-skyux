@@ -6,7 +6,6 @@
     <button type="button" (click)="onCancel($event)">Cancel</button>
     <div class="lrock-table">
       <div class="lrock-row">
-        <div formControlName="tasks">{{ tasks?.length || -1 }}</div>
 
         <div class="lrock-cell-3">
           <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_scholarshipName_label" name="scholarshipName">
@@ -56,8 +55,8 @@
         </div>
       </div>
     </div>
-    <!-- <div *ngFor="let task of tasks | async">{{ task }}</div> -->
-    <!-- <task-dashboard [parentForm]="scholarshipForm" [gridData]="tasks" formControlName="tasks">
-    </task-dashboard> -->
+    <br/>
+    <task-dashboard [gridData]="activeScholarshipTasks">
+    </task-dashboard>
   </form>
 </main>

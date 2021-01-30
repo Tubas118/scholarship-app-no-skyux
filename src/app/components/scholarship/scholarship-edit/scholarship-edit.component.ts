@@ -6,6 +6,7 @@ import { newScholarship } from '../../../models/model-support/app-data-utils';
 import { TranslateService } from '@ngx-translate/core';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
 import { Task } from 'src/app/models/task';
+import { TaskChangeEvent } from '../../task/task-edit/task-edit.component';
 
 @Component({
   selector: 'scholarship-edit',
@@ -19,6 +20,9 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
 
   @Input()
   public showScholarshipEditForm: boolean = false;
+
+  public selectedTask: Task;
+  public showTaskEditForm: boolean = false;
 
   @Output()
   public closeEvent: EventEmitter<ScholarshipChangeEvent> = new EventEmitter<ScholarshipChangeEvent>();
@@ -44,6 +48,12 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
   public get scholarshipStatusList(): string[] {
     const statusList = ScholarshipService.masterScholarshipStatusList();
     return ['ALL'].concat(statusList);
+  }
+
+  public get activeScholarshipTasks(): Task[] {
+    console.log(`activeScholarshipTasks`);
+    return this.scholarshipDetails !== undefined
+      ? this.scholarshipDetails.tasks : [];
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -92,6 +102,34 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
       && contactEmailControl.touched;
   }
 
+  // public onNewTask() {
+  //   this.onSelectedTask(undefined);
+  // }
+
+  // public onSelectedTask(selectedTaskId: string) {
+  //   console.log(`onSelectedTask: ${selectedTaskId}`);
+  //   if (selectedTaskId === undefined || this.scholarshipDetails === undefined) {
+  //     this.selectedTask = undefined;
+  //     this.showTaskEditForm = true;
+  //   }
+  //   else {
+  //     console.log(`onSelectedTask: ${selectedTaskId}`);
+  //     this.scholarshipDetails.tasks.forEach(task => {
+  //       if (task.id === selectedTaskId) {
+  //         this.selectedTask = task;
+  //         this.showTaskEditForm = true;
+  //       }
+  //     });
+  //   }
+  // }
+
+  // public onCloseTaskEdit(event: TaskChangeEvent) {
+  //   this.showTaskEditForm = false;
+  //   if (event !== undefined) {
+  //     this.ngOnInit();
+  //   }
+  // }
+
   private isValid(checkValue: any) {
     return checkValue !== undefined && checkValue !== null;
   }
@@ -124,6 +162,7 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
   }
 
   private intializeFormGroup(scholarship: ScholarshipView): FormGroup {
+    console.log(`intializeFormGroup - Tasks: ${JSON.stringify(this.scholarshipDetails.tasks?.length)}`);
     this.newEntryMode = (scholarship === undefined);
     this.scholarshipDetails = this.selectScholarshipView(scholarship);
     return this.formBuilder.group({
@@ -141,6 +180,8 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
       submitted: new FormControl(this.scholarshipDetails.submitted || false),
       previouslyApplied: new FormControl(this.scholarshipDetails.previouslyApplied || false),
       previouslyAwarded: new FormControl(this.scholarshipDetails.previouslyAwarded || false),
+      //tasks: new FormControl(this.scholarshipDetails.tasks),
+
       essayRequired: new FormControl(this.scholarshipDetails.essayRequired || false),
       essaySubmitted: new FormControl(this.scholarshipDetails.essaySubmitted || false),
       financialsRequired: new FormControl(this.scholarshipDetails.financialsRequired || false),
@@ -164,6 +205,8 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
     this.scholarshipDetails.submitted = this.scholarshipForm.controls['submitted'].value;
     this.scholarshipDetails.previouslyApplied = this.scholarshipForm.controls['previouslyApplied'].value;
     this.scholarshipDetails.previouslyAwarded = this.scholarshipForm.controls['previouslyAwarded'].value;
+    //this.scholarshipDetails.tasks = this.scholarshipForm.controls['tasks'].value;
+
     this.scholarshipDetails.essayRequired = this.scholarshipForm.controls['essayRequired'].value;
     this.scholarshipDetails.essaySubmitted = this.scholarshipForm.controls['essaySubmitted'].value;
     this.scholarshipDetails.financialsRequired = this.scholarshipForm.controls['financialsRequired'].value;
