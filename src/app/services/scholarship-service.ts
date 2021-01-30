@@ -21,7 +21,6 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
               protected configService: AppConfigService,
               protected idService: UuidIdService) {
       super(http, configService, 'scholarships', idService);
-      this.refreshValidScholarshipNames();
   }
 
   public get scholarshipStatusList(): string[] {

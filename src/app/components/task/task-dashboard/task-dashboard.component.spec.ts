@@ -1,29 +1,29 @@
-import { TestBed } from '@angular/core/testing';
-import { TaskDashboardComponent } from './task-dashboard.component';
+// import { TestBed } from '@angular/core/testing';
+// import { TaskDashboardComponent } from './task-dashboard.component';
 
-describe('task-dashboard component', () => {
+// describe('task-dashboard component', () => {
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: []
-      /*
-      TODO: what do you want?
-      providers: [
-        {
-          provide: TaskService,
-          useValue: jasmine.createSpyObj('TaskService', ['getAll'])
-        }
-      ]
-      */
-    });
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       imports: []
+//       /*
+//       TODO: what do you want?
+//       providers: [
+//         {
+//           provide: TaskService,
+//           useValue: jasmine.createSpyObj('TaskService', ['getAll'])
+//         }
+//       ]
+//       */
+//     });
+//   });
 
-  it('should do something', () => {
-    const fixture = TestBed.createComponent(TaskDashboardComponent);
+//   it('should do something', () => {
+//     const fixture = TestBed.createComponent(TaskDashboardComponent);
 
-    fixture.detectChanges();
+//     fixture.detectChanges();
 
-    expect(true).toBe(false);
-  });
+//     expect(true).toBe(false);
+//   });
 
-});
+// });
