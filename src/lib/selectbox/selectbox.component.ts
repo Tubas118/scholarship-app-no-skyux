@@ -25,6 +25,9 @@ export class SelectValueComponent<T> implements OnInit, OnChanges {
   public value: string;
 
   @Input()
+  public size: number;
+
+  @Input()
   public list: T[];
 
   public displayList: SelectedItem[];

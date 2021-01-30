@@ -15,7 +15,7 @@ export class TaskEditComponent implements OnChanges {
   public taskDetails: Task;
 
   @Input()
-  public showEditForm: boolean = false;
+  public showTaskEditForm: boolean = false;
 
   @Output()
   public closeEvent: EventEmitter<TaskChangeEvent> = new EventEmitter<TaskChangeEvent>();
@@ -27,7 +27,7 @@ export class TaskEditComponent implements OnChanges {
   constructor() { }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (this.showEditForm) {
+    if (this.showTaskEditForm) {
       this.taskForm = this.intializeFormGroup(this.taskDetails);
     }
   }
@@ -49,7 +49,7 @@ export class TaskEditComponent implements OnChanges {
   }
 
   public close() {
-    this.showEditForm = false;
+    this.showTaskEditForm = false;
   }
 
   private isValid(checkValue: any) {
@@ -57,20 +57,16 @@ export class TaskEditComponent implements OnChanges {
   }
 
   private addNewEntry() {
-    // if (this.isValid(this.taskDetails.id) && this.taskDetails.id.trim().length === 0) {
-    //   this.taskDetails.id = undefined;
-    // }
-    // this.taskService.add(this.taskDetails).subscribe(result => {
-    //   this.closeEvent.emit({ taskChanges: result, newEntry: true });
-    //   this.close();
-    // });
+    if (this.isValid(this.taskDetails.id) && this.taskDetails.id.trim().length === 0) {
+      this.taskDetails.id = undefined;
+    }
+    this.closeEvent.emit({ taskChanges: this.taskDetails, newEntry: true });
+    this.close();
   }
 
   private updateExistingEntry() {
-    // this.taskService.update(this.taskDetails).subscribe(result => {
-    //   this.closeEvent.emit({ taskChanges: result, newEntry: false });
-    //   this.close();
-    // });
+    this.closeEvent.emit({ taskChanges: this.taskDetails, newEntry: false });
+    this.close();
   }
 
   private intializeFormGroup(task: Task): FormGroup {

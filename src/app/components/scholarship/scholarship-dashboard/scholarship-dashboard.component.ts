@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { of, Observable, forkJoin } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { MigrateUtil } from 'src/app/models/migrate/migrate';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
 import { SponsorService } from 'src/app/services/sponsor-service';
 import { Scholarship } from '../../../models/scholarship';

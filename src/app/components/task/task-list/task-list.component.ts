@@ -27,14 +27,6 @@ export class TaskListComponent implements OnInit {
   }
 
   public editRecord(recordId: string) {
-    // console.log(recordId);
-    // this.taskService.find(recordId).pipe(
-    //   map(scholarshipTaskView => {
-    //     console.log('taskId: ' + recordId + ' => ' + JSON.stringify(scholarshipTaskView));
-    //   })
-    // );
-    // //.unsubscribe();
-
-    // this.selectedTask.emit(recordId);
+    this.selectedTask.emit(recordId);
   }
 }

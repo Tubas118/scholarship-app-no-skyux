@@ -33,20 +33,29 @@ export class TaskDashboardComponent implements OnInit {
   }
 
   public onSelectedTask(selectedTaskId: string) {
-    // if (selectedTaskId === undefined) {
-    //   this.selectedTask = undefined;
-    //   this.showEditForm = true;
-    // } else {
-    //   this.taskService.find(selectedTaskId).subscribe(task => {
-    //     this.selectedTask = task;
-    //     this.showEditForm = true;
-    //   });
-    // }
+    console.log(`onSelectedTask: ${selectedTaskId}`);
+    if (selectedTaskId === undefined || this.showEditForm === undefined) {
+      this.selectedTask = undefined;
+      this.showEditForm = true;
+    }
+    else {
+      console.log(`onSelectedTask: ${selectedTaskId}`);
+      this.gridData.forEach(task => {
+        if (task.id === selectedTaskId) {
+          this.selectedTask = task;
+          this.showEditForm = true;
+        }
+      });
+    }
   }
+
 
   public onCloseEdit(event: TaskChangeEvent) {
     this.showEditForm = false;
     if (event !== undefined) {
+      if (event.taskChanges !== undefined) {
+        this.gridData.push(event.taskChanges);
+      }
       this.ngOnInit();
     }
   }
