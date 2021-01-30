@@ -150,6 +150,7 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
   }
 
   private selectScholarshipView(scholarship: ScholarshipView): ScholarshipView {
+    console.log(`selecting scholarship: new? ${this.newEntryMode}, parm=${scholarship?.scholarshipName || 'n/a'}`);
     if (this.newEntryMode) {
       return {
         ...newScholarship()
@@ -159,15 +160,15 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
   }
 
   private intializeFormGroup(scholarship: ScholarshipView): FormGroup {
-    console.log(`intializeFormGroup - Tasks: ${JSON.stringify(this.scholarshipDetails.tasks?.length)}`);
     this.newEntryMode = (scholarship === undefined);
     this.scholarshipDetails = this.selectScholarshipView(scholarship);
     return this.formBuilder.group({
       scholarshipName: new FormControl(this.scholarshipDetails.scholarshipName),
       scholarshipCode: new FormControl(this.scholarshipDetails.code),
       targetAmount: new FormControl(this.scholarshipDetails.targetAmount),
-      sponsor: new FormControl(this.scholarshipDetails.sponsor),
-      sponsorContactInfo: new FormControl(this.scholarshipDetails.sponsorContactInfo),
+      //sponsor: new FormControl(this.scholarshipDetails.sponsor),
+      sponsorId: new FormControl(this.scholarshipDetails.sponsorId),
+      contactInfo: new FormControl(this.scholarshipDetails.contactInfo),
       contactPhone: new FormControl(this.scholarshipDetails.contactPhone),
       contactEmail: new FormControl(this.scholarshipDetails.contactEmail  /* , SkyValidators.email */),
       minimumGpa: new FormControl(this.scholarshipDetails.minimumGpa),
@@ -177,13 +178,13 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
       submitted: new FormControl(this.scholarshipDetails.submitted || false),
       previouslyApplied: new FormControl(this.scholarshipDetails.previouslyApplied || false),
       previouslyAwarded: new FormControl(this.scholarshipDetails.previouslyAwarded || false),
+      membershipRequired: new FormControl(this.scholarshipDetails.membershipRequired || false)
       //tasks: new FormControl(this.scholarshipDetails.tasks),
 
-      essayRequired: new FormControl(this.scholarshipDetails.essayRequired || false),
-      essaySubmitted: new FormControl(this.scholarshipDetails.essaySubmitted || false),
-      financialsRequired: new FormControl(this.scholarshipDetails.financialsRequired || false),
-      financialsSubmitted: new FormControl(this.scholarshipDetails.financialsSubmitted || false),
-      membershipRequired: new FormControl(this.scholarshipDetails.membershipRequired || false)
+      // essayRequired: new FormControl(this.scholarshipDetails.essayRequired || false),
+      // essaySubmitted: new FormControl(this.scholarshipDetails.essaySubmitted || false),
+      // financialsRequired: new FormControl(this.scholarshipDetails.financialsRequired || false),
+      // financialsSubmitted: new FormControl(this.scholarshipDetails.financialsSubmitted || false)
     });
   }
 
@@ -191,8 +192,9 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
     this.scholarshipDetails.scholarshipName = this.scholarshipForm.controls['scholarshipName'].value;
     this.scholarshipDetails.code = this.scholarshipForm.controls['scholarshipCode'].value;
     this.scholarshipDetails.targetAmount = Number(this.scholarshipForm.controls['targetAmount'].value);
-    this.scholarshipDetails.sponsor = this.scholarshipForm.controls['sponsor'].value;
-    this.scholarshipDetails.sponsorContactInfo = this.scholarshipForm.controls['sponsorContactInfo'].value;
+    // this.scholarshipDetails.sponsor = this.scholarshipForm.controls['sponsor'].value;
+    this.scholarshipDetails.sponsorId = this.scholarshipForm.controls['sponsorId'].value;
+    this.scholarshipDetails.contactInfo = this.scholarshipForm.controls['contactInfo'].value;
     this.scholarshipDetails.contactPhone = this.scholarshipForm.controls['contactPhone'].value;
     this.scholarshipDetails.contactEmail = this.scholarshipForm.controls['contactEmail'].value;
     this.scholarshipDetails.minimumGpa = this.scholarshipForm.controls['minimumGpa'].value;
@@ -202,13 +204,13 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
     this.scholarshipDetails.submitted = this.scholarshipForm.controls['submitted'].value;
     this.scholarshipDetails.previouslyApplied = this.scholarshipForm.controls['previouslyApplied'].value;
     this.scholarshipDetails.previouslyAwarded = this.scholarshipForm.controls['previouslyAwarded'].value;
+    this.scholarshipDetails.membershipRequired = this.scholarshipForm.controls['membershipRequired'].value;
     //this.scholarshipDetails.tasks = this.scholarshipForm.controls['tasks'].value;
 
-    this.scholarshipDetails.essayRequired = this.scholarshipForm.controls['essayRequired'].value;
-    this.scholarshipDetails.essaySubmitted = this.scholarshipForm.controls['essaySubmitted'].value;
-    this.scholarshipDetails.financialsRequired = this.scholarshipForm.controls['financialsRequired'].value;
-    this.scholarshipDetails.financialsSubmitted = this.scholarshipForm.controls['financialsSubmitted'].value;
-    this.scholarshipDetails.membershipRequired = this.scholarshipForm.controls['membershipRequired'].value;
+    // this.scholarshipDetails.essayRequired = this.scholarshipForm.controls['essayRequired'].value;
+    // this.scholarshipDetails.essaySubmitted = this.scholarshipForm.controls['essaySubmitted'].value;
+    // this.scholarshipDetails.financialsRequired = this.scholarshipForm.controls['financialsRequired'].value;
+    // this.scholarshipDetails.financialsSubmitted = this.scholarshipForm.controls['financialsSubmitted'].value;
   }
 }
 

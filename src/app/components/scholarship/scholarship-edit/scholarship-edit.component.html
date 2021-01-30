@@ -17,7 +17,8 @@
           <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_targetAmount_label" name="targetAmount">
           </lrock-textbox>
 
-          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_sponsor_label" name="sponsor">
+          Is new? {{ newEntryMode }}
+          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_sponsor_label" name="sponsorId">
           </lrock-textbox>
         </div>
 
@@ -30,7 +31,7 @@
         </div>
 
         <div class="lrock-cell-3">
-          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_sponsorContactInfo_label" name="sponsorContactInfo">
+          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_sponsorContactInfo_label" name="contactInfo">
           </lrock-textbox>
 
           <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_contactPhone_label" name="contactPhone">

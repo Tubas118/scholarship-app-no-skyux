@@ -57,6 +57,7 @@ export class ScholarshipDashboardComponent implements OnInit {
     if (selectedScholarshipId === undefined) {
       this.selectedScholarship = undefined;
       this.showScholarshipEditForm = true;
+      console.log(`scholarship-dashboard.onSelectedScholarship - new: ${selectedScholarshipId}`);
     } else {
       this.scholarshipService.find(selectedScholarshipId)
         .pipe(

@@ -20,6 +20,9 @@ import { CheckboxComponent } from 'src/lib/checkbox/checkbox.component';
 import { SelectValueComponent } from 'src/lib/selectbox/selectbox.component';
 import { TextAreaComponent } from 'src/lib/textarea/textarea.component';
 import { TextboxComponent } from 'src/lib/textbox/textbox.component';
+import { SponsorDashboardComponent } from './components/sponsor/sponsor-dashboard/sponsor-dashboard.component';
+import { SponsorEditComponent } from './components/sponsor/sponsor-edit/sponsor-edit.component';
+import { SponsorListComponent } from './components/sponsor/sponsor-list/sponsor-list.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,9 @@ import { TextboxComponent } from 'src/lib/textbox/textbox.component';
     ScholarshipFilterComponent,
     SelectScholarshipComponent,
     SelectValueComponent,
+    SponsorDashboardComponent,
+    SponsorEditComponent,
+    SponsorListComponent,
     TextAreaComponent,
     TextboxComponent
   ],
