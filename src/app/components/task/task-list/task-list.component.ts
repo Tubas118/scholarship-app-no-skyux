@@ -29,4 +29,8 @@ export class TaskListComponent implements OnInit {
   public editTask(recordId: string) {
     this.selectedTask.emit(recordId);
   }
+
+  public getCheckedValue(flag: boolean) {
+    return flag ? 'checked' : '';
+  }
 }
