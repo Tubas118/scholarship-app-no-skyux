@@ -9,7 +9,7 @@ import { ScholarshipView } from '../models/views/scholarship-view';
 import { map } from 'rxjs/operators';
 import { Task } from '../models/task';
 import { SponsorService } from './sponsor-service';
-import { SelectedItem } from 'src/lib/selectbox/selectbox.component';
+import { SelectedItem } from 'src/lib/components/selectbox/selectbox.component';
 
 @Injectable({
   providedIn: 'root'
@@ -29,10 +29,12 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
     this.getSponsorSelectList();
   }
 
+  /** @deprecated */
   public get scholarshipStatusList(): string[] {
     return ScholarshipService.masterScholarshipStatusList();
   }
 
+  /** @deprecated */
   public get scholarshipStatusFilterList(): string[] {
     return ScholarshipService.masterScholarshipStatusFilterList();
   }
@@ -72,10 +74,13 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
   }
 
   public isValidScholarship(scholarship: Scholarship): boolean {
-    return scholarship.status != 'INVALID' && scholarship.status != 'PASS'
-      && scholarship.status != 'BROKEN' && scholarship.status != 'PASSED_DEADLINE';
+    return true;
+
+    // Deprecated in schema v11 -- return scholarship.status != 'INVALID' && scholarship.status != 'PASS'
+    // Deprecated in schema v11 -- && scholarship.status != 'BROKEN' && scholarship.status != 'PASSED_DEADLINE';
   }
 
+  /** @deprecated */
   public static masterScholarshipStatusList(): string[] {
     if (ScholarshipService.scholarshipStatus === undefined) {
       const enumValues = Object.keys(ScholarshipStatus);
@@ -84,6 +89,7 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
     return ScholarshipService.scholarshipStatus;
   }
 
+  /** @deprecated */
   public static masterScholarshipStatusFilterList(): string[] {
     if (ScholarshipService.filterList === undefined) {
       ScholarshipService.filterList = [
@@ -95,10 +101,11 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
   }
 
   protected dataPreProcessing(data: Scholarship): void {
-    if (data.schemaVersion === undefined || data.schemaVersion < CURRENT_SCHOLARSHIP_SCHEMA || data.statusType === undefined) {
+    // statusType deprecated in schema 11 -- if (data.schemaVersion === undefined || data.schemaVersion < CURRENT_SCHOLARSHIP_SCHEMA || data.statusType === undefined) {
+    if (data.schemaVersion === undefined || data.schemaVersion < CURRENT_SCHOLARSHIP_SCHEMA) {
       data.schemaVersion = CURRENT_SCHOLARSHIP_SCHEMA;
     }
-    data.statusType = statusTypeMap[data.status];
+    // statusType deprecated in schema 11 -- data.statusType = statusTypeMap[data.status];
   }
 
   protected openTasks(scholarship: Scholarship): Task[] {

@@ -16,13 +16,14 @@ import { TaskDashboardComponent } from './components/task/task-dashboard/task-da
 import { TaskEditComponent } from './components/task/task-edit/task-edit.component';
 import { TaskListComponent } from './components/task/task-list/task-list.component';
 import { SelectScholarshipComponent } from './components/scholarship/select-scholarship/select-scholarship.component';
-import { CheckboxComponent } from 'src/lib/checkbox/checkbox.component';
-import { SelectValueComponent } from 'src/lib/selectbox/selectbox.component';
-import { TextAreaComponent } from 'src/lib/textarea/textarea.component';
-import { TextboxComponent } from 'src/lib/textbox/textbox.component';
+import { CheckboxComponent } from 'src/lib/components/checkbox/checkbox.component';
+import { SelectValueComponent } from 'src/lib/components/selectbox/selectbox.component';
+import { TextAreaComponent } from 'src/lib/components/textarea/textarea.component';
+import { TextboxComponent } from 'src/lib/components/textbox/textbox.component';
 import { SponsorDashboardComponent } from './components/sponsor/sponsor-dashboard/sponsor-dashboard.component';
 import { SponsorEditComponent } from './components/sponsor/sponsor-edit/sponsor-edit.component';
 import { SponsorListComponent } from './components/sponsor/sponsor-list/sponsor-list.component';
+import { ScholarshipEditDeactivateGuard } from './components/scholarship/scholarship-edit/scholarship-edit-deactivate.guard';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,9 @@ import { SponsorListComponent } from './components/sponsor/sponsor-list/sponsor-
     SharedComponentsModule,
     SharedServicesModule
   ],
-  providers: [],
+  providers: [
+    ScholarshipEditDeactivateGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

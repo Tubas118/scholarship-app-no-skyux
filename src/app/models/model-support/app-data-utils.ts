@@ -1,6 +1,6 @@
 // import { Contact } from '../contact';
 import { Scholarship, CURRENT_SCHOLARSHIP_SCHEMA } from '../scholarship';
-import { Sponsor } from '../sponsor';
+import { CURRENT_SPONSOR_SCHEMA, Sponsor } from '../sponsor';
 import { CURRENT_TASK_SCHEMA, Task } from '../task';
 
 // export function newContact(assignedFields?: Contact): Contact {
@@ -24,7 +24,7 @@ export function newScholarship(assignedFields?: Scholarship): Scholarship {
     contactEmail: '',
     submitDate: new Date(),
     deadlineDate: undefined,
-    status: '',
+    // status: '', -- Deprecated in schema 11
     tasks: [],
     schemaVersion: CURRENT_SCHOLARSHIP_SCHEMA
   } as Scholarship;
@@ -39,7 +39,8 @@ export function newSponsor(assignedFields?: Sponsor): Sponsor {
     sponsor: '',
     contactInfo: '',
     contactPhone: '',
-    contactEmail: ''
+    contactEmail: '',
+    schemaVersion: CURRENT_SPONSOR_SCHEMA
   } as Sponsor;
   return {
     ...sponsor,

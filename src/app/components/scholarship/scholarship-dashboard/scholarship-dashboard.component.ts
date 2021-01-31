@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { of, Observable, forkJoin } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { MigrateUtil } from 'src/app/models/migrate/migrate';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
 import { SponsorService } from 'src/app/services/sponsor-service';
 import { Scholarship } from '../../../models/scholarship';
 import { ScholarshipService } from '../../../services/scholarship-service';
+import { ScholarshipEditComponent } from '../scholarship-edit/scholarship-edit.component';
+import { ValidateDeactivation } from '../validate-deactivation';
 
 @Component({
   selector: 'scholarship-dashboard',
   templateUrl: './scholarship-dashboard.component.html',
   styleUrls: ['./scholarship-dashboard.component.scss']
 })
-export class ScholarshipDashboardComponent implements OnInit {
+export class ScholarshipDashboardComponent extends ValidateDeactivation implements OnInit {
   public readonly filterLabel = 'Filter';
   public readonly filterControlName = 'scholarshipFilter';
 
@@ -22,17 +25,27 @@ export class ScholarshipDashboardComponent implements OnInit {
   public showScholarshipEditForm: boolean = false;
 
   public activeFilter: string = undefined;
+  /** @deprecated */
   public activeSort: string = undefined;
+
+  @ViewChild(ScholarshipEditComponent) scholarshipEdit: ScholarshipEditComponent;
 
   constructor(private scholarshipService: ScholarshipService,
               private sponsorService: SponsorService) {
+    super();
     this.activeFilter = undefined;
-    this.activeSort = '_sort=status,scholarshipName&_order=asc';
+    // Deprecated in schema 11 -- this.activeSort = '_sort=status,scholarshipName&_order=asc';
+  }
+
+  public get debugId(): string {
+    return (this.showScholarshipEditForm && this.scholarshipEdit !== undefined)
+      ? this.scholarshipEdit.debugId : 'ScholarshipDashboardComponent';
   }
 
   public ngOnInit(): void {
+
+    //Migration code
     /*
-    Migration code
     const migrateUtil = new MigrateUtil(this.scholarshipService, this.sponsorService);
     migrateUtil.migrate();
     */
@@ -40,10 +53,12 @@ export class ScholarshipDashboardComponent implements OnInit {
     this.refreshList();
   }
 
+  /** @deprecated */
   public get scholarshipStatusList(): string[] {
     return this.scholarshipService.scholarshipStatusList;
   }
 
+  /** @deprecated */
   public get scholarshipStatusFilterList(): string[] {
     return this.scholarshipService.scholarshipStatusFilterList;
   }
@@ -94,10 +109,16 @@ export class ScholarshipDashboardComponent implements OnInit {
     }
   }
 
+  public get validateForDeactivation(): boolean {
+    return (this.showScholarshipEditForm && this.scholarshipEdit !== undefined)
+      ? this.scholarshipEdit.validateForDeactivation : false;
+  }
+
   private refreshList() {
     this.scholarshipService.getAllViews(this.getFilterSortValue())
       .pipe(take(1))
       .subscribe((records: ScholarshipView[]) => {
+        records.sort((a, b) => (this.getSortKey(a) > this.getSortKey(b)) ? 1 : -1);
         this.scholarshipGridData = of(records);
       },
       err => {
@@ -106,14 +127,16 @@ export class ScholarshipDashboardComponent implements OnInit {
       });
   }
 
+  private getSortKey(scholarshipView: ScholarshipView) {
+    let openTaskSortValue = 99999 - scholarshipView?.tasks?.length || 0;
+    return openTaskSortValue.toString().padStart(5, '0') + scholarshipView.scholarshipName;
+  }
+
   private getFilterSortValue(): string {
     let filterSortUrl: string = '';
     let filterSortList: string[] = [];
 
-    if (this.activeSort || this.activeFilter) {
-      if (this.activeSort) {
-        filterSortList.push(this.activeSort);
-      }
+    if (this.activeFilter) {
       if (this.activeFilter) {
         filterSortList.push(this.activeFilter);
       }

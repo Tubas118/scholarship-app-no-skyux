@@ -28,6 +28,52 @@ export class TaskDashboardComponent implements OnInit {
     console.log(`TaskDashboardComponent => gridData: ${this.gridData?.length || -1}`);
   }
 
+  protected static readonly APP_SUBMITTED = 'Application submitted';
+  protected static readonly ESSAY_SUBMITTED = 'Essay submitted';
+  protected static readonly FINANCIALS_SUBMITTED = 'Financials submitted';
+
+  public onAddTemplateTasks() {
+    let needsAppTask = true;
+    let needsEssayTask = true;
+    let needsFinancialTask = true;
+
+    this.gridData.forEach(task => {
+      if (this.isTaskValid(task)) {
+        if (task.summary === TaskDashboardComponent.APP_SUBMITTED) {
+          needsAppTask = false;
+        }
+        if (task.summary === TaskDashboardComponent.ESSAY_SUBMITTED) {
+          needsEssayTask = false;
+        }
+        if (task.summary === TaskDashboardComponent.FINANCIALS_SUBMITTED) {
+          needsFinancialTask = false;
+        }
+      }
+    });
+
+    if (needsAppTask) {
+      this.gridData.push({
+        summary: TaskDashboardComponent.APP_SUBMITTED
+      } as Task);
+    }
+
+    if (needsEssayTask) {
+      this.gridData.push({
+        summary: TaskDashboardComponent.ESSAY_SUBMITTED
+      } as Task);
+    }
+
+    if (needsFinancialTask) {
+      this.gridData.push({
+        summary: TaskDashboardComponent.FINANCIALS_SUBMITTED
+      } as Task);
+    }
+  }
+
+  private isTaskValid(task: Task) {
+    return task !== undefined && task.done !== true && task.invalid !== true;
+  }
+
   public onNewTask() {
     this.onSelectedTask(undefined);
   }

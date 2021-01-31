@@ -9,7 +9,7 @@ import { CURRENT_SCHOLARSHIP_SCHEMA, Scholarship } from "../scholarship";
 import { Sponsor } from "../sponsor";
 import { Task } from "../task";
 import { TaskConstants } from "../task-constants";
-import { SleepUtil } from "src/shared/utils/sleep-util";
+import { SleepUtil } from "src/lib/utils/sleep-util";
 
 export class MigrateUtil {
   constructor(private scholarshipService: ScholarshipService,
@@ -83,7 +83,7 @@ export class MigrateUtil {
             .pipe(take(1))
             .subscribe(savedScholarship => console.log(`Updated scholarship from schema version ${scholarshipSource.schemaVersion}: ${savedScholarship.id} = ${savedScholarship.scholarshipName}`))
         },
-        err => console.error(err))
+        err => console.error(err));
   }
 
   private migrateFromV3(scholarshipSource: ScholarshipV3) {
@@ -105,22 +105,29 @@ export class MigrateUtil {
 
     SleepUtil.sleep(250);
 
-    this.sponsorService.add(sponsor).pipe(
-      take(1),
-      map(savedSponsor => {
-        console.log(`Migrated sponsor from schema version ${scholarshipSource.schemaVersion}: ${savedSponsor.id} = ${savedSponsor.sponsor}`)
-        scholarship.sponsorId = savedSponsor.id;
-        scholarship.sponsor = undefined;
+    this.sponsorService.add(sponsor)
+      .pipe(
+        take(1),
+        catchError(err => {
+          console.log(`${err}`)
+          return throwError(err);
+        })
+      )
+      .subscribe(
+        savedSponsor => {
+          console.log(`Migrated sponsor from schema version ${scholarshipSource.schemaVersion}: ${savedSponsor.id} = ${savedSponsor.sponsor}`)
+          scholarship.sponsorId = savedSponsor.id;
+          scholarship.sponsor = undefined;
 
-        this.appendTaskIfMissing(scholarship.tasks, TaskConstants.ESSAY_SUBMITTED);
-        this.appendTaskIfMissing(scholarship.tasks, TaskConstants.FINANCIALS_SUBMITTED);
+          this.appendTaskIfMissing(scholarship.tasks, TaskConstants.ESSAY_SUBMITTED);
+          this.appendTaskIfMissing(scholarship.tasks, TaskConstants.FINANCIALS_SUBMITTED);
 
-        this.scholarshipService.update(scholarship).pipe(
-          take(1),
-          map(savedScholarship => console.log(`Updated scholarship from schema version ${scholarshipSource.schemaVersion}: ${savedScholarship.id} = ${savedScholarship.scholarshipName}`))
-        );
-      })
-    )
+          this.scholarshipService.update(scholarship).pipe(
+            take(1),
+            map(savedScholarship => console.log(`Updated scholarship from schema version ${scholarshipSource.schemaVersion}: ${savedScholarship.id} = ${savedScholarship.scholarshipName}`))
+          )
+        },
+        err => console.error(err));
   }
 
   private appendTaskIfMissing(tasks: Task[], checkTaskSummary: string) {

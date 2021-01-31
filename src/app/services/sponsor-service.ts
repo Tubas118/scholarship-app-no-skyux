@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Scholarship } from '../models/scholarship';
 import { BasicServiceImpl } from '../../shared/basic/basic-service-impl';
 import { HttpClient } from '@angular/common/http';
 import { UuidIdService } from '../../shared/services/uuid-id-service';
@@ -26,8 +25,8 @@ export class SponsorService extends BasicServiceImpl<Sponsor, string> {
     return super.getAll('?_sort=sponsor&_order=asc');
   }
 
-  protected dataPreProcessing(data: Scholarship): void {
-    if (data.schemaVersion === undefined || data.schemaVersion < CURRENT_SPONSOR_SCHEMA || data.statusType === undefined) {
+  protected dataPreProcessing(data: Sponsor): void {
+    if (data.schemaVersion === undefined || data.schemaVersion < CURRENT_SPONSOR_SCHEMA) {
       data.schemaVersion = CURRENT_SPONSOR_SCHEMA;
     }
   }

@@ -13,10 +13,13 @@
         <div *ngIf="entry?.done">
           <input type="checkbox" checked="checked" readonly>
         </div>
-        <div *ngIf="entry?.done === false">
+        <div *ngIf="entry?.done !== true">
           <input type="checkbox" readonly>
         </div>
         {{ entry.summary }}
+        <div *ngIf="entry?.invalid === true">
+          <i> (invalid)</i>
+        </div>
       </div>
       <div class="lrock-cell-2">{{ entry.assignedTo }}</div>
       <div class="lrock-cell-3">{{ entry.notes }}</div>

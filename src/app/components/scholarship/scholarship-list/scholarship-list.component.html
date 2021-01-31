@@ -1,15 +1,13 @@
 <main>
   <div class="lrock-table">
     <div class="lrock-header">
-      <div class="lrock-cell-3">{{ 'scholarship_scholarshipName_label.message' | translate }}</div>
-      <div class="lrock-cell-2">{{ 'scholarship_status_label.message' | translate }}</div>
+      <div class="lrock-cell-5">{{ 'scholarship_scholarshipName_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'scholarship_code_short_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'scholarship_targetAmount_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'tasks_label.message' | translate }}</div>
     </div>
     <div *ngFor="let entry of scholarshipGridData | async" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
-      <div class="lrock-cell-3">{{ entry.scholarshipName }}</div>
-      <div class="lrock-cell-2">{{ entry.status }}</div>
+      <div class="lrock-cell-5">{{ entry.scholarshipName }}</div>
       <div class="lrock-cell-2">{{ entry.code }}</div>
       <div class="lrock-cell-2 lrock-right">{{ entry.targetAmount | currency }}</div>
       <div class="lrock-cell-2">

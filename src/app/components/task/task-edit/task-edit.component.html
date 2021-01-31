@@ -7,10 +7,16 @@
           <lrock-textarea [parentForm]="taskForm" labelResourceName="task_summary_label" name="summary" rows="5">
           </lrock-textarea>
 
+          <lrock-textarea [parentForm]="taskForm" labelResourceName="task_notes_label" name="notes" rows="5">
+          </lrock-textarea>
+
           <lrock-textbox [parentForm]="taskForm" labelResourceName="task_assignedTo_label" name="assignedTo">
           </lrock-textbox>
 
           <lrock-checkbox [parentForm]="taskForm" labelResourceName="task_done_label" name="done">
+          </lrock-checkbox>
+
+          <lrock-checkbox [parentForm]="taskForm" labelResourceName="task_invalid_label" name="invalid">
           </lrock-checkbox>
 
         </div>

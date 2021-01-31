@@ -204,6 +204,10 @@
     "message": "Done",
     "_description": "Replace with description for task_done_label"
   },
+  "task_invalid_label": {
+    "message": "Invalid",
+    "_description": "Replace with description for task_invalid_label"
+  },
   "task_details_label": {
     "message": "Details",
     "_description": "Replace with description for task_details_label"

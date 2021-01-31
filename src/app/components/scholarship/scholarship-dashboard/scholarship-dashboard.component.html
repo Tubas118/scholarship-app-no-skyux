@@ -7,7 +7,10 @@
       <div class="lrock-cell-plain-6">
         <button id="newscholarshipButton" (click)="onNewScholarship()">New Scholarship</button>
       </div>
+      <!--
+      Deprecated in schema 11
       <scholarship-filter class="lrock-cell-plain-6 lrock-right" [filterLabel]="filterLabel" [filterList]="scholarshipStatusFilterList" (filterChanged)="onSelectedFilterChanged($event)"></scholarship-filter>
+      -->
     </div>
   </div>
   <scholarship-list *ngIf="showScholarshipEditForm === false" [scholarshipGridData]="scholarshipGridData" (selectedScholarship)="onSelectedScholarship($event)"></scholarship-list>

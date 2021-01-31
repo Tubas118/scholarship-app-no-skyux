@@ -46,12 +46,15 @@
             </span>
           </div>
 
+          <!--
+          // Deprecated in schema 11
           <label for="status" class="lrock-label lrock-stacked">
             {{ 'scholarship_status_label.message' | translate }}
           </label>
           <select formControlName="status" (change)="onSelectedStatusChanged($event)">
             <option *ngFor="let status of scholarshipStatusList" [ngValue]="status">{{ status }}</option>
           </select>
+          -->
         </div>
       </div>
     </div>
