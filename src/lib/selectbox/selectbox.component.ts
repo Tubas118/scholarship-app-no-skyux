@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'lrock-selectbox',
@@ -29,6 +31,9 @@ export class SelectValueComponent<T> implements OnInit, OnChanges {
 
   @Input()
   public list: T[];
+
+  @Input()
+  public observableList: Observable<T[]>;
 
   public displayList: SelectedItem[];
 
@@ -64,16 +69,40 @@ export class SelectValueComponent<T> implements OnInit, OnChanges {
   }
 
   protected initDisplayList(): void {
-    if (this.list !== undefined) {
-      this.displayList = [];
-      // this.list.forEach((entry: T) => this.displayList.push(entry.toString()));
+    console.log(`initDisplayList: observableList=${this.observableList !== undefined}, list=${this.list !== undefined}`)
+    if (this.observableList !== undefined) {
+      this.initDisplayListFromObservable();
+    }
+    else {
+      this.initDisplayListFromReadyList();
+    }
+  }
+
+  protected initDisplayListFromObservable() {
+    console.log(`initDisplayListFromObservable - start`);
+    this.observableList
+      .pipe(take(1))
+      .subscribe(entries => {
+        console.log(`initDisplayListFromObservable - entries`);
+        this.list = entries;
+        this.initDisplayListFromReadyList();
+      });
+  }
+
+  protected initDisplayListFromReadyList() {
+    if (this.list !== undefined && this.list.length > 0) {
+      let displayList = [];
       for (var entry of this.list) {
-        //console.log(entry.toString());
-        this.displayList.push({
-          id: entry.toString(),
-          display: entry.toString()
+        let selectedItem = {
+          ...entry as any
+        } as SelectedItem;
+
+        displayList.push({
+          id: selectedItem.id !== undefined ? selectedItem.id : selectedItem.toString(),
+          display: selectedItem.id !== undefined ? selectedItem.display : selectedItem.toString()
         })
       }
+      this.displayList = displayList;
     }
   }
 }

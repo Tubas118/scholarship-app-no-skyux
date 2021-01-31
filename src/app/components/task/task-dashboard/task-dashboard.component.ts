@@ -40,23 +40,16 @@ export class TaskDashboardComponent implements OnInit {
     }
     else {
       console.log(`onSelectedTask: ${selectedTaskId}`);
-      this.gridData.forEach(task => {
-        if (task.id === selectedTaskId) {
-          this.selectedTask = task;
-          this.showEditForm = true;
-        }
-      });
+      this.selectedTask = this.gridData[selectedTaskId];
+      this.showEditForm = true;
     }
   }
 
-
   public onCloseEdit(event: TaskChangeEvent) {
     this.showEditForm = false;
-    if (event !== undefined) {
-      if (event.taskChanges !== undefined) {
+    if (event?.newEntry && event?.taskChanges !== undefined) {
         this.gridData.push(event.taskChanges);
-      }
-      this.ngOnInit();
     }
+    this.ngOnInit();
   }
 }

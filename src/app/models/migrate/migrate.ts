@@ -50,7 +50,7 @@ export class MigrateUtil {
     let sponsor = newSponsor({
       sponsor: scholarshipSource.sponsor,
       contactInfo: scholarshipSource.sponsorContactInfo,
-      contactPhone: scholarshipSource.sponsorContactInfo,
+      contactPhone: scholarshipSource.contactPhone,
       contactEmail: scholarshipSource.contactEmail,
     } as Sponsor);
 
@@ -95,7 +95,7 @@ export class MigrateUtil {
     let sponsor = newSponsor({
       sponsor: scholarshipSource.sponsor,
       contactInfo: scholarshipSource.sponsorContactInfo,
-      contactPhone: scholarshipSource.sponsorContactInfo,
+      contactPhone: scholarshipSource.contactPhone,
       contactEmail: scholarshipSource.contactEmail,
     } as Sponsor);
 

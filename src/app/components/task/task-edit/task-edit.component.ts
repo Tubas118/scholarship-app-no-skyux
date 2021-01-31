@@ -18,7 +18,7 @@ export class TaskEditComponent implements OnChanges {
   public showTaskEditForm: boolean = false;
 
   @Output()
-  public closeEvent: EventEmitter<TaskChangeEvent> = new EventEmitter<TaskChangeEvent>();
+  public closeTaskEditEvent: EventEmitter<TaskChangeEvent> = new EventEmitter<TaskChangeEvent>();
 
   public taskForm: FormGroup;
 
@@ -34,7 +34,7 @@ export class TaskEditComponent implements OnChanges {
 
   public onCancel(event: any) {
     this.taskForm.reset();
-    this.closeEvent.emit(undefined);
+    this.closeTaskEditEvent.emit(undefined);
     this.close();
   }
 
@@ -60,12 +60,12 @@ export class TaskEditComponent implements OnChanges {
     if (this.isValid(this.taskDetails.id) && this.taskDetails.id.trim().length === 0) {
       this.taskDetails.id = undefined;
     }
-    this.closeEvent.emit({ taskChanges: this.taskDetails, newEntry: true });
+    this.closeTaskEditEvent.emit({ taskChanges: this.taskDetails, newEntry: true });
     this.close();
   }
 
   private updateExistingEntry() {
-    this.closeEvent.emit({ taskChanges: this.taskDetails, newEntry: false });
+    this.closeTaskEditEvent.emit({ taskChanges: this.taskDetails, newEntry: false });
     this.close();
   }
 

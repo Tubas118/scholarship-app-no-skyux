@@ -17,9 +17,8 @@
           <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_targetAmount_label" name="targetAmount">
           </lrock-textbox>
 
-          Is new? {{ newEntryMode }}
-          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_sponsor_label" name="sponsorId">
-          </lrock-textbox>
+          <lrock-selectbox [parentForm]="scholarshipForm" [observableList]="sponsorSelectList" labelResourceName="scholarship_sponsor_label" name="sponsorId">
+          </lrock-selectbox>
         </div>
 
         <div class="lrock-cell-2">
@@ -50,7 +49,7 @@
           <label for="status" class="lrock-label lrock-stacked">
             {{ 'scholarship_status_label.message' | translate }}
           </label>
-          <select formControlName="status" (change)="onSelectedItemChanged($event)">
+          <select formControlName="status" (change)="onSelectedStatusChanged($event)">
             <option *ngFor="let status of scholarshipStatusList" [ngValue]="status">{{ status }}</option>
           </select>
         </div>

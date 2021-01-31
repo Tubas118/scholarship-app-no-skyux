@@ -6,7 +6,9 @@ import { newScholarship } from '../../../models/model-support/app-data-utils';
 import { TranslateService } from '@ngx-translate/core';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
 import { Task } from 'src/app/models/task';
-import { TaskChangeEvent } from '../../task/task-edit/task-edit.component';
+import { SponsorService } from 'src/app/services/sponsor-service';
+import { SelectedItem } from 'src/lib/selectbox/selectbox.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'scholarship-edit',
@@ -37,12 +39,17 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
 
   constructor(public translate: TranslateService,
               private formBuilder: FormBuilder,
+              private sponsorService: SponsorService,
               private scholarshipService: ScholarshipService) {
   }
 
   public ngOnInit(): void {
     console.log(`emit tasks: ${JSON.stringify(this.scholarshipDetails?.tasks)}`);
     this.tasksEvent.emit(this.scholarshipDetails?.tasks);
+  }
+
+  public get sponsorSelectList(): Observable<SelectedItem[]> {
+    return this.scholarshipService.getSponsorSelectList();
   }
 
   public get scholarshipStatusList(): string[] {
@@ -63,7 +70,7 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
     }
   }
 
-  public onSelectedItemChanged(entry: any) {
+  public onSelectedStatusChanged(entry: any) {
     if (entry.target.value) {
       const parsed: string[] = entry.target.value.split(' ', 2);
       console.log(`parsed: ${parsed}`);
@@ -98,34 +105,6 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
       && contactEmailControl.dirty
       && contactEmailControl.touched;
   }
-
-  // public onNewTask() {
-  //   this.onSelectedTask(undefined);
-  // }
-
-  // public onSelectedTask(selectedTaskId: string) {
-  //   console.log(`onSelectedTask: ${selectedTaskId}`);
-  //   if (selectedTaskId === undefined || this.scholarshipDetails === undefined) {
-  //     this.selectedTask = undefined;
-  //     this.showTaskEditForm = true;
-  //   }
-  //   else {
-  //     console.log(`onSelectedTask: ${selectedTaskId}`);
-  //     this.scholarshipDetails.tasks.forEach(task => {
-  //       if (task.id === selectedTaskId) {
-  //         this.selectedTask = task;
-  //         this.showTaskEditForm = true;
-  //       }
-  //     });
-  //   }
-  // }
-
-  // public onCloseTaskEdit(event: TaskChangeEvent) {
-  //   this.showTaskEditForm = false;
-  //   if (event !== undefined) {
-  //     this.ngOnInit();
-  //   }
-  // }
 
   private isValid(checkValue: any) {
     return checkValue !== undefined && checkValue !== null;
@@ -166,7 +145,6 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
       scholarshipName: new FormControl(this.scholarshipDetails.scholarshipName),
       scholarshipCode: new FormControl(this.scholarshipDetails.code),
       targetAmount: new FormControl(this.scholarshipDetails.targetAmount),
-      //sponsor: new FormControl(this.scholarshipDetails.sponsor),
       sponsorId: new FormControl(this.scholarshipDetails.sponsorId),
       contactInfo: new FormControl(this.scholarshipDetails.contactInfo),
       contactPhone: new FormControl(this.scholarshipDetails.contactPhone),
@@ -179,12 +157,6 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
       previouslyApplied: new FormControl(this.scholarshipDetails.previouslyApplied || false),
       previouslyAwarded: new FormControl(this.scholarshipDetails.previouslyAwarded || false),
       membershipRequired: new FormControl(this.scholarshipDetails.membershipRequired || false)
-      //tasks: new FormControl(this.scholarshipDetails.tasks),
-
-      // essayRequired: new FormControl(this.scholarshipDetails.essayRequired || false),
-      // essaySubmitted: new FormControl(this.scholarshipDetails.essaySubmitted || false),
-      // financialsRequired: new FormControl(this.scholarshipDetails.financialsRequired || false),
-      // financialsSubmitted: new FormControl(this.scholarshipDetails.financialsSubmitted || false)
     });
   }
 
@@ -192,7 +164,6 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
     this.scholarshipDetails.scholarshipName = this.scholarshipForm.controls['scholarshipName'].value;
     this.scholarshipDetails.code = this.scholarshipForm.controls['scholarshipCode'].value;
     this.scholarshipDetails.targetAmount = Number(this.scholarshipForm.controls['targetAmount'].value);
-    // this.scholarshipDetails.sponsor = this.scholarshipForm.controls['sponsor'].value;
     this.scholarshipDetails.sponsorId = this.scholarshipForm.controls['sponsorId'].value;
     this.scholarshipDetails.contactInfo = this.scholarshipForm.controls['contactInfo'].value;
     this.scholarshipDetails.contactPhone = this.scholarshipForm.controls['contactPhone'].value;
@@ -205,12 +176,6 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
     this.scholarshipDetails.previouslyApplied = this.scholarshipForm.controls['previouslyApplied'].value;
     this.scholarshipDetails.previouslyAwarded = this.scholarshipForm.controls['previouslyAwarded'].value;
     this.scholarshipDetails.membershipRequired = this.scholarshipForm.controls['membershipRequired'].value;
-    //this.scholarshipDetails.tasks = this.scholarshipForm.controls['tasks'].value;
-
-    // this.scholarshipDetails.essayRequired = this.scholarshipForm.controls['essayRequired'].value;
-    // this.scholarshipDetails.essaySubmitted = this.scholarshipForm.controls['essaySubmitted'].value;
-    // this.scholarshipDetails.financialsRequired = this.scholarshipForm.controls['financialsRequired'].value;
-    // this.scholarshipDetails.financialsSubmitted = this.scholarshipForm.controls['financialsSubmitted'].value;
   }
 }
 

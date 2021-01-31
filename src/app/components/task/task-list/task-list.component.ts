@@ -26,7 +26,7 @@ export class TaskListComponent implements OnInit {
     this.pageNum = 0;
   }
 
-  public editRecord(recordId: string) {
+  public editTask(recordId: string) {
     this.selectedTask.emit(recordId);
   }
 }

@@ -1,5 +1,5 @@
 <main>
-  <task-edit *ngIf="showEditForm" [taskDetails]="selectedTask" [showTaskEditForm]="showEditForm" (closeEvent)="onCloseEdit($event)"></task-edit>
+  <task-edit *ngIf="showEditForm" [taskDetails]="selectedTask" [showTaskEditForm]="showEditForm" (closeTaskEditEvent)="onCloseEdit($event)"></task-edit>
   <button id="newtaskButton" *ngIf="showEditForm === false" class="" (click)="onNewTask()">New Task</button>
   <task-list *ngIf="showEditForm === false" [gridData]="gridData" (selectedTask)="onSelectedTask($event)"></task-list>
 </main>
