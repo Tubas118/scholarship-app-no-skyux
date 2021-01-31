@@ -128,8 +128,9 @@ export class ScholarshipDashboardComponent extends ValidateDeactivation implemen
   }
 
   private getSortKey(scholarshipView: ScholarshipView) {
-    let openTaskSortValue = 99999 - scholarshipView?.tasks?.length || 0;
-    return openTaskSortValue.toString().padStart(5, '0') + scholarshipView.scholarshipName;
+    let openTaskSortValue = 99999 - scholarshipView?.openTasks?.length || 0;
+    const sortKey = openTaskSortValue.toString().padStart(5, '0') + scholarshipView.scholarshipName;
+    return sortKey;
   }
 
   private getFilterSortValue(): string {
