@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { of, Observable } from 'rxjs';
-import { ScholarshipView } from 'src/app/models/views/scholarship-view';
+import { TaskConstants } from 'src/app/models/task-constants';
 import { Task } from '../../../models/task';
 import { TaskChangeEvent } from '../task-edit/task-edit.component';
 
@@ -19,59 +18,13 @@ export class TaskDashboardComponent implements OnInit {
   public errorDetail: any;
 
   public selectedTask: Task;
-  public showEditForm: boolean = false;
+  public showTaskEditForm: boolean = false;
 
   constructor() {
   }
 
   public ngOnInit(): void {
-    console.log(`TaskDashboardComponent => gridData: ${this.gridData?.length || -1}`);
-  }
-
-  protected static readonly APP_SUBMITTED = 'Application submitted';
-  protected static readonly ESSAY_SUBMITTED = 'Essay submitted';
-  protected static readonly FINANCIALS_SUBMITTED = 'Financials submitted';
-
-  public onAddTemplateTasks() {
-    let needsAppTask = true;
-    let needsEssayTask = true;
-    let needsFinancialTask = true;
-
-    this.gridData.forEach(task => {
-      if (this.isTaskValid(task)) {
-        if (task.summary === TaskDashboardComponent.APP_SUBMITTED) {
-          needsAppTask = false;
-        }
-        if (task.summary === TaskDashboardComponent.ESSAY_SUBMITTED) {
-          needsEssayTask = false;
-        }
-        if (task.summary === TaskDashboardComponent.FINANCIALS_SUBMITTED) {
-          needsFinancialTask = false;
-        }
-      }
-    });
-
-    if (needsAppTask) {
-      this.gridData.push({
-        summary: TaskDashboardComponent.APP_SUBMITTED
-      } as Task);
-    }
-
-    if (needsEssayTask) {
-      this.gridData.push({
-        summary: TaskDashboardComponent.ESSAY_SUBMITTED
-      } as Task);
-    }
-
-    if (needsFinancialTask) {
-      this.gridData.push({
-        summary: TaskDashboardComponent.FINANCIALS_SUBMITTED
-      } as Task);
-    }
-  }
-
-  private isTaskValid(task: Task) {
-    return task !== undefined && task.done !== true && task.invalid !== true;
+    console.log(`TaskDashboardComponent => gridData: ${this.gridData?.length || -1}, showTaskEditForm: ${this.showTaskEditForm}`);
   }
 
   public onNewTask() {
@@ -79,23 +32,78 @@ export class TaskDashboardComponent implements OnInit {
   }
 
   public onSelectedTask(selectedTaskId: string) {
-    console.log(`onSelectedTask: ${selectedTaskId}`);
-    if (selectedTaskId === undefined || this.showEditForm === undefined) {
+    console.log(`TaskDashboardComponent - onSelectedTask: ${selectedTaskId}`);
+    if (selectedTaskId === undefined || this.showTaskEditForm === undefined) {
       this.selectedTask = undefined;
-      this.showEditForm = true;
+      this.showTaskEditForm = true;
     }
     else {
-      console.log(`onSelectedTask: ${selectedTaskId}`);
+      console.log(`TaskDashboardComponent - onSelectedTask: ${selectedTaskId}`);
       this.selectedTask = this.gridData[selectedTaskId];
-      this.showEditForm = true;
+      this.showTaskEditForm = true;
     }
   }
 
   public onCloseEdit(event: TaskChangeEvent) {
-    this.showEditForm = false;
+    console.log(`onCloseEdit: ${JSON.stringify(event)}`);
+    this.showTaskEditForm = false;
     if (event?.newEntry && event?.taskChanges !== undefined) {
         this.gridData.push(event.taskChanges);
     }
     this.ngOnInit();
+  }
+
+  public onAddTemplateTasks() {
+    console.log(`onAddTemplateTasks - start - ${this.showTaskEditForm}`);
+    let needsAppTask = true;
+    let needsEssayTask = true;
+    let needsFinancialTask = true;
+
+    this.gridData.forEach(task => {
+      if (this.isTaskValid(task)) {
+        if (task.summary === TaskConstants.APP_SUBMITTED) {
+          needsAppTask = false;
+        }
+        if (task.summary === TaskConstants.ESSAY_SUBMITTED) {
+          needsEssayTask = false;
+        }
+        if (task.summary === TaskConstants.FINANCIALS_SUBMITTED) {
+          needsFinancialTask = false;
+        }
+      }
+    });
+
+    if (needsAppTask) {
+      this.gridData.push({
+        summary: TaskConstants.APP_SUBMITTED
+      } as Task);
+    }
+
+    if (needsEssayTask) {
+      this.gridData.push({
+        summary: TaskConstants.ESSAY_SUBMITTED
+      } as Task);
+    }
+
+    if (needsFinancialTask) {
+      this.gridData.push({
+        summary: TaskConstants.FINANCIALS_SUBMITTED
+      } as Task);
+    }
+    console.log(`onAddTemplateTasks - end - ${this.showTaskEditForm}`);
+  }
+
+  public onInvalidateTasks() {
+    console.log(`onInvalidateTasks - start - ${this.showTaskEditForm}`);
+    this.gridData.forEach(task => {
+      if (this.isTaskValid(task)) {
+        task.invalid = true;
+      }
+    });
+    console.log(`onInvalidateTasks - end - ${this.showTaskEditForm}`);
+  }
+
+  private isTaskValid(task: Task) {
+    return task !== undefined && task.done !== true && task.invalid !== true;
   }
 }

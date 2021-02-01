@@ -1,13 +1,12 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { Observable } from "rxjs";
-import { ValidateDeactivation } from "../validate-deactivation";
-import { ScholarshipEditComponent } from "./scholarship-edit.component";
+import { ValidateDeactivation } from "./validate-deactivation";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ScholarshipEditDeactivateGuard implements CanDeactivate<ValidateDeactivation> {
+export class ValidateDeactivationGuard implements CanDeactivate<ValidateDeactivation> {
   constructor() {
     console.log('ScholarshipEditDeactivateGuard - constructor');
   }

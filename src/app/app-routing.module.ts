@@ -6,15 +6,15 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ScholarshipEditComponent } from './components/scholarship/scholarship-edit/scholarship-edit.component';
 import { SponsorDashboardComponent } from './components/sponsor/sponsor-dashboard/sponsor-dashboard.component';
 import { SponsorEditComponent } from './components/sponsor/sponsor-edit/sponsor-edit.component';
-import { ScholarshipEditDeactivateGuard } from './components/scholarship/scholarship-edit/scholarship-edit-deactivate.guard';
+import { ValidateDeactivationGuard } from './components/scholarship/validate-deactivation.guard';
 
 const routes: Routes = [
   { path: 'sponsors', component: SponsorDashboardComponent },
   { path: 'sponsors/new', component: SponsorDashboardComponent },
   { path: 'sponsors/:id', component: SponsorEditComponent },
-  { path: 'scholarships', component: ScholarshipDashboardComponent, canDeactivate: [ScholarshipEditDeactivateGuard] },
-  { path: 'scholarship/new', component: ScholarshipDashboardComponent, canDeactivate: [ScholarshipEditDeactivateGuard] },
-  { path: 'scholarship/:id', component: ScholarshipEditComponent, canDeactivate: [ScholarshipEditDeactivateGuard] },
+  { path: 'scholarships', component: ScholarshipDashboardComponent, canDeactivate: [ValidateDeactivationGuard] },
+  { path: 'scholarship/new', component: ScholarshipDashboardComponent, canDeactivate: [ValidateDeactivationGuard] },
+  { path: 'scholarship/:id', component: ScholarshipEditComponent, canDeactivate: [ValidateDeactivationGuard] },
   { path: 'users', component: UserDashboardComponent },
   { path: '', component: WelcomeComponent }
 ];

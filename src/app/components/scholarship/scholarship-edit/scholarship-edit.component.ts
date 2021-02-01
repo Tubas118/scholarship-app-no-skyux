@@ -73,6 +73,25 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
     return 'ScholarshipEditComponent';
   }
 
+  public get doNotClose(): boolean {
+    return true;
+  }
+
+  public get validateForDeactivation(): boolean {
+    console.log('ScholarshipEditComponent closing...');
+    if (!this.changesSubmitted) {
+      console.log('Closing but data not submitted');
+      this.validateScholarshipDetails = {
+        ...this.initialScholarshipDetails
+      } as ScholarshipView;
+      this.updateInternalData(this.validateScholarshipDetails);
+      const checkView: ScholarshipView = (this.validateScholarshipDetails !== undefined) ? this.validateScholarshipDetails : this.scholarshipDetails;
+      return this.isDirtyWorker(checkView);
+    }
+
+    return false;
+  }
+
   public ngOnChanges(changes: SimpleChanges): void {
     if (this.showScholarshipEditForm) {
       this.scholarshipForm = this.intializeFormGroup(this.scholarshipDetails);
@@ -109,21 +128,6 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
     if (this.isOkayToClose()) {
       this.showScholarshipEditForm = false;
     }
-  }
-
-  public get validateForDeactivation(): boolean {
-    console.log('Closing...');
-    if (!this.changesSubmitted) {
-      console.log('Closing but data not submitted');
-      this.validateScholarshipDetails = {
-        ...this.initialScholarshipDetails
-      } as ScholarshipView;
-      this.updateInternalData(this.validateScholarshipDetails);
-      const checkView: ScholarshipView = (this.validateScholarshipDetails !== undefined) ? this.validateScholarshipDetails : this.scholarshipDetails;
-      return this.isDirtyWorker(checkView);
-    }
-
-    return false;
   }
 
   protected isDirtyWorker(checkScholarshipDetails: ScholarshipView): boolean {

@@ -23,7 +23,7 @@ import { TextboxComponent } from 'src/lib/components/textbox/textbox.component';
 import { SponsorDashboardComponent } from './components/sponsor/sponsor-dashboard/sponsor-dashboard.component';
 import { SponsorEditComponent } from './components/sponsor/sponsor-edit/sponsor-edit.component';
 import { SponsorListComponent } from './components/sponsor/sponsor-list/sponsor-list.component';
-import { ScholarshipEditDeactivateGuard } from './components/scholarship/scholarship-edit/scholarship-edit-deactivate.guard';
+import { ValidateDeactivationGuard } from './components/scholarship/validate-deactivation.guard';
 
 @NgModule({
   declarations: [
@@ -54,7 +54,7 @@ import { ScholarshipEditDeactivateGuard } from './components/scholarship/scholar
     SharedServicesModule
   ],
   providers: [
-    ScholarshipEditDeactivateGuard
+    ValidateDeactivationGuard
   ],
   bootstrap: [AppComponent]
 })
