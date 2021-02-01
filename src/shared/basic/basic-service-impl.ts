@@ -7,10 +7,13 @@ import { IdService } from './basic-id-service';
 import { AppConfigService } from '../services/app-config/app-config.service';
 
 export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements BasicService<T, ID> {
+  protected debugId: string;
+
   constructor(protected http: HttpClient,
-    protected config: AppConfigService,
-    protected urlSuffix: string,
-    protected idService: IdService<ID>) {
+              protected config: AppConfigService,
+              protected urlSuffix: string,
+              protected idService: IdService<ID>) {
+    this.debugId = undefined;
   }
 
   public get apiUrl(): string {
@@ -19,6 +22,10 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
 
   public newId(): ID {
     return this.idService.newId();
+  }
+
+  public getDebugId(): string {
+    return this.debugId
   }
 
   public add(data: T): Observable<T> {
@@ -61,7 +68,7 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
 
   public getAll(filter?: string): Observable<T[]> {
     const useUrl = (filter === undefined) ? this.apiUrl : this.apiUrl + filter;
-    console.log(`getAll() => ${useUrl}`);
+    console.log(`getAll() => ${useUrl}${(this.debugId !== undefined) ? ' - ' + this.debugId : ''}`);
     return this.http
       .get<T[]>(useUrl)
       .pipe(catchError(this.handleError));

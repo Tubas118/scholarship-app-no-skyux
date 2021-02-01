@@ -26,6 +26,7 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
               protected idService: UuidIdService,
               protected sponsorService: SponsorService) {
     super(http, configService, 'scholarships', idService);
+    this.debugId = 'ScholarshipService';
     this.getSponsorSelectList();
   }
 

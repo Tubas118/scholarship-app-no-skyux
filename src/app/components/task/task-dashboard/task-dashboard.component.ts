@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TaskConstants } from 'src/app/models/task-constants';
 import { Task } from '../../../models/task';
@@ -15,16 +15,38 @@ export class TaskDashboardComponent implements OnInit {
 
   @Input()
   public gridData: Task[];
+
+  @Output()
+  public bulkTaskChangeEvent: EventEmitter<BulkTaskChangeEvent> = new EventEmitter<BulkTaskChangeEvent>();
+
   public errorDetail: any;
 
   public selectedTask: Task;
   public showTaskEditForm: boolean = false;
+
+  protected bulkTaskActionOccurred = false;
 
   constructor() {
   }
 
   public ngOnInit(): void {
     console.log(`TaskDashboardComponent => gridData: ${this.gridData?.length || -1}, showTaskEditForm: ${this.showTaskEditForm}`);
+  }
+
+  public getBulkTaskActionOccurred() {
+    console.trace('getBulkTaskActionOccurred');
+    return this.bulkTaskActionOccurred;
+  }
+
+  public resetBulkTaskActionOccurred() {
+    console.trace('resetBulkTaskActionOccurred');
+    this.bulkTaskActionOccurred = false;
+    this.bulkTaskChangeEvent.emit({ bulkTaskChangeOccurred: this.bulkTaskActionOccurred });
+  }
+
+  protected setBulkTaskActionOccurred() {
+    this.bulkTaskActionOccurred = true;
+    this.bulkTaskChangeEvent.emit({ bulkTaskChangeOccurred: this.bulkTaskActionOccurred });
   }
 
   public onNewTask() {
@@ -54,6 +76,8 @@ export class TaskDashboardComponent implements OnInit {
   }
 
   public onAddTemplateTasks() {
+    this.setBulkTaskActionOccurred();
+
     console.log(`onAddTemplateTasks - start - ${this.showTaskEditForm}`);
     let needsAppTask = true;
     let needsEssayTask = true;
@@ -94,6 +118,8 @@ export class TaskDashboardComponent implements OnInit {
   }
 
   public onInvalidateTasks() {
+    this.setBulkTaskActionOccurred();
+
     console.log(`onInvalidateTasks - start - ${this.showTaskEditForm}`);
     this.gridData.forEach(task => {
       if (this.isTaskValid(task)) {
@@ -106,4 +132,8 @@ export class TaskDashboardComponent implements OnInit {
   private isTaskValid(task: Task) {
     return task !== undefined && task.done !== true && task.invalid !== true;
   }
+}
+
+export interface BulkTaskChangeEvent {
+  bulkTaskChangeOccurred: boolean;
 }

@@ -50,6 +50,7 @@ export class ScholarshipDashboardComponent extends ValidateDeactivation implemen
     migrateUtil.migrate();
     */
 
+    console.log('ScholarshipDashboardComponent - ngOnInit - who called me?');
     this.refreshList();
   }
 
@@ -88,21 +89,13 @@ export class ScholarshipDashboardComponent extends ValidateDeactivation implemen
     }
   }
 
-  public onSelectedFilterChanged(selectedFilter: string) {
-    if (selectedFilter === 'ALL') {
-      this.activeFilter = undefined;
-    } else {
-      if (selectedFilter === 'SUBMITTED') {
-        this.activeFilter = `submitted=true`;
-      }
-      else {
-        this.activeFilter = `status=${selectedFilter}`;
-      }
-    }
-    this.refreshList();
-  }
-
   public onCloseEdit(event: any /* TODO: ScholarshipChangeEvent */) {
+    if (this.scholarshipEdit?.getBulkTaskActionOccurred()) {
+      this.scholarshipEdit?.resetBulkTaskActionOccurred();
+      this.refreshList();
+      return;
+    }
+    console.log(`ScholarshipDashboardComponent - onCloseEdit - who called me? ${JSON.stringify(event)}`);
     this.showScholarshipEditForm = false;
     if (event !== undefined) {
       this.ngOnInit();

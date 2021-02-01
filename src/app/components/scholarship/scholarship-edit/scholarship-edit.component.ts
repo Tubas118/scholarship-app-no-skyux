@@ -1,4 +1,4 @@
-import { Component, OnChanges, Output, EventEmitter, Input, SimpleChanges, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, OnChanges, Output, EventEmitter, Input, SimpleChanges, ChangeDetectionStrategy, OnInit, ViewChild } from '@angular/core';
 import { Scholarship } from '../../../models/scholarship';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ScholarshipService } from '../../../services/scholarship-service';
@@ -11,6 +11,7 @@ import { SelectedItem } from 'src/lib/components/selectbox/selectbox.component';
 import { Observable } from 'rxjs';
 import { ValidateDeactivation } from '../validate-deactivation';
 import { deepEqual } from '../../../../lib/utils/equality';
+import { BulkTaskChangeEvent, TaskDashboardComponent } from '../../task/task-dashboard/task-dashboard.component';
 
 @Component({
   selector: 'scholarship-edit',
@@ -33,12 +34,13 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
   @Output()
   public tasksEvent: EventEmitter<Task[]> = new EventEmitter<Task[]>();
 
+  @ViewChild(ScholarshipEditComponent) taskDashboard: TaskDashboardComponent;
+
   public scholarshipForm: FormGroup;
 
   private initialScholarshipDetails: ScholarshipView;
   private validateScholarshipDetails: ScholarshipView;
 
-  private selectedStatus: string;
   private newEntryMode: boolean;
   private changesSubmitted = false;
 
@@ -50,14 +52,13 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
   }
 
   public ngOnInit(): void {
-    console.log(`emit tasks: ${JSON.stringify(this.scholarshipDetails?.tasks)}`);
-    this.tasksEvent.emit(this.scholarshipDetails?.tasks);
   }
 
   public get sponsorSelectList(): Observable<SelectedItem[]> {
     return this.scholarshipService.getSponsorSelectList();
   }
 
+  /** @deprecated */
   public get scholarshipStatusList(): string[] {
     const statusList = ScholarshipService.masterScholarshipStatusList();
     return ['ALL'].concat(statusList);
@@ -92,19 +93,29 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
     return false;
   }
 
+  protected bulkTaskActionOccurred: boolean;
+
+  public getBulkTaskActionOccurred() {
+    return this.taskDashboard?.getBulkTaskActionOccurred() || this.bulkTaskActionOccurred;
+  }
+
+  public resetBulkTaskActionOccurred() {
+    this.taskDashboard?.resetBulkTaskActionOccurred();
+    this.bulkTaskActionOccurred = false;
+  }
+
   public ngOnChanges(changes: SimpleChanges): void {
     if (this.showScholarshipEditForm) {
+      console.log(`emit tasks: ${JSON.stringify(this.scholarshipDetails?.tasks)}`);
+      this.tasksEvent.emit(this.scholarshipDetails?.tasks);
+
       this.scholarshipForm = this.intializeFormGroup(this.scholarshipDetails);
       // Deprecated in schema 11 -- this.selectedStatus = this.scholarshipDetails.status;
     }
   }
 
-  public onSelectedStatusChanged(entry: any) {
-    if (entry.target.value) {
-      const parsed: string[] = entry.target.value.split(' ', 2);
-      console.log(`parsed: ${parsed}`);
-      this.selectedStatus = parsed[1];
-    }
+  public onBulkTaskChangeEvent(event: BulkTaskChangeEvent) {
+    this.bulkTaskActionOccurred = event.bulkTaskChangeOccurred;
   }
 
   public onCancel(event: any) {
@@ -113,7 +124,7 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
     this.close();
   }
 
-  public onSubmit() {
+  public onScholarshipSubmit() {
     this.updateInternalData(this.scholarshipDetails);
     this.changesSubmitted = true;
 
@@ -125,6 +136,9 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
   }
 
   public close() {
+    if (this.taskDashboard !== undefined) {
+      this.taskDashboard.gridData = undefined;
+    }
     if (this.isOkayToClose()) {
       this.showScholarshipEditForm = false;
     }
@@ -134,7 +148,7 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
     console.log(`changesSubmitted=${this.changesSubmitted}`);
     console.log(`checkView: ${JSON.stringify(checkScholarshipDetails)}`);
     console.log(`initView:  ${JSON.stringify(this.initialScholarshipDetails)}`);
-    let isDirtyResult = (!this.changesSubmitted && !deepEqual(this.initialScholarshipDetails, checkScholarshipDetails));
+    let isDirtyResult = (!this.changesSubmitted && !this.getBulkTaskActionOccurred() && !deepEqual(this.initialScholarshipDetails, checkScholarshipDetails));
     console.log(`ScholarshipEditComponent - isDirty=${isDirtyResult}`);
     return isDirtyResult;
   }

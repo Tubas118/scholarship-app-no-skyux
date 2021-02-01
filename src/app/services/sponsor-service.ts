@@ -14,6 +14,7 @@ export class SponsorService extends BasicServiceImpl<Sponsor, string> {
               protected configService: AppConfigService,
               protected idService: UuidIdService) {
     super(http, configService, 'sponsors', idService);
+    this.debugId = 'SponsorService';
   }
 
   public add(data: Sponsor): Observable<Sponsor> {

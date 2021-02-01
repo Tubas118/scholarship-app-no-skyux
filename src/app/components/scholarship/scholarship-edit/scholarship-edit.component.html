@@ -1,7 +1,7 @@
 <main>
   <form *ngIf="showScholarshipEditForm"
         [formGroup]="scholarshipForm"
-        (ngSubmit)="onSubmit()">
+        (ngSubmit)="onScholarshipSubmit()">
     <button type="submit">Save Scholarship</button>
     <button type="button" (click)="onCancel($event)">Cancel</button>
     <div class="lrock-table">
@@ -59,7 +59,7 @@
       </div>
     </div>
     <br/>
-    <task-dashboard [gridData]="activeScholarshipTasks">
+    <task-dashboard [gridData]="activeScholarshipTasks" (bulkTaskChangeEvent)="onBulkTaskChangeEvent($event)">
     </task-dashboard>
   </form>
 </main>
