@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ScholarshipService } from 'src/app/services/scholarship-service';
 import { Task } from '../../../models/task';
 
@@ -17,6 +16,12 @@ export class TaskListComponent implements OnInit {
   @Output()
   public selectedTask: EventEmitter<string> = new EventEmitter<string>();
 
+  @Output()
+  public templateTasksEvent: EventEmitter<string> = new EventEmitter<string>();
+
+  @Output()
+  public invalidateTasksEvent: EventEmitter<string> = new EventEmitter<string>();
+
   protected errorDetail: any;
   protected pageNum: number;
 
@@ -26,7 +31,21 @@ export class TaskListComponent implements OnInit {
     this.pageNum = 0;
   }
 
-  public editRecord(recordId: string) {
+  public editTask(recordId: string) {
     this.selectedTask.emit(recordId);
+  }
+
+  public getCheckedValue(flag: boolean) {
+    return flag ? 'checked' : '';
+  }
+
+  public onAddTemplateTasks() {
+    console.log(`TaskListComponent - onAddTemplateTasks`);
+    this.templateTasksEvent.emit('add template tasks');
+  }
+
+  public onInvalidateTasks() {
+    console.log(`TaskListComponent - onInvalidateTasks`);
+    this.invalidateTasksEvent.emit('invalidate tasks');
   }
 }

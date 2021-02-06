@@ -1,4 +1,4 @@
-import { Component, OnChanges, Output, EventEmitter, Input, SimpleChanges, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, OnChanges, Output, EventEmitter, Input, SimpleChanges, ChangeDetectionStrategy, OnInit, ViewChild } from '@angular/core';
 import { Scholarship } from '../../../models/scholarship';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ScholarshipService } from '../../../services/scholarship-service';
@@ -6,15 +6,19 @@ import { newScholarship } from '../../../models/model-support/app-data-utils';
 import { TranslateService } from '@ngx-translate/core';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
 import { Task } from 'src/app/models/task';
-import { TaskChangeEvent } from '../../task/task-edit/task-edit.component';
+import { SponsorService } from 'src/app/services/sponsor-service';
+import { SelectedItem } from 'src/lib/components/selectbox/selectbox.component';
+import { Observable } from 'rxjs';
+import { ValidateDeactivation } from '../validate-deactivation';
+import { deepEqual } from '../../../../lib/utils/equality';
+import { BulkTaskChangeEvent, TaskDashboardComponent } from '../../task/task-dashboard/task-dashboard.component';
 
 @Component({
   selector: 'scholarship-edit',
   templateUrl: './scholarship-edit.component.html',
   styleUrls: ['./scholarship-edit.component.scss']
 })
-export class ScholarshipEditComponent implements OnInit, OnChanges {
-
+export class ScholarshipEditComponent extends ValidateDeactivation implements OnInit, OnChanges {
   @Input()
   public scholarshipDetails: ScholarshipView;
 
@@ -30,21 +34,31 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
   @Output()
   public tasksEvent: EventEmitter<Task[]> = new EventEmitter<Task[]>();
 
+  @ViewChild(ScholarshipEditComponent) taskDashboard: TaskDashboardComponent;
+
   public scholarshipForm: FormGroup;
 
-  private selectedStatus: string;
+  private initialScholarshipDetails: ScholarshipView;
+  private validateScholarshipDetails: ScholarshipView;
+
   private newEntryMode: boolean;
+  private changesSubmitted = false;
 
   constructor(public translate: TranslateService,
               private formBuilder: FormBuilder,
+              private sponsorService: SponsorService,
               private scholarshipService: ScholarshipService) {
+    super();
   }
 
   public ngOnInit(): void {
-    console.log(`emit tasks: ${JSON.stringify(this.scholarshipDetails?.tasks)}`);
-    this.tasksEvent.emit(this.scholarshipDetails?.tasks);
   }
 
+  public get sponsorSelectList(): Observable<SelectedItem[]> {
+    return this.scholarshipService.getSponsorSelectList();
+  }
+
+  /** @deprecated */
   public get scholarshipStatusList(): string[] {
     const statusList = ScholarshipService.masterScholarshipStatusList();
     return ['ALL'].concat(statusList);
@@ -56,19 +70,52 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
       ? this.scholarshipDetails.tasks : [];
   }
 
+  public get debugId(): string {
+    return 'ScholarshipEditComponent';
+  }
+
+  public get doNotClose(): boolean {
+    return true;
+  }
+
+  public get validateForDeactivation(): boolean {
+    console.log('ScholarshipEditComponent closing...');
+    if (!this.changesSubmitted) {
+      console.log('Closing but data not submitted');
+      this.validateScholarshipDetails = {
+        ...this.initialScholarshipDetails
+      } as ScholarshipView;
+      this.updateInternalData(this.validateScholarshipDetails);
+      const checkView: ScholarshipView = (this.validateScholarshipDetails !== undefined) ? this.validateScholarshipDetails : this.scholarshipDetails;
+      return this.isDirtyWorker(checkView);
+    }
+
+    return false;
+  }
+
+  protected bulkTaskActionOccurred: boolean;
+
+  public getBulkTaskActionOccurred() {
+    return this.taskDashboard?.getBulkTaskActionOccurred() || this.bulkTaskActionOccurred;
+  }
+
+  public resetBulkTaskActionOccurred() {
+    this.taskDashboard?.resetBulkTaskActionOccurred();
+    this.bulkTaskActionOccurred = false;
+  }
+
   public ngOnChanges(changes: SimpleChanges): void {
     if (this.showScholarshipEditForm) {
+      console.log(`emit tasks: ${JSON.stringify(this.scholarshipDetails?.tasks)}`);
+      this.tasksEvent.emit(this.scholarshipDetails?.tasks);
+
       this.scholarshipForm = this.intializeFormGroup(this.scholarshipDetails);
-      this.selectedStatus = this.scholarshipDetails.status;
+      // Deprecated in schema 11 -- this.selectedStatus = this.scholarshipDetails.status;
     }
   }
 
-  public onSelectedItemChanged(entry: any) {
-    if (entry.target.value) {
-      const parsed: string[] = entry.target.value.split(' ', 2);
-      console.log(`parsed: ${parsed}`);
-      this.selectedStatus = parsed[1];
-    }
+  public onBulkTaskChangeEvent(event: BulkTaskChangeEvent) {
+    this.bulkTaskActionOccurred = event.bulkTaskChangeOccurred;
   }
 
   public onCancel(event: any) {
@@ -77,8 +124,9 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
     this.close();
   }
 
-  public onSubmit() {
-    this.updateInternalData();
+  public onScholarshipSubmit() {
+    this.updateInternalData(this.scholarshipDetails);
+    this.changesSubmitted = true;
 
     if (this.newEntryMode) {
       this.addNewEntry();
@@ -88,7 +136,21 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
   }
 
   public close() {
-    this.showScholarshipEditForm = false;
+    if (this.taskDashboard !== undefined) {
+      this.taskDashboard.gridData = undefined;
+    }
+    if (this.isOkayToClose()) {
+      this.showScholarshipEditForm = false;
+    }
+  }
+
+  protected isDirtyWorker(checkScholarshipDetails: ScholarshipView): boolean {
+    console.log(`changesSubmitted=${this.changesSubmitted}`);
+    console.log(`checkView: ${JSON.stringify(checkScholarshipDetails)}`);
+    console.log(`initView:  ${JSON.stringify(this.initialScholarshipDetails)}`);
+    let isDirtyResult = (!this.changesSubmitted && !this.getBulkTaskActionOccurred() && !deepEqual(this.initialScholarshipDetails, checkScholarshipDetails));
+    console.log(`ScholarshipEditComponent - isDirty=${isDirtyResult}`);
+    return isDirtyResult;
   }
 
   public get isEmailInvalid(): boolean {
@@ -98,34 +160,6 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
       && contactEmailControl.dirty
       && contactEmailControl.touched;
   }
-
-  // public onNewTask() {
-  //   this.onSelectedTask(undefined);
-  // }
-
-  // public onSelectedTask(selectedTaskId: string) {
-  //   console.log(`onSelectedTask: ${selectedTaskId}`);
-  //   if (selectedTaskId === undefined || this.scholarshipDetails === undefined) {
-  //     this.selectedTask = undefined;
-  //     this.showTaskEditForm = true;
-  //   }
-  //   else {
-  //     console.log(`onSelectedTask: ${selectedTaskId}`);
-  //     this.scholarshipDetails.tasks.forEach(task => {
-  //       if (task.id === selectedTaskId) {
-  //         this.selectedTask = task;
-  //         this.showTaskEditForm = true;
-  //       }
-  //     });
-  //   }
-  // }
-
-  // public onCloseTaskEdit(event: TaskChangeEvent) {
-  //   this.showTaskEditForm = false;
-  //   if (event !== undefined) {
-  //     this.ngOnInit();
-  //   }
-  // }
 
   private isValid(checkValue: any) {
     return checkValue !== undefined && checkValue !== null;
@@ -150,6 +184,7 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
   }
 
   private selectScholarshipView(scholarship: ScholarshipView): ScholarshipView {
+    console.log(`selecting scholarship: new? ${this.newEntryMode}, parm=${scholarship?.scholarshipName || 'n/a'}`);
     if (this.newEntryMode) {
       return {
         ...newScholarship()
@@ -159,56 +194,47 @@ export class ScholarshipEditComponent implements OnInit, OnChanges {
   }
 
   private intializeFormGroup(scholarship: ScholarshipView): FormGroup {
-    console.log(`intializeFormGroup - Tasks: ${JSON.stringify(this.scholarshipDetails.tasks?.length)}`);
     this.newEntryMode = (scholarship === undefined);
     this.scholarshipDetails = this.selectScholarshipView(scholarship);
+    this.initialScholarshipDetails = {
+      ...this.scholarshipDetails
+    };
+
     return this.formBuilder.group({
       scholarshipName: new FormControl(this.scholarshipDetails.scholarshipName),
       scholarshipCode: new FormControl(this.scholarshipDetails.code),
       targetAmount: new FormControl(this.scholarshipDetails.targetAmount),
-      sponsor: new FormControl(this.scholarshipDetails.sponsor),
-      sponsorContactInfo: new FormControl(this.scholarshipDetails.sponsorContactInfo),
+      sponsorId: new FormControl(this.scholarshipDetails.sponsorId),
+      contactInfo: new FormControl(this.scholarshipDetails.contactInfo),
       contactPhone: new FormControl(this.scholarshipDetails.contactPhone),
       contactEmail: new FormControl(this.scholarshipDetails.contactEmail  /* , SkyValidators.email */),
       minimumGpa: new FormControl(this.scholarshipDetails.minimumGpa),
       submitDate: new FormControl(this.scholarshipDetails.submitDate),
       deadlineDate: new FormControl(this.scholarshipDetails.deadlineDate),
-      status: new FormControl(this.scholarshipDetails.status),
+      // Deprecated in schema 11 -- status: new FormControl(this.scholarshipDetails.status),
       submitted: new FormControl(this.scholarshipDetails.submitted || false),
       previouslyApplied: new FormControl(this.scholarshipDetails.previouslyApplied || false),
       previouslyAwarded: new FormControl(this.scholarshipDetails.previouslyAwarded || false),
-      //tasks: new FormControl(this.scholarshipDetails.tasks),
-
-      essayRequired: new FormControl(this.scholarshipDetails.essayRequired || false),
-      essaySubmitted: new FormControl(this.scholarshipDetails.essaySubmitted || false),
-      financialsRequired: new FormControl(this.scholarshipDetails.financialsRequired || false),
-      financialsSubmitted: new FormControl(this.scholarshipDetails.financialsSubmitted || false),
       membershipRequired: new FormControl(this.scholarshipDetails.membershipRequired || false)
     });
   }
 
-  private updateInternalData() {
-    this.scholarshipDetails.scholarshipName = this.scholarshipForm.controls['scholarshipName'].value;
-    this.scholarshipDetails.code = this.scholarshipForm.controls['scholarshipCode'].value;
-    this.scholarshipDetails.targetAmount = Number(this.scholarshipForm.controls['targetAmount'].value);
-    this.scholarshipDetails.sponsor = this.scholarshipForm.controls['sponsor'].value;
-    this.scholarshipDetails.sponsorContactInfo = this.scholarshipForm.controls['sponsorContactInfo'].value;
-    this.scholarshipDetails.contactPhone = this.scholarshipForm.controls['contactPhone'].value;
-    this.scholarshipDetails.contactEmail = this.scholarshipForm.controls['contactEmail'].value;
-    this.scholarshipDetails.minimumGpa = this.scholarshipForm.controls['minimumGpa'].value;
-    this.scholarshipDetails.submitDate = this.scholarshipForm.controls['submitDate'].value;
-    this.scholarshipDetails.deadlineDate = this.scholarshipForm.controls['deadlineDate'].value;
-    this.scholarshipDetails.status = this.selectedStatus;
-    this.scholarshipDetails.submitted = this.scholarshipForm.controls['submitted'].value;
-    this.scholarshipDetails.previouslyApplied = this.scholarshipForm.controls['previouslyApplied'].value;
-    this.scholarshipDetails.previouslyAwarded = this.scholarshipForm.controls['previouslyAwarded'].value;
-    //this.scholarshipDetails.tasks = this.scholarshipForm.controls['tasks'].value;
-
-    this.scholarshipDetails.essayRequired = this.scholarshipForm.controls['essayRequired'].value;
-    this.scholarshipDetails.essaySubmitted = this.scholarshipForm.controls['essaySubmitted'].value;
-    this.scholarshipDetails.financialsRequired = this.scholarshipForm.controls['financialsRequired'].value;
-    this.scholarshipDetails.financialsSubmitted = this.scholarshipForm.controls['financialsSubmitted'].value;
-    this.scholarshipDetails.membershipRequired = this.scholarshipForm.controls['membershipRequired'].value;
+  private updateInternalData(updatedScholarship: ScholarshipView) {
+    updatedScholarship.scholarshipName = this.scholarshipForm.controls['scholarshipName'].value;
+    updatedScholarship.code = this.scholarshipForm.controls['scholarshipCode'].value;
+    updatedScholarship.targetAmount = Number(this.scholarshipForm.controls['targetAmount'].value);
+    updatedScholarship.sponsorId = this.scholarshipForm.controls['sponsorId'].value;
+    updatedScholarship.contactInfo = this.scholarshipForm.controls['contactInfo'].value;
+    updatedScholarship.contactPhone = this.scholarshipForm.controls['contactPhone'].value;
+    updatedScholarship.contactEmail = this.scholarshipForm.controls['contactEmail'].value;
+    updatedScholarship.minimumGpa = this.scholarshipForm.controls['minimumGpa'].value;
+    updatedScholarship.submitDate = this.scholarshipForm.controls['submitDate'].value;
+    updatedScholarship.deadlineDate = this.scholarshipForm.controls['deadlineDate'].value;
+    // Deprecated in schema 11 -- updatedScholarship.status = this.selectedStatus;
+    updatedScholarship.submitted = this.scholarshipForm.controls['submitted'].value;
+    updatedScholarship.previouslyApplied = this.scholarshipForm.controls['previouslyApplied'].value;
+    updatedScholarship.previouslyAwarded = this.scholarshipForm.controls['previouslyAwarded'].value;
+    updatedScholarship.membershipRequired = this.scholarshipForm.controls['membershipRequired'].value;
   }
 }
 

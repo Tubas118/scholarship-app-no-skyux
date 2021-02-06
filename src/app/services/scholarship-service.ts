@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { observable, of, pipe } from 'rxjs';
 import { Scholarship, ScholarshipStatus, CURRENT_SCHOLARSHIP_SCHEMA, statusTypeMap } from '../models/scholarship';
 import { BasicServiceImpl } from '../../shared/basic/basic-service-impl';
 import { HttpClient } from '@angular/common/http';
@@ -7,8 +6,10 @@ import { UuidIdService } from '../../shared/services/uuid-id-service';
 import { AppConfigService } from 'src/shared/services/app-config/app-config.service';
 import { Observable } from 'rxjs';
 import { ScholarshipView } from '../models/views/scholarship-view';
-import { map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Task } from '../models/task';
+import { SponsorService } from './sponsor-service';
+import { SelectedItem } from 'src/lib/components/selectbox/selectbox.component';
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +18,40 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
   private static filterList: string[] = undefined;
   private static scholarshipStatus: string[] = undefined;
 
+  public static readonly NO_SPONSOR_ID = '00000000-0000-0000-0000-000000000000';
+  public static readonly NO_SPONSOR: string = '<<No sponsor>>';
+
   constructor(protected http: HttpClient,
               protected configService: AppConfigService,
-              protected idService: UuidIdService) {
-      super(http, configService, 'scholarships', idService);
+              protected idService: UuidIdService,
+              protected sponsorService: SponsorService) {
+    super(http, configService, 'scholarships', idService);
+    this.debugId = 'ScholarshipService';
+    this.getSponsorSelectList();
   }
 
+  /** @deprecated */
   public get scholarshipStatusList(): string[] {
     return ScholarshipService.masterScholarshipStatusList();
   }
 
+  /** @deprecated */
   public get scholarshipStatusFilterList(): string[] {
     return ScholarshipService.masterScholarshipStatusFilterList();
+  }
+
+  public getSponsorSelectList(): Observable<SelectedItem[]> {
+    return this.sponsorService.getAllSorted().pipe(
+      map(entries => {
+        let selectItems: SelectedItem[] = [];
+        selectItems.push({ display: ScholarshipService.NO_SPONSOR, id: ScholarshipService.NO_SPONSOR_ID } as SelectedItem);
+        entries.forEach(entry => {
+          console.log(`sponsorSelectList - check ${entry.sponsor}`);
+          selectItems.push({ display: entry.sponsor, id: entry.id } as SelectedItem);
+        });
+        return selectItems;
+      })
+    );
   }
 
   public getAllViews(filter?: string): Observable<ScholarshipView[]> {
@@ -52,10 +75,13 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
   }
 
   public isValidScholarship(scholarship: Scholarship): boolean {
-    return scholarship.status != 'INVALID' && scholarship.status != 'PASS'
-      && scholarship.status != 'BROKEN' && scholarship.status != 'PASSED_DEADLINE';
+    return true;
+
+    // Deprecated in schema v11 -- return scholarship.status != 'INVALID' && scholarship.status != 'PASS'
+    // Deprecated in schema v11 -- && scholarship.status != 'BROKEN' && scholarship.status != 'PASSED_DEADLINE';
   }
 
+  /** @deprecated */
   public static masterScholarshipStatusList(): string[] {
     if (ScholarshipService.scholarshipStatus === undefined) {
       const enumValues = Object.keys(ScholarshipStatus);
@@ -64,6 +90,7 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
     return ScholarshipService.scholarshipStatus;
   }
 
+  /** @deprecated */
   public static masterScholarshipStatusFilterList(): string[] {
     if (ScholarshipService.filterList === undefined) {
       ScholarshipService.filterList = [
@@ -75,10 +102,11 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
   }
 
   protected dataPreProcessing(data: Scholarship): void {
-    if (data.schemaVersion === undefined || data.schemaVersion < CURRENT_SCHOLARSHIP_SCHEMA || data.statusType === undefined) {
+    // statusType deprecated in schema 11 -- if (data.schemaVersion === undefined || data.schemaVersion < CURRENT_SCHOLARSHIP_SCHEMA || data.statusType === undefined) {
+    if (data.schemaVersion === undefined || data.schemaVersion < CURRENT_SCHOLARSHIP_SCHEMA) {
       data.schemaVersion = CURRENT_SCHOLARSHIP_SCHEMA;
     }
-    data.statusType = statusTypeMap[data.status];
+    // statusType deprecated in schema 11 -- data.statusType = statusTypeMap[data.status];
   }
 
   protected openTasks(scholarship: Scholarship): Task[] {

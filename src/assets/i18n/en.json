@@ -152,32 +152,21 @@
     "message": "scholarshipName",
     "_description": "Replace with description for scholarshipTaskView_scholarshipName_label"
   },
-  "scholarshipTaskView_sponsor_label": {
-    "message": "sponsor",
-    "_description": "Replace with description for scholarshipTaskView_sponsor_label"
+  "sponsor_sponsor_label": {
+    "message": "Sponsor",
+    "_description": "Replace with description for sponsor_sponsor_label"
   },
-  "scholarshipTaskView_summary_label": {
-    "message": "summary",
-    "_description": "Replace with description for scholarshipTaskView_summary_label"
+  "sponsor_contactInfo_label": {
+    "message": "Contact Info",
+    "_description": "Replace with description for sponsor_contactInfo_label"
   },
-  "scholarshipTaskView_assignedTo_label": {
-    "message": "assignedTo",
-    "_description": "Replace with description for scholarshipTaskView_assignedTo_label"
+  "sponsor_contactPhone_label": {
+    "message": "Contact Phone",
+    "_description": "Replace with description for sponsor_contactPhone_label"
   },
-  "scholarshipTaskView_notes_label": {
-    "message": "notes",
-    "_description": "Replace with description for scholarshipTaskView_notes_label"
-  },
-  "scholarshipTaskView_done_label": {
-    "message": "done",
-    "_description": "Replace with description for scholarshipTaskView_done_label"
-  },
-  "scholarshipTaskView_invalid_label": {
-    "message": "invalid",
-    "_description": "Replace with description for scholarshipTaskView_invalid_label"
-  },
-  "sponsor_contact_info_label": {
-    "message": "Contact Info"
+  "sponsor_contactEmail_label": {
+    "message": "Contact Email",
+    "_description": "Replace with description for sponsor_contactEmail_label"
   },
   "tasks_label": {
     "message": "Tasks",
@@ -214,6 +203,10 @@
   "task_done_label": {
     "message": "Done",
     "_description": "Replace with description for task_done_label"
+  },
+  "task_invalid_label": {
+    "message": "Invalid",
+    "_description": "Replace with description for task_invalid_label"
   },
   "task_details_label": {
     "message": "Details",

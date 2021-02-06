@@ -1,7 +1,7 @@
 <main>
   <form *ngIf="showScholarshipEditForm"
         [formGroup]="scholarshipForm"
-        (ngSubmit)="onSubmit()">
+        (ngSubmit)="onScholarshipSubmit()">
     <button type="submit">Save Scholarship</button>
     <button type="button" (click)="onCancel($event)">Cancel</button>
     <div class="lrock-table">
@@ -17,8 +17,8 @@
           <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_targetAmount_label" name="targetAmount">
           </lrock-textbox>
 
-          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_sponsor_label" name="sponsor">
-          </lrock-textbox>
+          <lrock-selectbox [parentForm]="scholarshipForm" [observableList]="sponsorSelectList" labelResourceName="scholarship_sponsor_label" name="sponsorId">
+          </lrock-selectbox>
         </div>
 
         <div class="lrock-cell-2">
@@ -30,7 +30,7 @@
         </div>
 
         <div class="lrock-cell-3">
-          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_sponsorContactInfo_label" name="sponsorContactInfo">
+          <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_sponsorContactInfo_label" name="contactInfo">
           </lrock-textbox>
 
           <lrock-textbox [parentForm]="scholarshipForm" labelResourceName="scholarship_contactPhone_label" name="contactPhone">
@@ -46,17 +46,20 @@
             </span>
           </div>
 
+          <!--
+          // Deprecated in schema 11
           <label for="status" class="lrock-label lrock-stacked">
             {{ 'scholarship_status_label.message' | translate }}
           </label>
-          <select formControlName="status" (change)="onSelectedItemChanged($event)">
+          <select formControlName="status" (change)="onSelectedStatusChanged($event)">
             <option *ngFor="let status of scholarshipStatusList" [ngValue]="status">{{ status }}</option>
           </select>
+          -->
         </div>
       </div>
     </div>
     <br/>
-    <task-dashboard [gridData]="activeScholarshipTasks">
+    <task-dashboard [gridData]="activeScholarshipTasks" (bulkTaskChangeEvent)="onBulkTaskChangeEvent($event)">
     </task-dashboard>
   </form>
 </main>

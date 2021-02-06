@@ -1,0 +1,5 @@
+<main>
+  <sponsor-edit *ngIf="showEditForm" [sponsorDetails]="selectedSponsor" [showEditForm]="showEditForm" (closeEvent)="onCloseEdit($event)"></sponsor-edit>
+  <button id="newsponsorButton" *ngIf="showEditForm === false" class="" (click)="onNewSponsor()">New Sponsor</button>
+  <sponsor-list *ngIf="showEditForm === false" [gridData]="gridData" (selectedSponsor)="onSelectedSponsor($event)"></sponsor-list>
+</main>

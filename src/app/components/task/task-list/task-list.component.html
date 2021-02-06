@@ -1,22 +1,36 @@
 <main>
+  <button id="addTemplateTasksButton" class="" (click)="onAddTemplateTasks()">Template Tasks</button>
+  <button id="invalidateTasksButton" class="" (click)="onInvalidateTasks()">Invalidate Tasks</button>
+  <b>IMPORTANT</b> Add template and invalidate tasks are saved immediately. The cancel button DOES NOT undo this action.
   <div class="lrock-table">
     <div class="lrock-header">
-      <div class="lrock-cell-1">{{ 'task_summary_label.message' | translate }}</div>
-      <div class="lrock-cell-1">{{ 'task_assignedTo_label.message' | translate }}</div>
-      <div class="lrock-cell-1">{{ 'task_notes_label.message' | translate }}</div>
-      <div class="lrock-cell-1">{{ 'task_done_label.message' | translate }}</div>
-      <div class="lrock-cell-1">{{ 'task_details_label.message' | translate }}</div>
+      <div class="lrock-cell-3">{{ 'task_summary_label.message' | translate }}</div>
+      <div class="lrock-cell-2">{{ 'task_assignedTo_label.message' | translate }}</div>
+      <div class="lrock-cell-3">{{ 'task_notes_label.message' | translate }}</div>
+      <!-- <div class="lrock-cell-1">{{ 'task_details_label.message' | translate }}</div>
       <div class="lrock-cell-1">{{ 'task_timestamp_label.message' | translate }}</div>
-      <div class="lrock-cell-1">{{ 'task_userId_label.message' | translate }}</div>
+      <div class="lrock-cell-1">{{ 'task_userId_label.message' | translate }}</div> -->
     </div>
-    <div *ngFor="let entry of gridData" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
-      <div class="lrock-cell-1">{{ entry.summary }}</div>
-      <div class="lrock-cell-1">{{ entry.assignedTo }}</div>
-      <div class="lrock-cell-1">{{ entry.notes }}</div>
-      <div class="lrock-cell-1">{{ entry.done }}</div>
-      <div class="lrock-cell-1">{{ entry.details }}</div>
+    <div *ngFor="let entry of gridData; index as i" class="lrock-row lrock-selectable" (click)="editTask(i)">
+      <div class="lrock-cell-3 lrock-inline">
+        <div *ngIf="entry?.done">
+          <input type="checkbox" checked="checked" readonly>
+        </div>
+        <div *ngIf="entry?.done !== true">
+          <input type="checkbox" readonly>
+        </div>
+        {{ entry.summary }}
+        <div *ngIf="entry?.invalid === true">
+          <i> (invalid)</i>
+        </div>
+      </div>
+      <div class="lrock-cell-2">{{ entry.assignedTo }}</div>
+      <div class="lrock-cell-3">{{ entry.notes }}</div>
+
+      <!-- <div class="lrock-cell-1">{{ entry.done }}</div> -->
+      <!-- <div class="lrock-cell-1">{{ entry.details }}</div>
       <div class="lrock-cell-1">{{ entry.timestamp }}</div>
-      <div class="lrock-cell-1">{{ entry.userId }}</div>
+      <div class="lrock-cell-1">{{ entry.userId }}</div> -->
     </div>
   </div>
 </main>

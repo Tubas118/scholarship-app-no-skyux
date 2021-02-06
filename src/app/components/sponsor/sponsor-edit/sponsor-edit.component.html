@@ -1,0 +1,34 @@
+<main>
+  <form *ngIf="showEditForm"
+        [formGroup]="sponsorForm"
+        (ngSubmit)="onSubmit()">
+    <div class="lrock-table">
+      <div class="lrock-row">
+        <div class="lrock-cell-3">
+          <label for="sponsor_sponsor" class="lrock-label lrock-stacked">
+            {{ 'sponsor_sponsor_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="sponsor" type="text">
+
+          <label for="sponsor_contactInfo" class="lrock-label lrock-stacked">
+            {{ 'sponsor_contactInfo_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="contactInfo" type="text">
+
+          <label for="sponsor_contactPhone" class="lrock-label lrock-stacked">
+            {{ 'sponsor_contactPhone_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="contactPhone" type="text">
+
+          <label for="sponsor_contactEmail" class="lrock-label lrock-stacked">
+            {{ 'sponsor_contactEmail_label.message' | translate }}
+          </label>
+          <input class="lrock-control lrock-stacked" formControlName="contactEmail" type="text">
+
+        </div>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+    <button type="button" (click)="onCancel($event)">Cancel</button>
+  </form>
+</main>

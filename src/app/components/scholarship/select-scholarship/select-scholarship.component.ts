@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Scholarship } from 'src/app/models/scholarship';
-import { SelectValueComponent } from 'src/lib/selectbox/selectbox.component';
+import { SelectValueComponent } from 'src/lib/components/selectbox/selectbox.component';
 
 @Component({
   selector: 'select-scholarship',
-  templateUrl: '../../../../lib/selectbox/selectbox.component.html'
+  templateUrl: '../../../../lib/components/selectbox/selectbox.component.html'
 })
 export class SelectScholarshipComponent extends SelectValueComponent<Scholarship> {
   protected initDisplayList(): void {

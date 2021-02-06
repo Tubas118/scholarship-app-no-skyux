@@ -1,7 +1,7 @@
 import { BasicData } from '../../shared/basic/basic-data';
 import { Task } from './task';
 
-export const CURRENT_SCHOLARSHIP_SCHEMA = 10;
+export const CURRENT_SCHOLARSHIP_SCHEMA = 11;
 
 export interface Scholarship extends BasicData<string> {
   scholarshipName: string;
@@ -11,8 +11,6 @@ export interface Scholarship extends BasicData<string> {
   contactPhone: string;
   contactEmail: string;
   minimumGpa: string;
-  status: string;
-  statusType?: number;
   submitDate?: Date;
   deadlineDate?: Date;
   targetAmount?: number;
@@ -36,8 +34,15 @@ export interface Scholarship extends BasicData<string> {
   financialsRequired?: boolean;
   /** @deprecated */
   financialsSubmitted?: boolean;
+
+  // -- Deprecated in schema version 11
+  /** @deprecated */
+  status: string;
+  /** @deprecated */
+  statusType?: number;
 }
 
+/** @deprecated */
 export enum ScholarshipStatus {
   SUBMITTED = 'active-submitted',
   APPLY = 'b-apply',
@@ -52,6 +57,7 @@ export enum ScholarshipStatus {
   INVALID = 'z-invalid'
 }
 
+/** @deprecated */
 export const statusTypeMap = {
   SUBMITTED: 2,
   APPLY: 1,

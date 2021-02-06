@@ -2,6 +2,8 @@ import { Component, OnChanges, Output, EventEmitter, Input, SimpleChanges, Chang
 import { Task } from '../../../models/task';
 import { FormGroup, FormControl } from '@angular/forms';
 import { newTask } from '../../../models/model-support/app-data-utils';
+import { ValidateDeactivation } from '../../scholarship/validate-deactivation';
+import { deepEqual } from '../../../../lib/utils/equality';
 
 @Component({
   selector: 'task-edit',
@@ -9,8 +11,7 @@ import { newTask } from '../../../models/model-support/app-data-utils';
   styleUrls: ['./task-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskEditComponent implements OnChanges {
-
+export class TaskEditComponent extends ValidateDeactivation implements OnChanges {
   @Input()
   public taskDetails: Task;
 
@@ -18,28 +19,69 @@ export class TaskEditComponent implements OnChanges {
   public showTaskEditForm: boolean = false;
 
   @Output()
-  public closeEvent: EventEmitter<TaskChangeEvent> = new EventEmitter<TaskChangeEvent>();
+  public closeTaskEditEvent: EventEmitter<TaskChangeEvent> = new EventEmitter<TaskChangeEvent>();
 
   public taskForm: FormGroup;
 
+  private initialTaskDetails: Task;
+  private validateTaskDetails: Task;
+  private changesSubmitted = false;
   private newEntryMode: boolean;
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (this.showTaskEditForm) {
+      this.initialTaskDetails = {
+        ...this.taskDetails
+      };
       this.taskForm = this.intializeFormGroup(this.taskDetails);
     }
   }
 
+  public get debugId(): string {
+    return 'TaskEditComponent';
+  }
+
+  public get doNotClose(): boolean {
+    return true;
+  }
+
+  public get validateForDeactivation(): boolean {
+    console.log('TaskEditComponent closing...');
+    if (!this.changesSubmitted) {
+      console.log('Closing but data not submitted');
+      this.validateTaskDetails = {
+        ...this.initialTaskDetails
+      } as Task;
+      this.updateInternalData(this.validateTaskDetails);
+      const checkTask: Task = (this.validateTaskDetails !== undefined) ? this.validateTaskDetails : this.taskDetails;
+      return this.isDirtyWorker(checkTask);
+    }
+
+    return false;
+  }
+
+  protected isDirtyWorker(checkTask: Task): boolean {
+    console.log(`changesSubmitted=${this.changesSubmitted}`);
+    console.log(`checkTask: ${JSON.stringify(checkTask)}`);
+    console.log(`initView:  ${JSON.stringify(this.initialTaskDetails)}`);
+    let isDirtyResult = (!this.changesSubmitted && !deepEqual(this.initialTaskDetails, checkTask));
+    console.log(`ScholarshipEditComponent - isDirty=${isDirtyResult}`);
+    return isDirtyResult;
+  }
+
   public onCancel(event: any) {
     this.taskForm.reset();
-    this.closeEvent.emit(undefined);
+    this.closeTaskEditEvent.emit(undefined);
     this.close();
   }
 
   public onSubmit() {
-    this.updateInternalData();
+    this.updateInternalData(this.taskDetails);
+    this.changesSubmitted = true;
 
     if (this.newEntryMode) {
       this.addNewEntry();
@@ -60,12 +102,12 @@ export class TaskEditComponent implements OnChanges {
     if (this.isValid(this.taskDetails.id) && this.taskDetails.id.trim().length === 0) {
       this.taskDetails.id = undefined;
     }
-    this.closeEvent.emit({ taskChanges: this.taskDetails, newEntry: true });
+    this.closeTaskEditEvent.emit({ taskChanges: this.taskDetails, newEntry: true });
     this.close();
   }
 
   private updateExistingEntry() {
-    this.closeEvent.emit({ taskChanges: this.taskDetails, newEntry: false });
+    this.closeTaskEditEvent.emit({ taskChanges: this.taskDetails, newEntry: false });
     this.close();
   }
 
@@ -82,13 +124,13 @@ export class TaskEditComponent implements OnChanges {
     });
   }
 
-  private updateInternalData() {
-    this.taskDetails.scholarshipId = this.taskForm.controls['scholarshipId'].value;
-    this.taskDetails.summary = this.taskForm.controls['summary'].value;
-    this.taskDetails.assignedTo = this.taskForm.controls['assignedTo'].value;
-    this.taskDetails.notes = this.taskForm.controls['notes'].value;
-    this.taskDetails.done = this.taskForm.controls['done'].value;
-    this.taskDetails.invalid = this.taskForm.controls['invalid'].value;
+  private updateInternalData(updatedTaskDetails: Task) {
+    updatedTaskDetails.scholarshipId = this.taskForm.controls['scholarshipId'].value;
+    updatedTaskDetails.summary = this.taskForm.controls['summary'].value;
+    updatedTaskDetails.assignedTo = this.taskForm.controls['assignedTo'].value;
+    updatedTaskDetails.notes = this.taskForm.controls['notes'].value;
+    updatedTaskDetails.done = this.taskForm.controls['done'].value;
+    updatedTaskDetails.invalid = this.taskForm.controls['invalid'].value;
   }
 }
 
