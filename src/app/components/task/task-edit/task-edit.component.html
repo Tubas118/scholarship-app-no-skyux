@@ -10,15 +10,25 @@
           <lrock-textarea [parentForm]="taskForm" labelResourceName="task_notes_label" name="notes" rows="5">
           </lrock-textarea>
 
-          <lrock-textbox [parentForm]="taskForm" labelResourceName="task_assignedTo_label" name="assignedTo">
-          </lrock-textbox>
+          <div class="lrock-row-plain">
+            <div class="lrock-cell-2">
+              <br/>
+              <lrock-date-select [parentForm]="taskForm" labelResourceName="task_deadlineDate_label" name="deadlineDate">
+              </lrock-date-select>
+            </div>
 
-          <lrock-checkbox [parentForm]="taskForm" labelResourceName="task_done_label" name="done">
-          </lrock-checkbox>
+            <div class="lrock-cell-4">
+              <lrock-textbox [parentForm]="taskForm" labelResourceName="task_assignedTo_label" name="assignedTo">
+              </lrock-textbox>
+            </div>
 
-          <lrock-checkbox [parentForm]="taskForm" labelResourceName="task_invalid_label" name="invalid">
-          </lrock-checkbox>
-
+            <div class="lrock-cell-2">
+              <lrock-checkbox [parentForm]="taskForm" labelResourceName="task_done_label" name="done">
+              </lrock-checkbox>
+              <lrock-checkbox [parentForm]="taskForm" labelResourceName="task_invalid_label" name="invalid">
+              </lrock-checkbox>
+            </div>
+          </div>
         </div>
       </div>
     </div>

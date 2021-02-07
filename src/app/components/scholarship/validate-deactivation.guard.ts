@@ -7,12 +7,9 @@ import { ValidateDeactivation } from "./validate-deactivation";
   providedIn: 'root'
 })
 export class ValidateDeactivationGuard implements CanDeactivate<ValidateDeactivation> {
-  constructor() {
-    console.log('ScholarshipEditDeactivateGuard - constructor');
-  }
+  constructor() { }
 
   public canDeactivate(component: ValidateDeactivation, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState?: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    console.log(`checking okay to deactivate: component exists? ${component !== undefined}`);
     return (component !== undefined) ? component.isOkayToClose() : true;
   }
 

@@ -50,9 +50,7 @@ export class TaskEditComponent extends ValidateDeactivation implements OnChanges
   }
 
   public get validateForDeactivation(): boolean {
-    console.log('TaskEditComponent closing...');
     if (!this.changesSubmitted) {
-      console.log('Closing but data not submitted');
       this.validateTaskDetails = {
         ...this.initialTaskDetails
       } as Task;
@@ -65,12 +63,7 @@ export class TaskEditComponent extends ValidateDeactivation implements OnChanges
   }
 
   protected isDirtyWorker(checkTask: Task): boolean {
-    console.log(`changesSubmitted=${this.changesSubmitted}`);
-    console.log(`checkTask: ${JSON.stringify(checkTask)}`);
-    console.log(`initView:  ${JSON.stringify(this.initialTaskDetails)}`);
-    let isDirtyResult = (!this.changesSubmitted && !deepEqual(this.initialTaskDetails, checkTask));
-    console.log(`ScholarshipEditComponent - isDirty=${isDirtyResult}`);
-    return isDirtyResult;
+    return (!this.changesSubmitted && !deepEqual(this.initialTaskDetails, checkTask));
   }
 
   public onCancel(event: any) {
@@ -117,6 +110,7 @@ export class TaskEditComponent extends ValidateDeactivation implements OnChanges
     return new FormGroup({
       scholarshipId: new FormControl(this.taskDetails.scholarshipId),
       summary: new FormControl(this.taskDetails.summary),
+      deadlineDate: new FormControl(this.taskDetails.deadlineDate),
       assignedTo: new FormControl(this.taskDetails.assignedTo),
       notes: new FormControl(this.taskDetails.notes),
       done: new FormControl(this.taskDetails.done),
@@ -127,6 +121,7 @@ export class TaskEditComponent extends ValidateDeactivation implements OnChanges
   private updateInternalData(updatedTaskDetails: Task) {
     updatedTaskDetails.scholarshipId = this.taskForm.controls['scholarshipId'].value;
     updatedTaskDetails.summary = this.taskForm.controls['summary'].value;
+    updatedTaskDetails.deadlineDate = this.taskForm.controls['deadlineDate'].value;
     updatedTaskDetails.assignedTo = this.taskForm.controls['assignedTo'].value;
     updatedTaskDetails.notes = this.taskForm.controls['notes'].value;
     updatedTaskDetails.done = this.taskForm.controls['done'].value;

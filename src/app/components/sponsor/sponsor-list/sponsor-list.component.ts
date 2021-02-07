@@ -23,7 +23,6 @@ export class SponsorListComponent implements OnInit {
   }
 
   public editRecord(recordId: string) {
-    console.log(recordId);
     this.selectedSponsor.emit(recordId);
   }
 }

@@ -3,15 +3,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'lrock-textbox',
-  templateUrl: './textbox.component.html' //,
+  selector: 'lrock-date-select',
+  templateUrl: './date-select.component.html' //,
   //styleUrls: []
 })
-export class TextboxComponent implements OnInit {
+export class DateSelectComponent implements OnInit {
 
-  /*
-  Reference: https://stackoverflow.com/questions/60200533/creating-a-custom-component-wrapping-an-input-control-on-angular-for-reactive-fo
-  */
   @Input()
   public parentForm: FormGroup;
 
@@ -20,6 +17,9 @@ export class TextboxComponent implements OnInit {
 
   @Input()
   public labelResourceName: string;
+
+  @Input()
+  public dateClass: string;
 
   @Input()
   public name: string;

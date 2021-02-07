@@ -23,7 +23,6 @@ export class ScholarshipFilterComponent implements OnChanges {
   }
 
   public onSelectedItemChanged(entry: any) {
-    console.log(` onSelectedItemChanged: ${entry.target.value}`);
     this.filterChanged.emit(entry.target.value);
   }
 }

@@ -9,6 +9,8 @@ import { AppConfigSettings } from 'src/shared/basic/basic-service-impl';
 import { ScholarshipService } from './scholarship-service';
 import { ScholarshipRandomBuilder } from '../models/scholarship-random-builder';
 import { Scholarship } from '../models/scholarship';
+import { SponsorService } from './sponsor-service';
+import { Sponsor } from '../models/sponsor';
 
 let unroll = require('unroll');
 unroll.use(it);
@@ -16,7 +18,13 @@ unroll.use(it);
 describe('scholarship-service', () => {
   let spyHttpClient = jasmine.createSpyObj('HttpClient', ['post', 'put', 'get']);
   let spyIdService = jasmine.createSpyObj('UuidIdService', ['newId']);
+  let spySponsorService = jasmine.createSpyObj('SponsorService', ['get']);
   let scholarshipService: ScholarshipService;
+
+  let mockedSponsor = {
+    sponsor: 'mocked-sponsor'
+  } as Sponsor;
+  spySponsorService.get.and.returnValue(of(mockedSponsor));
 
   let mockedScholarships: Scholarship[] = [
     new ScholarshipRandomBuilder().build(),
@@ -43,7 +51,7 @@ describe('scholarship-service', () => {
       ]
     });
 
-    scholarshipService = new ScholarshipService(spyHttpClient, appConfigService, spyIdService);
+    scholarshipService = new ScholarshipService(spyHttpClient, appConfigService, spyIdService, spySponsorService);
     console.log(`ScholarshipService exists? ${scholarshipService !== undefined}`);
   });
 

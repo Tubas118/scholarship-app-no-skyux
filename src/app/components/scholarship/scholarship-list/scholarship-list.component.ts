@@ -26,7 +26,6 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   public editRecord(recordId: string) {
-    console.log(`Scholarship id: ${recordId}`);
     this.selectedScholarship.emit(recordId);
   }
 }

@@ -46,7 +46,6 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
         let selectItems: SelectedItem[] = [];
         selectItems.push({ display: ScholarshipService.NO_SPONSOR, id: ScholarshipService.NO_SPONSOR_ID } as SelectedItem);
         entries.forEach(entry => {
-          console.log(`sponsorSelectList - check ${entry.sponsor}`);
           selectItems.push({ display: entry.sponsor, id: entry.id } as SelectedItem);
         });
         return selectItems;

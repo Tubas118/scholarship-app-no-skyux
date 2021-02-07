@@ -17,11 +17,6 @@ export class SponsorService extends BasicServiceImpl<Sponsor, string> {
     this.debugId = 'SponsorService';
   }
 
-  public add(data: Sponsor): Observable<Sponsor> {
-    console.log(`Sponsor add: ${JSON.stringify(data)}`);
-    return super.add(data);
-  }
-
   public getAllSorted(): Observable<Sponsor[]> {
     return super.getAll('?_sort=sponsor&_order=asc');
   }

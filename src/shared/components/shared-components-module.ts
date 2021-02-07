@@ -7,6 +7,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.component';
 import { UserListComponent } from './users/user-list/user-list.component';
+import { CheckboxComponent } from 'src/lib/components/checkbox/checkbox.component';
+import { TextAreaComponent } from 'src/lib/components/textarea/textarea.component';
+import { TextboxComponent } from 'src/lib/components/textbox/textbox.component';
+import { LibComponentsModule } from 'src/lib/components/lib-components-module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -21,6 +25,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   imports: [
     BrowserModule,
     CommonModule,
+    //LibComponentsModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
@@ -33,6 +38,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   exports: [
     BrowserModule,
     CommonModule,
+    //LibComponentsModule,
     TranslateModule
   ]
 })

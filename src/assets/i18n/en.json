@@ -168,6 +168,10 @@
     "message": "Contact Email",
     "_description": "Replace with description for sponsor_contactEmail_label"
   },
+  "tasks_deadlineDate_label": {
+    "message": "Deadline",
+    "_description": "Replace with description for tasks_deadlineDate_label"
+  },
   "tasks_label": {
     "message": "Tasks",
     "_description": "Replace with description for tasks_label"
@@ -195,6 +199,10 @@
   "task_assignedTo_label": {
     "message": "Assigned To",
     "_description": "Replace with description for task_assignedTo_label"
+  },
+  "task_deadlineDate_label": {
+    "message": "Deadline",
+    "_description": "Replace with description for task_deadlineDate_label"
   },
   "task_notes_label": {
     "message": "Notes",

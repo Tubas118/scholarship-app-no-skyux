@@ -9,6 +9,7 @@ export interface Task extends BasicData<string> {
   notes?: Note[];
   done?: boolean;
   invalid?: boolean;
+  deadlineDate?: Date;
 }
 
 export interface Note {
