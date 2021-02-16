@@ -11,6 +11,7 @@ import { Task } from '../models/task';
 import { SponsorService } from './sponsor-service';
 import { SelectedItem } from 'src/lib/components/selectbox/selectbox.component';
 import { ScholarshipSupport } from '../models/model-support/scholarship-support';
+import { TaskSupport } from '../models/model-support/task-support';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,8 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
               protected configService: AppConfigService,
               protected idService: UuidIdService,
               protected scholarshipSupport: ScholarshipSupport,
-              protected sponsorService: SponsorService) {
+              protected sponsorService: SponsorService,
+              protected taskSupport: TaskSupport) {
     super(http, configService, 'scholarships', idService);
     this.debugId = 'ScholarshipService';
     this.getSponsorSelectList();
@@ -118,7 +120,7 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
     const answer: Task[] = scholarship.tasks
       .filter(task => !this.checkBoolean(task?.done) && !this.checkBoolean(task?.invalid));
 
-    return answer;
+    return answer.sort((a, b) => this.taskSupport.compare(a, b));
   }
 
   protected checkBoolean(flag: boolean, defaultValue: boolean = false): boolean {

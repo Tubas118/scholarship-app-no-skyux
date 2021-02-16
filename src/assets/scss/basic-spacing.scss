@@ -9,6 +9,27 @@ input {
   margin-bottom: $input-margin-bottom;
 }
 
+.lrock-indent, .lrock-indent-wrap {
+  margin: 5px 15px;
+  padding: 5px;
+}
+
+.lrock-indent-wrap {
+  text-indent: -15px;
+}
+
+.lrock-due-date {
+  color: darkred;
+}
+
+.lrock-due-date, .lrock-indent-wrap-extended {
+  font-style: italic;
+}
+
+.lrock-indent-wrap, .lrock-indent-wrap-extended {
+  word-wrap: break-word;
+}
+
 .lrock-split {
   padding: 1px;
   width: 49%;
