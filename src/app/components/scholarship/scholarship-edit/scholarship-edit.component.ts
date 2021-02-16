@@ -2,7 +2,6 @@ import { Component, OnChanges, Output, EventEmitter, Input, SimpleChanges, Chang
 import { Scholarship } from '../../../models/scholarship';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ScholarshipService } from '../../../services/scholarship-service';
-import { newScholarship } from '../../../models/model-support/app-data-utils';
 import { TranslateService } from '@ngx-translate/core';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
 import { Task } from 'src/app/models/task';
@@ -12,6 +11,7 @@ import { Observable } from 'rxjs';
 import { ValidateDeactivation } from '../validate-deactivation';
 import { deepEqual } from '../../../../lib/utils/equality';
 import { BulkTaskChangeEvent, TaskDashboardComponent } from '../../task/task-dashboard/task-dashboard.component';
+import { ScholarshipSupport } from 'src/app/models/model-support/scholarship-support';
 
 @Component({
   selector: 'scholarship-edit',
@@ -46,8 +46,8 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
 
   constructor(public translate: TranslateService,
               private formBuilder: FormBuilder,
-              private sponsorService: SponsorService,
-              private scholarshipService: ScholarshipService) {
+              private scholarshipService: ScholarshipService,
+              private scholarshipSupport: ScholarshipSupport) {
     super();
   }
 
@@ -170,7 +170,7 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
   private selectScholarshipView(scholarship: ScholarshipView): ScholarshipView {
     if (this.newEntryMode) {
       return {
-        ...newScholarship()
+        ...this.scholarshipSupport.newModel()
       } as ScholarshipView;
     }
     return scholarship;

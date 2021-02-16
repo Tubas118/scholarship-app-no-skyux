@@ -1,9 +1,9 @@
 import { Component, OnChanges, Output, EventEmitter, Input, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { Task } from '../../../models/task';
 import { FormGroup, FormControl } from '@angular/forms';
-import { newTask } from '../../../models/model-support/app-data-utils';
 import { ValidateDeactivation } from '../../scholarship/validate-deactivation';
 import { deepEqual } from '../../../../lib/utils/equality';
+import { TaskSupport } from 'src/app/models/model-support/task-support';
 
 @Component({
   selector: 'task-edit',
@@ -28,7 +28,7 @@ export class TaskEditComponent extends ValidateDeactivation implements OnChanges
   private changesSubmitted = false;
   private newEntryMode: boolean;
 
-  constructor() {
+  constructor(private taskSupport: TaskSupport) {
     super();
   }
 
@@ -106,7 +106,7 @@ export class TaskEditComponent extends ValidateDeactivation implements OnChanges
 
   private intializeFormGroup(task: Task): FormGroup {
     this.newEntryMode = (task === undefined);
-    this.taskDetails = (this.newEntryMode) ? newTask() : task;
+    this.taskDetails = (this.newEntryMode) ? this.taskSupport.newModel() : task;
     return new FormGroup({
       scholarshipId: new FormControl(this.taskDetails.scholarshipId),
       summary: new FormControl(this.taskDetails.summary),

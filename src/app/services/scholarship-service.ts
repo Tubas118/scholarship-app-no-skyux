@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { Task } from '../models/task';
 import { SponsorService } from './sponsor-service';
 import { SelectedItem } from 'src/lib/components/selectbox/selectbox.component';
+import { ScholarshipSupport } from '../models/model-support/scholarship-support';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
   constructor(protected http: HttpClient,
               protected configService: AppConfigService,
               protected idService: UuidIdService,
+              protected scholarshipSupport: ScholarshipSupport,
               protected sponsorService: SponsorService) {
     super(http, configService, 'scholarships', idService);
     this.debugId = 'ScholarshipService';
@@ -63,6 +65,7 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
               ...scholarship,
               openTasks: this.openTasks(scholarship)
             };
+            scholarshipView.activeDeadlineDate = this.scholarshipSupport.activeDeadlineDate(scholarship);
             if (scholarshipView.tasks === undefined) {
               scholarshipView.tasks = [];
             }
@@ -120,4 +123,5 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
 
   protected checkBoolean(flag: boolean, defaultValue: boolean = false): boolean {
     return (flag !== undefined) ? flag : defaultValue;
-  }}
+  }
+}

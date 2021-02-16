@@ -7,10 +7,11 @@ import { randomTestData } from 'src/shared/test-utils/random-test-data';
 import { AppConfigService } from 'src/shared/services/app-config/app-config.service';
 import { AppConfigSettings } from 'src/shared/basic/basic-service-impl';
 import { ScholarshipService } from './scholarship-service';
-import { ScholarshipRandomBuilder } from '../models/scholarship-random-builder';
 import { Scholarship } from '../models/scholarship';
-import { SponsorService } from './sponsor-service';
 import { Sponsor } from '../models/sponsor';
+import { ScholarshipRandomBuilder } from '../models/model-support/scholarship-random-builder';
+import { ScholarshipSupport } from '../models/model-support/scholarship-support';
+import { TaskSupport } from '../models/model-support/task-support';
 
 let unroll = require('unroll');
 unroll.use(it);
@@ -46,12 +47,15 @@ describe('scholarship-service', () => {
         SharedServicesModule
       ],
       providers: [
+        TaskSupport,
+        ScholarshipSupport,
         { provide: UuidIdService, useValue: spyIdService },
         { provide: HttpClient, useValue: spyHttpClient }
       ]
     });
 
-    scholarshipService = new ScholarshipService(spyHttpClient, appConfigService, spyIdService, spySponsorService);
+    const scholarshipSupport = TestBed.inject(ScholarshipSupport);
+    scholarshipService = new ScholarshipService(spyHttpClient, appConfigService, spyIdService, scholarshipSupport, spySponsorService);
     console.log(`ScholarshipService exists? ${scholarshipService !== undefined}`);
   });
 

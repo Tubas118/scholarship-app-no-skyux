@@ -27,6 +27,9 @@ import { ValidateDeactivationGuard } from './components/scholarship/validate-dea
 import { LibComponentsModule } from 'src/lib/components/lib-components-module';
 import { DateSelectComponent } from 'src/lib/components/date-select/date-select.component';
 import { DatePipe } from '@angular/common';
+import { ScholarshipSupport } from './models/model-support/scholarship-support';
+import { TaskSupport } from './models/model-support/task-support';
+import { SponsorSupport } from './models/model-support/sponsor-support';
 
 @NgModule({
   declarations: [

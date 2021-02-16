@@ -5,6 +5,7 @@ export const CURRENT_TASK_SCHEMA = 10;
 export interface Task extends BasicData<string> {
   scholarshipId: string;
   summary: string;
+  priority?: number;
   assignedTo: string;
   notes?: Note[];
   done?: boolean;

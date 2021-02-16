@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { of, Observable, forkJoin } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { MigrateUtil } from 'src/app/models/migrate/migrate';
+import { ScholarshipSupport } from 'src/app/models/model-support/scholarship-support';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
 import { SponsorService } from 'src/app/services/sponsor-service';
 import { Scholarship } from '../../../models/scholarship';
@@ -32,8 +32,7 @@ export class ScholarshipDashboardComponent extends ValidateDeactivation implemen
   @ViewChild(ScholarshipEditComponent) scholarshipEdit: ScholarshipEditComponent;
 
   constructor(private scholarshipService: ScholarshipService,
-              private sponsorService: SponsorService,
-              private datepipe: DatePipe) {
+              private scholarshipSupport: ScholarshipSupport) {
     super();
     this.activeFilter = undefined;
     // Deprecated in schema 11 -- this.activeSort = '_sort=status,scholarshipName&_order=asc';
@@ -110,24 +109,13 @@ export class ScholarshipDashboardComponent extends ValidateDeactivation implemen
     this.scholarshipService.getAllViews(this.getFilterSortValue())
       .pipe(take(1))
       .subscribe((records: ScholarshipView[]) => {
-        records.sort((a, b) => (this.getSortKey(a) > this.getSortKey(b)) ? 1 : -1);
+        records.sort((a, b) => this.scholarshipSupport.compare(a, b));
         this.scholarshipGridData = of(records);
       },
       err => {
         console.error('Error ' + err);
         this.errorDetail = err;
       });
-  }
-
-  private getSortKey(scholarshipView: ScholarshipView) {
-    let openTaskFlag = (scholarshipView?.openTasks?.length > 0) ? 'A' : 'B';
-    let openTaskSortValue = 99999 - scholarshipView?.openTasks?.length || 0;
-    return openTaskFlag + ',' + this.getDateSortKey(scholarshipView?.deadlineDate)
-      + ',' + openTaskSortValue.toString().padStart(5, '0') + scholarshipView.scholarshipName;
-  }
-
-  private getDateSortKey(date: Date): string {
-    return (date !== undefined) ? this.datepipe.transform(date, 'yyyy-MM-dd') : '0000-01-01';
   }
 
   private getFilterSortValue(): string {

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { TaskConstants } from 'src/app/models/task-constants';
+import { TaskConstants } from 'src/app/models/model-support/task-constants';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
 import { Task } from '../../../models/task';
 import { TaskChangeEvent } from '../task-edit/task-edit.component';

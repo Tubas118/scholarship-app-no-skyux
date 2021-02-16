@@ -2,7 +2,7 @@ import { Component, OnChanges, Output, EventEmitter, Input, SimpleChanges, Chang
 import { Sponsor } from '../../../models/sponsor';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SponsorService } from '../../../services/sponsor-service';
-import { newSponsor } from '../../../models/model-support/app-data-utils';
+import { SponsorSupport } from 'src/app/models/model-support/sponsor-support';
 
 @Component({
   selector: 'sponsor-edit',
@@ -25,7 +25,8 @@ export class SponsorEditComponent implements OnChanges {
 
   private newEntryMode: boolean;
 
-  constructor(private sponsorService: SponsorService) {
+  constructor(private sponsorService: SponsorService,
+              private sponsorSupport: SponsorSupport) {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -77,7 +78,7 @@ export class SponsorEditComponent implements OnChanges {
 
   private intializeFormGroup(sponsor: Sponsor): FormGroup {
     this.newEntryMode = (sponsor === undefined);
-    this.sponsorDetails = (this.newEntryMode) ? newSponsor() : sponsor;
+    this.sponsorDetails = (this.newEntryMode) ? this.sponsorSupport.newModel() : sponsor;
     return new FormGroup({
       sponsor: new FormControl(this.sponsorDetails.sponsor),
       contactInfo: new FormControl(this.sponsorDetails.contactInfo),

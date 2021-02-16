@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
+import { ScholarshipSupport } from 'src/app/models/model-support/scholarship-support';
 
 @Component({
   selector: 'scholarship-list',
@@ -19,7 +20,8 @@ export class ScholarshipListComponent implements OnInit {
   protected errorDetail: any;
   protected pageNum: number;
 
-  public constructor(public translate: TranslateService) { }
+  public constructor(public translate: TranslateService,
+                      private scholarshipSupport: ScholarshipSupport) { }
 
   public ngOnInit() {
     this.pageNum = 0;

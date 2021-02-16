@@ -10,11 +10,22 @@
     <div *ngFor="let entry of scholarshipGridData | async" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
       <div class="lrock-cell-5">{{ entry.scholarshipName }}</div>
       <div class="lrock-cell-2">{{ entry.code }}</div>
-      <div class="lrock-cell-2 lrock-center">{{ entry.deadlineDate | date: 'yyyy-MM-dd' }}</div>
+      <div class="lrock-cell-2 lrock-center">
+        {{ entry.activeDeadlineDate | date: 'yyyy-MM-dd' }}
+        <div *ngIf="entry.activeDeadlineDate !== entry.deadlineDate">
+          ( {{ entry.deadlineDate }} )
+        </div>
+      </div>
       <div class="lrock-cell-2 lrock-right">{{ entry.targetAmount | currency }}</div>
       <div class="lrock-cell-3">
         {{ 'tasks_open_label.message' | translate }}: {{ entry.openTasks?.length || 0 }}
         - {{ 'tasks_total_label.message' | translate }}: {{ entry.tasks?.length || 0 }}
+        <div *ngFor="let taskEntry of entry.openTasks">
+          {{ taskEntry?.summary }}<br/>
+          Priority: {{ taskEntry?.priority }}<br />
+          Deadline: {{ taskEntry?.deadlineDate }}<br />
+          <br />
+        </div>
       </div>
     </div>
   </div>
