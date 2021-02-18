@@ -1,4 +1,5 @@
 import { DatePipe } from '@angular/common';
+import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import { Scholarship, CURRENT_SCHOLARSHIP_SCHEMA } from '../scholarship';
 import { ScholarshipView } from '../views/scholarship-view';
@@ -9,9 +10,34 @@ import { TaskSupport } from './task-support';
   providedIn: 'root'
 })
 export class ScholarshipSupport extends ModelSupport<Scholarship, ScholarshipView> {
+
   constructor(protected datepipe: DatePipe,
               protected taskSupport: TaskSupport) {
     super(datepipe);
+  }
+
+  isValidDate(date: Date) {
+    return date !== undefined && date !== null && date.toString().length !== 0;
+  }
+
+  dateAlertLevel(parmDate: Date): string {
+    if (parmDate) {
+      const dateStr = parmDate.toString();
+      const date = new Date(dateStr);
+
+      let checkDate = new Date();
+      checkDate.setDate(checkDate.getDate() - 7);
+      if (date <= checkDate) {
+        return 'red';
+      }
+
+      checkDate.setDate(checkDate.getDate() - 23);
+      if (date <= checkDate) {
+        return 'yellow';
+      }
+    }
+
+    return 'green';
   }
 
   newModel(assignedFields?: Scholarship): Scholarship {
@@ -36,15 +62,11 @@ export class ScholarshipSupport extends ModelSupport<Scholarship, ScholarshipVie
     const sortKey1 = this.scholarshipSortKey(compare1);
     const sortKey2 = this.scholarshipSortKey(compare2);
     const result = sortKey1 > sortKey2 ? 1 : -1;
-    console.log(`compare: ${result}`);
-    console.log(`  ${sortKey1} - ${compare1.deadlineDate}`);
-    console.log(`  ${sortKey2} - ${compare2.deadlineDate}`);
-    console.log('');
     return result;
   }
 
-  activeDeadlineDate(scholarship: Scholarship) {
-    let deadlineDate = scholarship.deadlineDate || undefined;
+  activeDeadlineDate(scholarship: Scholarship): Date {
+    let deadlineDate: Date = scholarship.deadlineDate || undefined;
     if (scholarship?.tasks !== undefined) {
       scholarship.tasks.forEach(task => {
         if (this.taskSupport.isTaskActive(task) && task?.deadlineDate !== undefined) {

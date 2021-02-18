@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
 import { ScholarshipSupport } from 'src/app/models/model-support/scholarship-support';
+import { Scholarship } from 'src/app/models/scholarship';
 
 @Component({
   selector: 'scholarship-list',
@@ -29,5 +30,13 @@ export class ScholarshipListComponent implements OnInit {
 
   public editRecord(recordId: string) {
     this.selectedScholarship.emit(recordId);
+  }
+
+  public deadlineDateAlertLevelClass(record: any) {
+    return 'lrock-alert-' + this.scholarshipSupport.dateAlertLevel(record?.deadlineDate);
+  }
+
+  public isValidDeadlineDate(scholarship: Scholarship) {
+    return this.scholarshipSupport.isValidDate(scholarship?.deadlineDate);
   }
 }

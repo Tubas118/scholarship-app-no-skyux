@@ -9,7 +9,7 @@
     <div *ngFor="let entry of scholarshipGridData | async" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
       <div class="lrock-cell-4">
         {{ entry.scholarshipName }}
-        <div *ngIf="entry.deadlineDate !== undefined" class="lrock-indent lrock-due-date">
+        <div *ngIf="entry.openTasks?.length > 0 && isValidDeadlineDate(entry)" class="lrock-indent {{deadlineDateAlertLevelClass(entry)}}">
           (Due: {{ entry.deadlineDate }})
         </div>
       </div>
@@ -21,8 +21,11 @@
         <div *ngFor="let taskEntry of entry.openTasks" class="lrock-indent-wrap">
           {{ taskEntry?.summary }}
           {{ taskEntry?.priority }}
-          <span *ngIf="taskEntry?.deadlineDate !== undefined" class="lrock-indent-wrap-extended lrock-due-date">
-            <br/>(Due: {{ taskEntry?.deadlineDate }})
+          <span *ngIf="taskEntry?.deadlineDate !== undefined">
+            <br/>
+            <span class="lrock-indent-wrap-extended {{deadlineDateAlertLevelClass(taskEntry)}}">
+              (Due: {{ taskEntry?.deadlineDate }})
+            </span>
           </span>
         </div>
       </div>

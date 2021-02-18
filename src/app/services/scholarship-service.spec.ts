@@ -55,7 +55,8 @@ describe('scholarship-service', () => {
     });
 
     const scholarshipSupport = TestBed.inject(ScholarshipSupport);
-    scholarshipService = new ScholarshipService(spyHttpClient, appConfigService, spyIdService, scholarshipSupport, spySponsorService);
+    const taskSupport = TestBed.inject(TaskSupport);
+    scholarshipService = new ScholarshipService(spyHttpClient, appConfigService, spyIdService, scholarshipSupport, spySponsorService, taskSupport);
     console.log(`ScholarshipService exists? ${scholarshipService !== undefined}`);
   });
 
