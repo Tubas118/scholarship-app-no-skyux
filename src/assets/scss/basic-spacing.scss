@@ -28,17 +28,27 @@ input {
   background-color: lightgreen;
 }
 
-.lrock-indent, .lrock-indent-wrap {
+.lrock-indent, .lrock-task-entry {
   margin: 5px 15px;
   padding: 5px;
 }
 
-.lrock-indent-wrap {
+.lrock-task-label {
+  font: bolder;
+}
+
+.lrock-task-entry {
   text-indent: -15px;
 }
 
+.lrock-task-entry-border {
+  border: cadetblue;
+  border-width: 0.5px;
+  border-style: dotted;
+}
+
 .lrock-indent-wrap-extended {
-  margin: 6px;
+  margin: 8px 12px;
   padding: 3px;
 }
 

@@ -38,6 +38,7 @@ export class TaskSupport extends ModelSupport<Task, Task> {
     let validFlag = (task?.invalid) ? 'X' : 'G';
     let activeFlag = (task?.done) ? 'B' : 'A';
     let deadlineDate = this.getSortDateOrHigh(task?.deadlineDate);
+    console.log(`task deadline date: ${deadlineDate}`);
     let priority = (task?.priority !== undefined) ? task?.priority : 3;
     return validFlag + '|' + activeFlag + '|' + deadlineDate + '|' + priority + '|' + task?.summary;
   }

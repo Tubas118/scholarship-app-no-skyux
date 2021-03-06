@@ -2,7 +2,7 @@
   <div class="lrock-table">
     <div class="lrock-header">
       <div class="lrock-cell-4">{{ 'scholarship_scholarshipName_label.message' | translate }}</div>
-      <div class="lrock-cell-1">{{ 'scholarship_code_short_label.message' | translate }}</div>
+      <!-- <div class="lrock-cell-1">{{ 'scholarship_code_short_label.message' | translate }}</div> -->
       <div class="lrock-cell-2">{{ 'scholarship_targetAmount_label.message' | translate }}</div>
       <div class="lrock-cell-5">{{ 'tasks_label.message' | translate }}</div>
     </div>
@@ -13,20 +13,25 @@
           (Due: {{ entry.deadlineDate }})
         </div>
       </div>
-      <div class="lrock-cell-1">{{ entry.code }}</div>
-      <div class="lrock-cell-2 lrock-right">{{ entry.targetAmount | currency }}</div>
+      <div class="lrock-cell-2 lrock-right">
+        <lrock-key-value keyResourceName='scholarship_code_short_label' value="{{entry.code}}"></lrock-key-value>
+        <lrock-key-value keyResourceName='scholarship_targetAmount_label' value="{{entry.targetAmount | currency}}"></lrock-key-value>
+      </div>
       <div class="lrock-cell-5">
         {{ 'tasks_open_label.message' | translate }}: {{ entry.openTasks?.length || 0 }}
         - {{ 'tasks_total_label.message' | translate }}: {{ entry.tasks?.length || 0 }}
-        <div *ngFor="let taskEntry of entry.openTasks" class="lrock-indent-wrap">
-          {{ taskEntry?.summary }}
-          {{ taskEntry?.priority }}
-          <span *ngIf="taskEntry?.deadlineDate !== undefined">
-            <br/>
-            <span class="lrock-indent-wrap-extended {{deadlineDateAlertLevelClass(taskEntry)}}">
-              (Due: {{ taskEntry?.deadlineDate }})
+        <div *ngFor="let taskEntry of entry.openTasks" class="lrock-task-entry-border">
+          <div class="lrock-task-entry">
+            {{ taskEntry?.summary }}
+            {{ taskEntry?.priority }}
+            <span *ngIf="taskEntry?.deadlineDate !== undefined">
+              <div class="{{deadlineDateAlertLevelClass(taskEntry)}}">
+                <div class="lrock-indent">
+                  (Due: {{ taskEntry?.deadlineDate }})
+                </div>
+              </div>
             </span>
-          </span>
+          </div>
         </div>
       </div>
     </div>

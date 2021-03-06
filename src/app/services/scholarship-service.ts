@@ -65,7 +65,7 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
           scholarships.forEach(scholarship => {
             const scholarshipView: ScholarshipView = {
               ...scholarship,
-              openTasks: this.openTasks(scholarship)
+              openTasks: this.sortedOpenTasks(scholarship)
             };
             scholarshipView.activeDeadlineDate = this.scholarshipSupport.activeDeadlineDate(scholarship);
             if (scholarshipView.tasks === undefined) {
@@ -113,7 +113,7 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
     // statusType deprecated in schema 11 -- data.statusType = statusTypeMap[data.status];
   }
 
-  protected openTasks(scholarship: Scholarship): Task[] {
+  public sortedOpenTasks(scholarship: Scholarship): Task[] {
     if (scholarship.tasks === undefined) {
       scholarship.tasks = [];
     }

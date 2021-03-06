@@ -24,12 +24,9 @@ import { SponsorDashboardComponent } from './components/sponsor/sponsor-dashboar
 import { SponsorEditComponent } from './components/sponsor/sponsor-edit/sponsor-edit.component';
 import { SponsorListComponent } from './components/sponsor/sponsor-list/sponsor-list.component';
 import { ValidateDeactivationGuard } from './components/scholarship/validate-deactivation.guard';
-import { LibComponentsModule } from 'src/lib/components/lib-components-module';
 import { DateSelectComponent } from 'src/lib/components/date-select/date-select.component';
 import { DatePipe } from '@angular/common';
-import { ScholarshipSupport } from './models/model-support/scholarship-support';
-import { TaskSupport } from './models/model-support/task-support';
-import { SponsorSupport } from './models/model-support/sponsor-support';
+import { KeyValueComponent } from 'src/lib/components/key-value/key-value.component';
 
 @NgModule({
   declarations: [
@@ -41,10 +38,13 @@ import { SponsorSupport } from './models/model-support/sponsor-support';
     TaskEditComponent,
     TaskListComponent,
     WelcomeComponent,
+
     CheckboxComponent,
     DateSelectComponent,
+    KeyValueComponent,
     TextAreaComponent,
     TextboxComponent,
+
     ScholarshipFilterComponent,
     SelectScholarshipComponent,
     SelectValueComponent,
