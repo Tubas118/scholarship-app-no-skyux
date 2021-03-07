@@ -1,5 +1,4 @@
 import { DatePipe } from '@angular/common';
-import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import { Scholarship, CURRENT_SCHOLARSHIP_SCHEMA } from '../scholarship';
 import { ScholarshipView } from '../views/scholarship-view';
@@ -20,21 +19,28 @@ export class ScholarshipSupport extends ModelSupport<Scholarship, ScholarshipVie
     return date !== undefined && date !== null && date.toString().length !== 0;
   }
 
-  dateAlertLevel(parmDate: Date): string {
-    if (parmDate) {
-      const dateStr = parmDate.toString();
-      const date = new Date(dateStr);
+  dateAlertLevel(parmDate: any): string {
+    let baseDate: Date = (parmDate instanceof Date) ? parmDate as Date : undefined;
 
-      let checkDate = new Date();
-      checkDate.setDate(checkDate.getDate() - 7);
-      if (date <= checkDate) {
-        return 'red';
-      }
+    if (baseDate === undefined) {
+      baseDate = this.parseSortDateStringToDate(parmDate);
+    }
 
-      checkDate.setDate(checkDate.getDate() - 23);
-      if (date <= checkDate) {
-        return 'yellow';
-      }
+    const todayValue = new Date();
+    let checkValue = new Date(baseDate);
+
+    if (todayValue >= checkValue) {
+      return 'red';
+    }
+
+    checkValue.setDate(baseDate.getDate() - 7);
+    if (todayValue >= checkValue) {
+      return 'orange';
+    }
+
+    checkValue.setDate(baseDate.getDate() - 23);
+    if (todayValue >= checkValue) {
+      return 'yellow';
     }
 
     return 'green';

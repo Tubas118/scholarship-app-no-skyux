@@ -9,13 +9,18 @@ input {
   margin-bottom: $input-margin-bottom;
 }
 
-.lrock-alert-red, .lrock-alert-yellow, .lrock-alert-green {
+.lrock-alert-red, .lrock-alert-orange, .lrock-alert-yellow, .lrock-alert-green {
   max-width: fit-content;
 }
 
 .lrock-alert-red {
   color: black;
   background-color: rgb(252, 159, 159);
+}
+
+.lrock-alert-orange {
+  color: black;
+  background-color: orange;
 }
 
 .lrock-alert-yellow {

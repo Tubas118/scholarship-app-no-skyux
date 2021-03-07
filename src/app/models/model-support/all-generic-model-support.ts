@@ -14,4 +14,11 @@ export abstract class ModelSupport<T, C> {
   getSortDateOrHigh(date: Date): string {
     return (date !== undefined) ? this.datepipe.transform(date, 'yyyy-MM-dd') : '9999-99-99';
   }
+
+  parseSortDateStringToDate(dateString: string): Date {
+    const d = new Date(dateString);
+    d.setDate(d.getDate() + (d.getTimezoneOffset() / 60 / 1000));
+    d.setHours(d.getHours() + (d.getTimezoneOffset() / 60));
+    return d;
+  }
 }
