@@ -19,28 +19,32 @@ export class ScholarshipSupport extends ModelSupport<Scholarship, ScholarshipVie
     return date !== undefined && date !== null && date.toString().length !== 0;
   }
 
-  dateAlertLevel(parmDate: any): string {
-    let baseDate: Date = (parmDate instanceof Date) ? parmDate as Date : undefined;
+  alertLevelFromDateString(parmDateString: string): string {
+    return this.alertLevelFromDate(this.parseSortDateStringToDate(parmDateString));
+  }
 
-    if (baseDate === undefined) {
-      baseDate = this.parseSortDateStringToDate(parmDate);
-    }
+  alertLevelFromDate(parmDate: any): string {
+    console.log(`parmDate: ${parmDate} [${typeof parmDate}]`)
+    if (parmDate !== undefined) {
+      const todayValue = new Date();
+      const baseValue = new Date(parmDate.toString());
+      let checkValue = new Date();
+      checkValue.setDate(baseValue.getDate());
+      console.log(`checkValue: ${checkValue}`);
 
-    const todayValue = new Date();
-    let checkValue = new Date(baseDate);
+      if (todayValue >= checkValue) {
+        return 'red';
+      }
 
-    if (todayValue >= checkValue) {
-      return 'red';
-    }
+      checkValue.setDate(baseValue.getDate() - 7);
+      if (todayValue >= checkValue) {
+        return 'orange';
+      }
 
-    checkValue.setDate(baseDate.getDate() - 7);
-    if (todayValue >= checkValue) {
-      return 'orange';
-    }
-
-    checkValue.setDate(baseDate.getDate() - 23);
-    if (todayValue >= checkValue) {
-      return 'yellow';
+      checkValue.setDate(baseValue.getDate() - 23);
+      if (todayValue >= checkValue) {
+        return 'yellow';
+      }
     }
 
     return 'green';

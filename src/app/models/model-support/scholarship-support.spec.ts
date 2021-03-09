@@ -19,26 +19,37 @@ describe('scholarship-support', () => {
     scholarshipSupport = TestBed.inject(ScholarshipSupport);
   })
 
-  describe('dateAlertLevel', () => {
-    it('should return green', () => {
+  describe('dateAlertLevel with date objects', () => {
+    it('should return correct alert level string', () => {
       let checkDate = new Date();
 
+      checkDate.setDate(today.getDate() - 1);
+      expectAlertLevel(checkDate, 'red');
+
+      checkDate.setDate(today.getDate());
+      expectAlertLevel(checkDate, 'red');
+
       checkDate.setDate(today.getDate() + 1);
-      expect(checkDate.getDate()).toBeGreaterThan(today.getDate());
-      expect(scholarshipSupport.dateAlertLevel(checkDate)).toBe('red');
+      expectAlertLevel(checkDate, 'orange');
 
       checkDate.setDate(today.getDate() + 7);
-      expect(checkDate.getDate()).toBeGreaterThan(today.getDate());
-      expect(scholarshipSupport.dateAlertLevel(checkDate)).toBe('red');
+      expectAlertLevel(checkDate, 'orange');
 
       checkDate.setDate(today.getDate() + 8);
-      expect(checkDate.getDate()).toBeGreaterThan(today.getDate());
-      expect(scholarshipSupport.dateAlertLevel(checkDate)).toBe('yellow');
+      expectAlertLevel(checkDate, 'yellow');
+
+      checkDate.setDate(today.getDate() + 24);
+      expectAlertLevel(checkDate, 'yellow');
+
+      checkDate.setDate(today.getDate() + 25);
+      expectAlertLevel(checkDate, 'green');
     })
   });
 
-  function logDates(desc: string, refDate: Date, checkDate: Date) {
-    let result = (refDate > checkDate) ? 'past' : 'future';
-    console.log(`${desc} => refDate: ${scholarshipSupport.getSortDateOrHigh(refDate)} - check: ${scholarshipSupport.getSortDateOrHigh(checkDate)} - result: ${result}`);
+  function expectAlertLevel(checkDate: Date, expectedAlertLevel: string) {
+    expect(scholarshipSupport.alertLevelFromDate(checkDate)).toBe(expectedAlertLevel);
+
+    const checkDateString = scholarshipSupport.getSortDateOrHigh(checkDate);
+    expect(scholarshipSupport.alertLevelFromDateString(checkDateString)).toBe(expectedAlertLevel);
   }
 })

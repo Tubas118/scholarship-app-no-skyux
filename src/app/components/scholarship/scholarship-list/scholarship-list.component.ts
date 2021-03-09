@@ -33,7 +33,7 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   public deadlineDateAlertLevelClass(record: any) {
-    return 'lrock-alert-' + this.scholarshipSupport.dateAlertLevel(record?.deadlineDate);
+    return 'lrock-alert-' + this.scholarshipSupport.alertLevelFromDate(record?.deadlineDate);
   }
 
   public isValidDeadlineDate(scholarship: Scholarship) {
