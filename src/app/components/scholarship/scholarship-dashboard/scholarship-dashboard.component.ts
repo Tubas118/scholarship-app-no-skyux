@@ -1,7 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { of, Observable, forkJoin } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { MigrateUtil } from 'src/app/models/migrate/migrate';
+import { ScholarshipSupport } from 'src/app/models/model-support/scholarship-support';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
 import { SponsorService } from 'src/app/services/sponsor-service';
 import { Scholarship } from '../../../models/scholarship';
@@ -31,7 +32,7 @@ export class ScholarshipDashboardComponent extends ValidateDeactivation implemen
   @ViewChild(ScholarshipEditComponent) scholarshipEdit: ScholarshipEditComponent;
 
   constructor(private scholarshipService: ScholarshipService,
-              private sponsorService: SponsorService) {
+              private scholarshipSupport: ScholarshipSupport) {
     super();
     this.activeFilter = undefined;
     // Deprecated in schema 11 -- this.activeSort = '_sort=status,scholarshipName&_order=asc';
@@ -50,7 +51,6 @@ export class ScholarshipDashboardComponent extends ValidateDeactivation implemen
     migrateUtil.migrate();
     */
 
-    console.log('ScholarshipDashboardComponent - ngOnInit - who called me?');
     this.refreshList();
   }
 
@@ -69,18 +69,16 @@ export class ScholarshipDashboardComponent extends ValidateDeactivation implemen
   }
 
   public onSelectedScholarship(selectedScholarshipId: string) {
-    console.log(`scholarship-dashboard.onSelectedScholarship: ${selectedScholarshipId}`);
     if (selectedScholarshipId === undefined) {
       this.selectedScholarship = undefined;
       this.showScholarshipEditForm = true;
-      console.log(`scholarship-dashboard.onSelectedScholarship - new: ${selectedScholarshipId}`);
-    } else {
+    }
+    else {
       this.scholarshipService.find(selectedScholarshipId)
         .pipe(
           take(1)
         )
         .subscribe(scholarship => {
-          console.log(`scholarship-dashboard.onSelectedScholarship: ${JSON.stringify(scholarship)}`);
           this.showScholarshipEditForm = true;
           this.selectedScholarship = {
             ...scholarship
@@ -95,7 +93,7 @@ export class ScholarshipDashboardComponent extends ValidateDeactivation implemen
       this.refreshList();
       return;
     }
-    console.log(`ScholarshipDashboardComponent - onCloseEdit - who called me? ${JSON.stringify(event)}`);
+
     this.showScholarshipEditForm = false;
     if (event !== undefined) {
       this.ngOnInit();
@@ -111,19 +109,13 @@ export class ScholarshipDashboardComponent extends ValidateDeactivation implemen
     this.scholarshipService.getAllViews(this.getFilterSortValue())
       .pipe(take(1))
       .subscribe((records: ScholarshipView[]) => {
-        records.sort((a, b) => (this.getSortKey(a) > this.getSortKey(b)) ? 1 : -1);
+        records.sort((a, b) => this.scholarshipSupport.compare(a, b));
         this.scholarshipGridData = of(records);
       },
       err => {
         console.error('Error ' + err);
         this.errorDetail = err;
       });
-  }
-
-  private getSortKey(scholarshipView: ScholarshipView) {
-    let openTaskSortValue = 99999 - scholarshipView?.openTasks?.length || 0;
-    const sortKey = openTaskSortValue.toString().padStart(5, '0') + scholarshipView.scholarshipName;
-    return sortKey;
   }
 
   private getFilterSortValue(): string {
@@ -137,7 +129,6 @@ export class ScholarshipDashboardComponent extends ValidateDeactivation implemen
       filterSortUrl = '?' + filterSortList.join('&');
     }
 
-    console.log(`filterSortUrl=${filterSortUrl}`);
     return filterSortUrl;
   }
 }

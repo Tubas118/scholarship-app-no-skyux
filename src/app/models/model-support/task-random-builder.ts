@@ -1,6 +1,6 @@
 import { BasicDataBuilder } from 'src/shared/basic/basic-data-builder';
 import { randomTestData } from 'src/shared/test-utils/random-test-data';
-import { Note, Task } from './task';
+import { Task, Note } from '../task';
 
 export class TaskRandomBuilder implements BasicDataBuilder<string, Task> {
   public id: string;

@@ -1,6 +1,6 @@
 import { BasicDataBuilder } from 'src/shared/basic/basic-data-builder';
 import { randomTestData } from 'src/shared/test-utils/random-test-data';
-import { Scholarship } from './scholarship';
+import { Scholarship } from '../scholarship';
 
 export class ScholarshipRandomBuilder implements BasicDataBuilder<string, Scholarship> {
   public id: string;

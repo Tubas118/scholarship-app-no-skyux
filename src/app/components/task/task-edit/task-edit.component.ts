@@ -1,9 +1,9 @@
 import { Component, OnChanges, Output, EventEmitter, Input, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { Task } from '../../../models/task';
 import { FormGroup, FormControl } from '@angular/forms';
-import { newTask } from '../../../models/model-support/app-data-utils';
 import { ValidateDeactivation } from '../../scholarship/validate-deactivation';
 import { deepEqual } from '../../../../lib/utils/equality';
+import { TaskSupport } from 'src/app/models/model-support/task-support';
 
 @Component({
   selector: 'task-edit',
@@ -28,7 +28,7 @@ export class TaskEditComponent extends ValidateDeactivation implements OnChanges
   private changesSubmitted = false;
   private newEntryMode: boolean;
 
-  constructor() {
+  constructor(private taskSupport: TaskSupport) {
     super();
   }
 
@@ -50,9 +50,7 @@ export class TaskEditComponent extends ValidateDeactivation implements OnChanges
   }
 
   public get validateForDeactivation(): boolean {
-    console.log('TaskEditComponent closing...');
     if (!this.changesSubmitted) {
-      console.log('Closing but data not submitted');
       this.validateTaskDetails = {
         ...this.initialTaskDetails
       } as Task;
@@ -65,12 +63,7 @@ export class TaskEditComponent extends ValidateDeactivation implements OnChanges
   }
 
   protected isDirtyWorker(checkTask: Task): boolean {
-    console.log(`changesSubmitted=${this.changesSubmitted}`);
-    console.log(`checkTask: ${JSON.stringify(checkTask)}`);
-    console.log(`initView:  ${JSON.stringify(this.initialTaskDetails)}`);
-    let isDirtyResult = (!this.changesSubmitted && !deepEqual(this.initialTaskDetails, checkTask));
-    console.log(`ScholarshipEditComponent - isDirty=${isDirtyResult}`);
-    return isDirtyResult;
+    return (!this.changesSubmitted && !deepEqual(this.initialTaskDetails, checkTask));
   }
 
   public onCancel(event: any) {
@@ -113,10 +106,11 @@ export class TaskEditComponent extends ValidateDeactivation implements OnChanges
 
   private intializeFormGroup(task: Task): FormGroup {
     this.newEntryMode = (task === undefined);
-    this.taskDetails = (this.newEntryMode) ? newTask() : task;
+    this.taskDetails = (this.newEntryMode) ? this.taskSupport.newModel() : task;
     return new FormGroup({
       scholarshipId: new FormControl(this.taskDetails.scholarshipId),
       summary: new FormControl(this.taskDetails.summary),
+      deadlineDate: new FormControl(this.taskDetails.deadlineDate),
       assignedTo: new FormControl(this.taskDetails.assignedTo),
       notes: new FormControl(this.taskDetails.notes),
       done: new FormControl(this.taskDetails.done),
@@ -127,6 +121,7 @@ export class TaskEditComponent extends ValidateDeactivation implements OnChanges
   private updateInternalData(updatedTaskDetails: Task) {
     updatedTaskDetails.scholarshipId = this.taskForm.controls['scholarshipId'].value;
     updatedTaskDetails.summary = this.taskForm.controls['summary'].value;
+    updatedTaskDetails.deadlineDate = this.taskForm.controls['deadlineDate'].value;
     updatedTaskDetails.assignedTo = this.taskForm.controls['assignedTo'].value;
     updatedTaskDetails.notes = this.taskForm.controls['notes'].value;
     updatedTaskDetails.done = this.taskForm.controls['done'].value;

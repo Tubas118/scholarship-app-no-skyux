@@ -1,30 +1,30 @@
-import { TestBed } from '@angular/core/testing';
-import { SponsorDashboardComponent } from './sponsor-dashboard.component';
-import { SponsorService } from '../../../services/sponsor-service';
+// import { TestBed } from '@angular/core/testing';
+// import { SponsorDashboardComponent } from './sponsor-dashboard.component';
+// import { SponsorService } from '../../../services/sponsor-service';
 
-describe('sponsor-dashboard component', () => {
+// describe('sponsor-dashboard component', () => {
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: []
-      /*
-      TODO: what do you want?
-      providers: [
-        {
-          provide: SponsorService,
-          useValue: jasmine.createSpyObj('SponsorService', ['getAll'])
-        }
-      ]
-      */
-    });
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       imports: []
+//       /*
+//       TODO: what do you want?
+//       providers: [
+//         {
+//           provide: SponsorService,
+//           useValue: jasmine.createSpyObj('SponsorService', ['getAll'])
+//         }
+//       ]
+//       */
+//     });
+//   });
 
-  it('should do something', () => {
-    const fixture = TestBed.createComponent(SponsorDashboardComponent);
+//   it('should do something', () => {
+//     const fixture = TestBed.createComponent(SponsorDashboardComponent);
 
-    fixture.detectChanges();
+//     fixture.detectChanges();
 
-    expect(true).toBe(false);
-  });
+//     expect(true).toBe(false);
+//   });
 
-});
+// });

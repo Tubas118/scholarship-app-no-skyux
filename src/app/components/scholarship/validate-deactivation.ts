@@ -7,9 +7,7 @@ export abstract class ValidateDeactivation {
   }
 
   public isOkayToClose(): boolean {
-    console.log(`ValidateDeactivation - isOkayToClose for ${this.debugId}`);
     if (this.doNotClose) {
-      console.log(`do not close`);
       return false;
     }
     if (this.validateForDeactivation) {

@@ -21,6 +21,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   imports: [
     BrowserModule,
     CommonModule,
+    //LibComponentsModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
@@ -33,6 +34,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   exports: [
     BrowserModule,
     CommonModule,
+    //LibComponentsModule,
     TranslateModule
   ]
 })

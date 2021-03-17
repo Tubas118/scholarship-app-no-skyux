@@ -12,6 +12,7 @@ export interface Scholarship extends BasicData<string> {
   contactEmail: string;
   minimumGpa: string;
   submitDate?: Date;
+  priority?: number;
   deadlineDate?: Date;
   targetAmount?: number;
   awardedAmount?: number;

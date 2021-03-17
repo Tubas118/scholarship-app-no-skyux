@@ -64,12 +64,10 @@ export class SelectValueComponent<T> implements OnInit, OnChanges {
   }
 
   public onSelectedItemChanged(entry: any) {
-    console.log(` onSelectedItemChanged: ${entry.target.value}`);
     this.filterChanged.emit(entry.target.value);
   }
 
   protected initDisplayList(): void {
-    console.log(`initDisplayList: observableList=${this.observableList !== undefined}, list=${this.list !== undefined}`)
     if (this.observableList !== undefined) {
       this.initDisplayListFromObservable();
     }
@@ -79,11 +77,9 @@ export class SelectValueComponent<T> implements OnInit, OnChanges {
   }
 
   protected initDisplayListFromObservable() {
-    console.log(`initDisplayListFromObservable - start`);
     this.observableList
       .pipe(take(1))
       .subscribe(entries => {
-        console.log(`initDisplayListFromObservable - entries`);
         this.list = entries;
         this.initDisplayListFromReadyList();
       });

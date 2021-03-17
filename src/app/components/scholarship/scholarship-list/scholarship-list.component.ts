@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
+import { ScholarshipSupport } from 'src/app/models/model-support/scholarship-support';
+import { Scholarship } from 'src/app/models/scholarship';
 
 @Component({
   selector: 'scholarship-list',
@@ -19,14 +21,22 @@ export class ScholarshipListComponent implements OnInit {
   protected errorDetail: any;
   protected pageNum: number;
 
-  public constructor(public translate: TranslateService) { }
+  public constructor(public translate: TranslateService,
+                      private scholarshipSupport: ScholarshipSupport) { }
 
   public ngOnInit() {
     this.pageNum = 0;
   }
 
   public editRecord(recordId: string) {
-    console.log(`Scholarship id: ${recordId}`);
     this.selectedScholarship.emit(recordId);
+  }
+
+  public deadlineDateAlertLevelClass(record: any) {
+    return 'lrock-alert-' + this.scholarshipSupport.alertLevelFromDate(record?.deadlineDate);
+  }
+
+  public isValidDeadlineDate(scholarship: Scholarship) {
+    return this.scholarshipSupport.isValidDate(scholarship?.deadlineDate);
   }
 }

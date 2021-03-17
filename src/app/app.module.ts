@@ -8,7 +8,7 @@ import { SharedComponentsModule } from 'src/shared/components/shared-components-
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ScholarshipListComponent } from './components/scholarship/scholarship-list/scholarship-list.component';
 import { ScholarshipDashboardComponent } from './components/scholarship/scholarship-dashboard/scholarship-dashboard.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ScholarshipEditComponent } from './components/scholarship/scholarship-edit/scholarship-edit.component';
 import { ScholarshipFilterComponent } from './components/scholarship/scholarship-filter/scholarship-filter.component';
@@ -24,6 +24,9 @@ import { SponsorDashboardComponent } from './components/sponsor/sponsor-dashboar
 import { SponsorEditComponent } from './components/sponsor/sponsor-edit/sponsor-edit.component';
 import { SponsorListComponent } from './components/sponsor/sponsor-list/sponsor-list.component';
 import { ValidateDeactivationGuard } from './components/scholarship/validate-deactivation.guard';
+import { DateSelectComponent } from 'src/lib/components/date-select/date-select.component';
+import { DatePipe } from '@angular/common';
+import { KeyValueComponent } from 'src/lib/components/key-value/key-value.component';
 
 @NgModule({
   declarations: [
@@ -35,25 +38,32 @@ import { ValidateDeactivationGuard } from './components/scholarship/validate-dea
     TaskEditComponent,
     TaskListComponent,
     WelcomeComponent,
+
     CheckboxComponent,
+    DateSelectComponent,
+    KeyValueComponent,
+    TextAreaComponent,
+    TextboxComponent,
+
     ScholarshipFilterComponent,
     SelectScholarshipComponent,
     SelectValueComponent,
     SponsorDashboardComponent,
     SponsorEditComponent,
-    SponsorListComponent,
-    TextAreaComponent,
-    TextboxComponent
+    SponsorListComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
+    FormsModule,
     HttpClientModule,
+    // LibComponentsModule,
     ReactiveFormsModule,
     SharedComponentsModule,
     SharedServicesModule
   ],
   providers: [
+    DatePipe,
     ValidateDeactivationGuard
   ],
   bootstrap: [AppComponent]

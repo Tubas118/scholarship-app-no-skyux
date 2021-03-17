@@ -5,11 +5,9 @@
   <div class="lrock-table">
     <div class="lrock-header">
       <div class="lrock-cell-3">{{ 'task_summary_label.message' | translate }}</div>
+      <div class="lrock-cell-2">{{ 'tasks_deadlineDate_label.message' | translate }}</div>
       <div class="lrock-cell-2">{{ 'task_assignedTo_label.message' | translate }}</div>
       <div class="lrock-cell-3">{{ 'task_notes_label.message' | translate }}</div>
-      <!-- <div class="lrock-cell-1">{{ 'task_details_label.message' | translate }}</div>
-      <div class="lrock-cell-1">{{ 'task_timestamp_label.message' | translate }}</div>
-      <div class="lrock-cell-1">{{ 'task_userId_label.message' | translate }}</div> -->
     </div>
     <div *ngFor="let entry of gridData; index as i" class="lrock-row lrock-selectable" (click)="editTask(i)">
       <div class="lrock-cell-3 lrock-inline">
@@ -24,13 +22,9 @@
           <i> (invalid)</i>
         </div>
       </div>
+      <div class="lrock-cell-2  lrock-center">{{ entry.deadlineDate | date: 'yyyy-MM-dd' }}</div>
       <div class="lrock-cell-2">{{ entry.assignedTo }}</div>
       <div class="lrock-cell-3">{{ entry.notes }}</div>
-
-      <!-- <div class="lrock-cell-1">{{ entry.done }}</div> -->
-      <!-- <div class="lrock-cell-1">{{ entry.details }}</div>
-      <div class="lrock-cell-1">{{ entry.timestamp }}</div>
-      <div class="lrock-cell-1">{{ entry.userId }}</div> -->
     </div>
   </div>
 </main>

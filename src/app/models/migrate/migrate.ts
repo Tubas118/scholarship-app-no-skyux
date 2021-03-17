@@ -1,6 +1,5 @@
-import { of, throwError } from "rxjs";
+import { throwError } from "rxjs";
 import { catchError, map, take } from "rxjs/operators";
-import { newScholarship, newSponsor, newTask } from '../../models/model-support/app-data-utils';
 import { ScholarshipService } from "src/app/services/scholarship-service";
 import { SponsorService } from "src/app/services/sponsor-service";
 import { ScholarshipV2, SCHOLARSHIP_SCHEMA_V2 } from "../archived/scholarship/scholarship-v2";
@@ -8,12 +7,18 @@ import { ScholarshipV3, SCHOLARSHIP_SCHEMA_V3 } from "../archived/scholarship/sc
 import { CURRENT_SCHOLARSHIP_SCHEMA, Scholarship } from "../scholarship";
 import { Sponsor } from "../sponsor";
 import { Task } from "../task";
-import { TaskConstants } from "../task-constants";
+import { TaskConstants } from "../model-support/task-constants";
 import { SleepUtil } from "src/lib/utils/sleep-util";
+import { ScholarshipSupport } from "../model-support/scholarship-support";
+import { SponsorSupport } from "../model-support/sponsor-support";
+import { TaskSupport } from "../model-support/task-support";
 
 export class MigrateUtil {
   constructor(private scholarshipService: ScholarshipService,
-              private sponsorService: SponsorService) {
+              private sponsorService: SponsorService,
+              private scholarshipSupport: ScholarshipSupport,
+              private sponsorSupport: SponsorSupport,
+              private taskSupport: TaskSupport) {
   }
 
   public migrate() {
@@ -42,12 +47,12 @@ export class MigrateUtil {
   }
 
   private migrateFromV2(scholarshipSource: ScholarshipV2) {
-    let scholarship = newScholarship({
+    let scholarship = this.scholarshipSupport.newModel({
       ...scholarshipSource,
       schemaVersion: CURRENT_SCHOLARSHIP_SCHEMA
     } as Scholarship);
 
-    let sponsor = newSponsor({
+    let sponsor = this.sponsorSupport.newModel({
       sponsor: scholarshipSource.sponsor,
       contactInfo: scholarshipSource.sponsorContactInfo,
       contactPhone: scholarshipSource.contactPhone,
@@ -87,12 +92,12 @@ export class MigrateUtil {
   }
 
   private migrateFromV3(scholarshipSource: ScholarshipV3) {
-    let scholarship = newScholarship({
+    let scholarship = this.scholarshipSupport.newModel({
       ...scholarshipSource,
       schemaVersion: CURRENT_SCHOLARSHIP_SCHEMA
     } as Scholarship);
 
-    let sponsor = newSponsor({
+    let sponsor = this.sponsorSupport.newModel({
       sponsor: scholarshipSource.sponsor,
       contactInfo: scholarshipSource.sponsorContactInfo,
       contactPhone: scholarshipSource.contactPhone,
@@ -144,7 +149,7 @@ export class MigrateUtil {
     }
 
     if (!hasTaskSummary) {
-      tasks.push(newTask({
+      tasks.push(this.taskSupport.newModel({
         summary: checkTaskSummary
       } as Task));
     }

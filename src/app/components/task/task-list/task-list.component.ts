@@ -40,12 +40,10 @@ export class TaskListComponent implements OnInit {
   }
 
   public onAddTemplateTasks() {
-    console.log(`TaskListComponent - onAddTemplateTasks`);
     this.templateTasksEvent.emit('add template tasks');
   }
 
   public onInvalidateTasks() {
-    console.log(`TaskListComponent - onInvalidateTasks`);
     this.invalidateTasksEvent.emit('invalidate tasks');
   }
 }

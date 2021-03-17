@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -27,6 +28,7 @@ describe('AppComponent', () => {
         AppComponent
       ],
       providers: [
+        DatePipe,
         { provide: AppConfigService, useValue: appConfigService },
         { provide: HttpClient, useValue: spyHttpClient },
         { provide: ScholarshipService, useValue: spyScholarshipService },

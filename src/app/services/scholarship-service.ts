@@ -10,6 +10,8 @@ import { map } from 'rxjs/operators';
 import { Task } from '../models/task';
 import { SponsorService } from './sponsor-service';
 import { SelectedItem } from 'src/lib/components/selectbox/selectbox.component';
+import { ScholarshipSupport } from '../models/model-support/scholarship-support';
+import { TaskSupport } from '../models/model-support/task-support';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +26,9 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
   constructor(protected http: HttpClient,
               protected configService: AppConfigService,
               protected idService: UuidIdService,
-              protected sponsorService: SponsorService) {
+              protected scholarshipSupport: ScholarshipSupport,
+              protected sponsorService: SponsorService,
+              protected taskSupport: TaskSupport) {
     super(http, configService, 'scholarships', idService);
     this.debugId = 'ScholarshipService';
     this.getSponsorSelectList();
@@ -46,7 +50,6 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
         let selectItems: SelectedItem[] = [];
         selectItems.push({ display: ScholarshipService.NO_SPONSOR, id: ScholarshipService.NO_SPONSOR_ID } as SelectedItem);
         entries.forEach(entry => {
-          console.log(`sponsorSelectList - check ${entry.sponsor}`);
           selectItems.push({ display: entry.sponsor, id: entry.id } as SelectedItem);
         });
         return selectItems;
@@ -62,8 +65,9 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
           scholarships.forEach(scholarship => {
             const scholarshipView: ScholarshipView = {
               ...scholarship,
-              openTasks: this.openTasks(scholarship)
+              openTasks: this.sortedOpenTasks(scholarship)
             };
+            scholarshipView.activeDeadlineDate = this.scholarshipSupport.activeDeadlineDate(scholarship);
             if (scholarshipView.tasks === undefined) {
               scholarshipView.tasks = [];
             }
@@ -109,16 +113,17 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
     // statusType deprecated in schema 11 -- data.statusType = statusTypeMap[data.status];
   }
 
-  protected openTasks(scholarship: Scholarship): Task[] {
+  public sortedOpenTasks(scholarship: Scholarship): Task[] {
     if (scholarship.tasks === undefined) {
       scholarship.tasks = [];
     }
     const answer: Task[] = scholarship.tasks
       .filter(task => !this.checkBoolean(task?.done) && !this.checkBoolean(task?.invalid));
 
-    return answer;
+    return answer.sort((a, b) => this.taskSupport.compare(a, b));
   }
 
   protected checkBoolean(flag: boolean, defaultValue: boolean = false): boolean {
     return (flag !== undefined) ? flag : defaultValue;
-  }}
+  }
+}

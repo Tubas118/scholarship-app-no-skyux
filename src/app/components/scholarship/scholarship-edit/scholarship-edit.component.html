@@ -22,6 +22,16 @@
         </div>
 
         <div class="lrock-cell-2">
+          <lrock-date-select [parentForm]="scholarshipForm" labelResourceName="scholarship_deadlineDate_label" name="deadlineDate">
+          </lrock-date-select>
+
+          <!-- <label for="submitDate" class="lrock-label lrock-stacked">
+            {{ 'scholarship_submitDate_label.message' | translate }}
+          </label>
+          <input formControlName="submitDate" type="date"> -->
+          <lrock-date-select [parentForm]="scholarshipForm" labelResourceName="scholarship_submitDate_label" name="submitDate">
+          </lrock-date-select>
+
           <lrock-checkbox [parentForm]="scholarshipForm" labelResourceName="scholarship_submitted_label" name="submitted">
           </lrock-checkbox>
 
@@ -59,7 +69,7 @@
       </div>
     </div>
     <br/>
-    <task-dashboard [gridData]="activeScholarshipTasks" (bulkTaskChangeEvent)="onBulkTaskChangeEvent($event)">
+    <task-dashboard [activeScholarship]="scholarshipDetails" (bulkTaskChangeEvent)="onBulkTaskChangeEvent($event)">
     </task-dashboard>
   </form>
 </main>

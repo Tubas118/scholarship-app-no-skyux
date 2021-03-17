@@ -1,8 +1,7 @@
-import { Component, OnChanges, Output, EventEmitter, Input, SimpleChanges, ChangeDetectionStrategy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnChanges, Output, EventEmitter, Input, SimpleChanges, ChangeDetectionStrategy, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Scholarship } from '../../../models/scholarship';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ScholarshipService } from '../../../services/scholarship-service';
-import { newScholarship } from '../../../models/model-support/app-data-utils';
 import { TranslateService } from '@ngx-translate/core';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
 import { Task } from 'src/app/models/task';
@@ -12,13 +11,14 @@ import { Observable } from 'rxjs';
 import { ValidateDeactivation } from '../validate-deactivation';
 import { deepEqual } from '../../../../lib/utils/equality';
 import { BulkTaskChangeEvent, TaskDashboardComponent } from '../../task/task-dashboard/task-dashboard.component';
+import { ScholarshipSupport } from 'src/app/models/model-support/scholarship-support';
 
 @Component({
   selector: 'scholarship-edit',
   templateUrl: './scholarship-edit.component.html',
   styleUrls: ['./scholarship-edit.component.scss']
 })
-export class ScholarshipEditComponent extends ValidateDeactivation implements OnInit, OnChanges {
+export class ScholarshipEditComponent extends ValidateDeactivation implements OnChanges {
   @Input()
   public scholarshipDetails: ScholarshipView;
 
@@ -34,7 +34,7 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
   @Output()
   public tasksEvent: EventEmitter<Task[]> = new EventEmitter<Task[]>();
 
-  @ViewChild(ScholarshipEditComponent) taskDashboard: TaskDashboardComponent;
+  @ViewChild(TaskDashboardComponent) taskDashboard: TaskDashboardComponent;
 
   public scholarshipForm: FormGroup;
 
@@ -46,12 +46,9 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
 
   constructor(public translate: TranslateService,
               private formBuilder: FormBuilder,
-              private sponsorService: SponsorService,
-              private scholarshipService: ScholarshipService) {
+              private scholarshipService: ScholarshipService,
+              private scholarshipSupport: ScholarshipSupport) {
     super();
-  }
-
-  public ngOnInit(): void {
   }
 
   public get sponsorSelectList(): Observable<SelectedItem[]> {
@@ -64,12 +61,6 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
     return ['ALL'].concat(statusList);
   }
 
-  public get activeScholarshipTasks(): Task[] {
-    console.log(`activeScholarshipTasks`);
-    return this.scholarshipDetails !== undefined
-      ? this.scholarshipDetails.tasks : [];
-  }
-
   public get debugId(): string {
     return 'ScholarshipEditComponent';
   }
@@ -79,9 +70,7 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
   }
 
   public get validateForDeactivation(): boolean {
-    console.log('ScholarshipEditComponent closing...');
     if (!this.changesSubmitted) {
-      console.log('Closing but data not submitted');
       this.validateScholarshipDetails = {
         ...this.initialScholarshipDetails
       } as ScholarshipView;
@@ -106,7 +95,6 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (this.showScholarshipEditForm) {
-      console.log(`emit tasks: ${JSON.stringify(this.scholarshipDetails?.tasks)}`);
       this.tasksEvent.emit(this.scholarshipDetails?.tasks);
 
       this.scholarshipForm = this.intializeFormGroup(this.scholarshipDetails);
@@ -145,11 +133,7 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
   }
 
   protected isDirtyWorker(checkScholarshipDetails: ScholarshipView): boolean {
-    console.log(`changesSubmitted=${this.changesSubmitted}`);
-    console.log(`checkView: ${JSON.stringify(checkScholarshipDetails)}`);
-    console.log(`initView:  ${JSON.stringify(this.initialScholarshipDetails)}`);
     let isDirtyResult = (!this.changesSubmitted && !this.getBulkTaskActionOccurred() && !deepEqual(this.initialScholarshipDetails, checkScholarshipDetails));
-    console.log(`ScholarshipEditComponent - isDirty=${isDirtyResult}`);
     return isDirtyResult;
   }
 
@@ -184,10 +168,9 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
   }
 
   private selectScholarshipView(scholarship: ScholarshipView): ScholarshipView {
-    console.log(`selecting scholarship: new? ${this.newEntryMode}, parm=${scholarship?.scholarshipName || 'n/a'}`);
     if (this.newEntryMode) {
       return {
-        ...newScholarship()
+        ...this.scholarshipSupport.newModel()
       } as ScholarshipView;
     }
     return scholarship;
