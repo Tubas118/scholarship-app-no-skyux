@@ -20,7 +20,7 @@ describe('scholarship-support', () => {
   })
 
   describe('dateAlertLevel with date objects', () => {
-    it('should return correct alert level string', () => {
+    it('should return correct alert level string - red', () => {
       let checkDate = new Date();
 
       checkDate.setDate(today.getDate() - 1);
@@ -28,22 +28,34 @@ describe('scholarship-support', () => {
 
       checkDate.setDate(today.getDate());
       expectAlertLevel(checkDate, 'red');
+    });
+
+    it('should return correct alert level string - orange', () => {
+      let checkDate = new Date();
 
       checkDate.setDate(today.getDate() + 1);
       expectAlertLevel(checkDate, 'orange');
 
       checkDate.setDate(today.getDate() + 7);
       expectAlertLevel(checkDate, 'orange');
+    });
+
+    it('should return correct alert level string - yellow', () => {
+      let checkDate = new Date();
 
       checkDate.setDate(today.getDate() + 8);
       expectAlertLevel(checkDate, 'yellow');
 
-      checkDate.setDate(today.getDate() + 24);
+      checkDate.setDate(today.getDate() + 23);
       expectAlertLevel(checkDate, 'yellow');
+    });
 
-      checkDate.setDate(today.getDate() + 25);
+    it('should return correct alert level string - green', () => {
+      let checkDate = new Date();
+
+      checkDate.setDate(today.getDate() + 24);
       expectAlertLevel(checkDate, 'green');
-    })
+    });
   });
 
   function expectAlertLevel(checkDate: Date, expectedAlertLevel: string) {

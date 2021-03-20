@@ -24,30 +24,30 @@ export class ScholarshipSupport extends ModelSupport<Scholarship, ScholarshipVie
   }
 
   alertLevelFromDate(parmDate: any): string {
-    console.log(`parmDate: ${parmDate} [${typeof parmDate}]`)
     if (parmDate !== undefined) {
       const todayValue = new Date();
       const baseValue = new Date(parmDate.toString());
-      let checkValue = new Date();
-      checkValue.setDate(baseValue.getDate());
-      console.log(`checkValue: ${checkValue}`);
 
-      if (todayValue >= checkValue) {
+      if (this.checkDateForAlert(todayValue, baseValue, 0)) {
         return 'red';
       }
 
-      checkValue.setDate(baseValue.getDate() - 7);
-      if (todayValue >= checkValue) {
+      if (this.checkDateForAlert(todayValue, baseValue, -7)) {
         return 'orange';
       }
 
-      checkValue.setDate(baseValue.getDate() - 23);
-      if (todayValue >= checkValue) {
+      if (this.checkDateForAlert(todayValue, baseValue, -23)) {
         return 'yellow';
       }
     }
 
     return 'green';
+  }
+
+  private checkDateForAlert(todayValue: Date, baseValue: Date, dayOffset: number) {
+    let checkValue = new Date(baseValue.toDateString());
+    checkValue.setDate(baseValue.getDate() + dayOffset);
+    return todayValue >= checkValue;
   }
 
   newModel(assignedFields?: Scholarship): Scholarship {
