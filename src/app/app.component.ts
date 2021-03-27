@@ -13,7 +13,7 @@ import { SponsorService } from './services/sponsor-service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Scholarships (no-skyux)';
+  title = 'Scholarships';
 
   appVersion: string = version;
 

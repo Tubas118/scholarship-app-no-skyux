@@ -46,6 +46,14 @@ describe('AppComponent', () => {
   it(`should have as title 'scholarship-app-no-skyux'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Scholarships (no-skyux)');
+    expect(app.title).toEqual('Scholarships');
+
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('.ctn-title').textContent).toContain('Scholarships');
+
+    app.title = 'Tony\'s app';
+    fixture.detectChanges();
+    expect(compiled.querySelector('.ctn-title').textContent).toContain('Tony\'s app');
   });
 });
