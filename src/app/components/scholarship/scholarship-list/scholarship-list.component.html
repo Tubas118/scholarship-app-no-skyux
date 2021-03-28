@@ -13,8 +13,9 @@
           (Due: {{ entry.deadlineDate }})
         </div>
         <div *ngIf="entry.webpage?.length > 0" class="lrock-stacked">
-          <br/>
-          {{ 'scholarship_webpage_label.message' | translate }}
+          <div class="lrock-task-label">
+            {{ 'scholarship_webpage_label.message' | translate }}
+          </div>
           <a (click)="onUrlClicked(entry)" href="{{entry.webpage}}" class="lrock-url" target="_blank">{{entry.webpage}}</a>
         </div>
       </div>
