@@ -140,6 +140,10 @@
     "message": "Target Amount",
     "_description": "Replace with description for scholarship_targetAmount_label"
   },
+  "scholarship_webpage_label": {
+    "message": "Webpage",
+    "_description": "Replace with description for scholarship_webpage_label"
+  },
   "scholarshipTaskView_id_label": {
     "message": "id",
     "_description": "Replace with description for scholarshipTaskView_id_label"

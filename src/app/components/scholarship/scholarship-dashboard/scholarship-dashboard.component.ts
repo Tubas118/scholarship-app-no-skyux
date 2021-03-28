@@ -1,10 +1,8 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { of, Observable, forkJoin } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ScholarshipSupport } from 'src/app/models/model-support/scholarship-support';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
-import { SponsorService } from 'src/app/services/sponsor-service';
 import { Scholarship } from '../../../models/scholarship';
 import { ScholarshipService } from '../../../services/scholarship-service';
 import { ScholarshipEditComponent } from '../scholarship-edit/scholarship-edit.component';

@@ -47,7 +47,7 @@ export class SelectValueComponent<T> implements OnInit, OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    console.log(`Simple change: ${changes}`);
+    //console.log(`Simple change: ${changes}`);
   }
 
   public ngOnInit(): void {

@@ -19,6 +19,14 @@
 
           <lrock-selectbox [parentForm]="scholarshipForm" [observableList]="sponsorSelectList" labelResourceName="scholarship_sponsor_label" name="sponsorId">
           </lrock-selectbox>
+
+          <div>
+            <label for="webpage" class="lrock-label lrock-stacked">
+              <br/>
+              {{ 'scholarship_webpage_label.message' | translate }}
+            </label>
+            <input class="lrock-control lrock-stacked" formControlName="webpage" type="url">
+          </div>
         </div>
 
         <div class="lrock-cell-2">

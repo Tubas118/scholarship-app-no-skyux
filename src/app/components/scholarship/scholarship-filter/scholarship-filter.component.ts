@@ -19,7 +19,7 @@ export class ScholarshipFilterComponent implements OnChanges {
   constructor() { }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    console.log(`Simple change: ${changes}`);
+    //console.log(`Simple change: ${changes}`);
   }
 
   public onSelectedItemChanged(entry: any) {

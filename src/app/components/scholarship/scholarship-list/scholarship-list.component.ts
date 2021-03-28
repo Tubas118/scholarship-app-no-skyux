@@ -20,6 +20,7 @@ export class ScholarshipListComponent implements OnInit {
 
   protected errorDetail: any;
   protected pageNum: number;
+  protected skipEditRecord = false;
 
   public constructor(public translate: TranslateService,
                       private scholarshipSupport: ScholarshipSupport) { }
@@ -28,8 +29,17 @@ export class ScholarshipListComponent implements OnInit {
     this.pageNum = 0;
   }
 
+  public onUrlClicked(entry: ScholarshipView) {
+    if (entry?.webpage !== undefined) {
+      this.skipEditRecord = true;
+    }
+  }
+
   public editRecord(recordId: string) {
-    this.selectedScholarship.emit(recordId);
+    if (this.skipEditRecord === false) {
+      this.selectedScholarship.emit(recordId);
+    }
+    this.skipEditRecord = false;
   }
 
   public deadlineDateAlertLevelClass(record: any) {

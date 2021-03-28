@@ -1,3 +1,4 @@
+import { Url } from 'url';
 import { BasicData } from '../../shared/basic/basic-data';
 import { Task } from './task';
 
@@ -22,6 +23,7 @@ export interface Scholarship extends BasicData<string> {
   previouslyApplied?: boolean;
   previouslyAwarded?: boolean;
   tasks: Task[];
+  webpage?: Url;
 
   /** @deprecated */
   sponsor: string;

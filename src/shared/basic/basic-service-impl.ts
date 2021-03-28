@@ -68,7 +68,7 @@ export abstract class BasicServiceImpl<T extends BasicData<ID>, ID> implements B
 
   public getAll(filter?: string): Observable<T[]> {
     const useUrl = (filter === undefined) ? this.apiUrl : this.apiUrl + filter;
-    console.log(`getAll() => ${useUrl}${(this.debugId !== undefined) ? ' - ' + this.debugId : ''}`);
+
     return this.http
       .get<T[]>(useUrl)
       .pipe(catchError(this.handleError));

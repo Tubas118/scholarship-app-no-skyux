@@ -198,7 +198,8 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
       submitted: new FormControl(this.scholarshipDetails.submitted || false),
       previouslyApplied: new FormControl(this.scholarshipDetails.previouslyApplied || false),
       previouslyAwarded: new FormControl(this.scholarshipDetails.previouslyAwarded || false),
-      membershipRequired: new FormControl(this.scholarshipDetails.membershipRequired || false)
+      membershipRequired: new FormControl(this.scholarshipDetails.membershipRequired || false),
+      webpage: new FormControl(this.scholarshipDetails.webpage)
     });
   }
 
@@ -218,6 +219,7 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
     updatedScholarship.previouslyApplied = this.scholarshipForm.controls['previouslyApplied'].value;
     updatedScholarship.previouslyAwarded = this.scholarshipForm.controls['previouslyAwarded'].value;
     updatedScholarship.membershipRequired = this.scholarshipForm.controls['membershipRequired'].value;
+    updatedScholarship.webpage = this.scholarshipForm.controls.webpage.value;
   }
 }
 

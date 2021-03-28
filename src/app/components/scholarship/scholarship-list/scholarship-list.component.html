@@ -12,6 +12,11 @@
         <div *ngIf="entry.openTasks?.length > 0 && isValidDeadlineDate(entry)" class="lrock-indent {{deadlineDateAlertLevelClass(entry)}}">
           (Due: {{ entry.deadlineDate }})
         </div>
+        <div *ngIf="entry.webpage?.length > 0" class="lrock-stacked">
+          <br/>
+          {{ 'scholarship_webpage_label.message' | translate }}
+          <a (click)="onUrlClicked(entry)" href="{{entry.webpage}}" class="lrock-url" target="_blank">{{entry.webpage}}</a>
+        </div>
       </div>
       <div class="lrock-cell-2 lrock-right">
         <lrock-key-value keyResourceName='scholarship_code_short_label' value="{{entry.code}}"></lrock-key-value>
