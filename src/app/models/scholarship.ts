@@ -5,12 +5,14 @@ export const CURRENT_SCHOLARSHIP_SCHEMA = 11;
 
 export interface Scholarship extends BasicData<string> {
   scholarshipName: string;
-  code?: string;
   sponsorId: string;
   contactInfo: string;
   contactPhone: string;
   contactEmail: string;
   minimumGpa: string;
+  tasks: Task[];
+
+  code?: string;
   submitDate?: Date;
   priority?: number;
   deadlineDate?: Date;
@@ -21,7 +23,6 @@ export interface Scholarship extends BasicData<string> {
   qualified?: boolean;
   previouslyApplied?: boolean;
   previouslyAwarded?: boolean;
-  tasks: Task[];
   webpage?: URL;
 
   /** @deprecated */
