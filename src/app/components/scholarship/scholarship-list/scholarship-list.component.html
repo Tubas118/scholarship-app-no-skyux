@@ -6,7 +6,7 @@
       <div class="lrock-cell-2">{{ 'scholarship_targetAmount_label.message' | translate }}</div>
       <div class="lrock-cell-5">{{ 'tasks_label.message' | translate }}</div>
     </div>
-    <div *ngFor="let entry of scholarshipGridData | async" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
+    <div *ngFor="let entry of scholarshipGridData | async" id="{{entry.id}}" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
       <div class="lrock-cell-4">
         {{ entry.scholarshipName }}
         <div *ngIf="entry.openTasks?.length > 0 && isValidDeadlineDate(entry)" class="lrock-indent {{deadlineDateAlertLevelClass(entry)}}">
@@ -24,8 +24,8 @@
         <lrock-key-value keyResourceName='scholarship_targetAmount_label' value="{{entry.targetAmount | currency}}"></lrock-key-value>
       </div>
       <div class="lrock-cell-5">
-        {{ 'tasks_open_label.message' | translate }}: {{ entry.openTasks?.length || 0 }}
-        - {{ 'tasks_total_label.message' | translate }}: {{ entry.tasks?.length || 0 }}
+        {{ 'tasks_open_label.message' | translate }}: <div class='ct-open-tasks'>{{ entry.openTasks?.length || 0 }}</div>
+        - {{ 'tasks_total_label.message' | translate }}: <div class='ct-total-tasks'>{{ entry.tasks?.length || 0 }}</div>
         <div *ngFor="let taskEntry of entry.openTasks" class="lrock-task-entry-border">
           <div class="lrock-task-entry">
             {{ taskEntry?.summary }}
