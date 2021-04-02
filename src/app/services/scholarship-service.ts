@@ -63,10 +63,7 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
         map(scholarships => {
           let scholarshipViews: ScholarshipView[] = [];
           scholarships.forEach(scholarship => {
-            const scholarshipView: ScholarshipView = {
-              ...scholarship,
-              openTasks: this.sortedOpenTasks(scholarship)
-            };
+            const scholarshipView = this.scholarshipSupport.toScholarshipView(scholarship);
             scholarshipView.activeDeadlineDate = this.scholarshipSupport.activeDeadlineDate(scholarship);
             if (scholarshipView.tasks === undefined) {
               scholarshipView.tasks = [];
@@ -111,19 +108,5 @@ export class ScholarshipService extends BasicServiceImpl<Scholarship, string> {
       data.schemaVersion = CURRENT_SCHOLARSHIP_SCHEMA;
     }
     // statusType deprecated in schema 11 -- data.statusType = statusTypeMap[data.status];
-  }
-
-  public sortedOpenTasks(scholarship: Scholarship): Task[] {
-    if (scholarship.tasks === undefined) {
-      scholarship.tasks = [];
-    }
-    const answer: Task[] = scholarship.tasks
-      .filter(task => !this.checkBoolean(task?.done) && !this.checkBoolean(task?.invalid));
-
-    return answer.sort((a, b) => this.taskSupport.compare(a, b));
-  }
-
-  protected checkBoolean(flag: boolean, defaultValue: boolean = false): boolean {
-    return (flag !== undefined) ? flag : defaultValue;
   }
 }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ScholarshipSupport } from 'src/app/models/model-support/scholarship-support';
 import { TaskConstants } from 'src/app/models/model-support/task-constants';
 import { ScholarshipView } from 'src/app/models/views/scholarship-view';
 import { ScholarshipService } from 'src/app/services/scholarship-service';
@@ -30,14 +31,14 @@ export class TaskDashboardComponent implements OnInit {
 
   protected bulkTaskActionOccurred = false;
 
-  constructor(private scholarshipService: ScholarshipService) {
+  constructor(private scholarshipSupport: ScholarshipSupport) {
   }
 
   public ngOnInit(): void {
     console.log(`task-dashboard - ngOnInit() - active scholarship: ${this.activeScholarship !== undefined}`);
     let openTasks = (this.activeScholarship !== undefined) ? this.activeScholarship.openTasks : undefined;
     if (openTasks === undefined) {
-      openTasks = this.scholarshipService.sortedOpenTasks(this.activeScholarship);
+      openTasks = this.scholarshipSupport.sortedOpenTasks(this.activeScholarship);
     }
     this.gridData = openTasks;
     console.log(`  gridData = ${this.gridData !== undefined}`);

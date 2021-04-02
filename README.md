@@ -1,12 +1,11 @@
-# skyux-sdk-template
-Template for SKY UX applications created by the SKY UX CLI
+# First time
+Copy `data.initial.json` to `data.json` to intialize the data.
 
 # json-server
 To run json-server for test purposes, use following command:
 ```
 json-server --watch data.json
 ```
-
 
 # ScholarshipAppNoSkyux
 
