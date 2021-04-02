@@ -8,7 +8,7 @@
     </div>
     <div *ngFor="let entry of scholarshipGridData | async" id="{{entry.id}}" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
       <div class="lrock-cell-4">
-        {{ entry.scholarshipName }}
+        <div class='ct-scholarship-name'>{{ entry.scholarshipName }}</div>
         <div *ngIf="entry.openTasks?.length > 0 && isValidDeadlineDate(entry)" class="lrock-indent {{deadlineDateAlertLevelClass(entry)}}">
           (Due: {{ entry.deadlineDate }})
         </div>

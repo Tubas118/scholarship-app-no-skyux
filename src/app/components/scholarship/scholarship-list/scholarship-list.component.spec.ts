@@ -11,6 +11,7 @@ import { ScholarshipView } from 'src/app/models/views/scholarship-view';
 import { of } from 'rxjs';
 import { HttpLoaderFactory } from 'src/shared/components/shared-components-module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { KeyValueComponent } from 'src/lib/components/key-value/key-value.component';
 
 describe('scholarship-list component', () => {
   let fixture: ComponentFixture<ScholarshipListComponent>;
@@ -24,9 +25,7 @@ describe('scholarship-list component', () => {
     scholarshipViews = [];
 
     scholarships.forEach(scholarship => {
-      scholarshipViews.push({
-        ...scholarship
-      } as ScholarshipView);
+      appendScholarship(scholarship);
     });
 
     TestBed.configureTestingModule({
@@ -45,6 +44,7 @@ describe('scholarship-list component', () => {
         })
       ],
       declarations: [
+        KeyValueComponent,
         ScholarshipListComponent
       ],
       providers: [
@@ -61,25 +61,60 @@ describe('scholarship-list component', () => {
   });
 
   it('should populate the scholarship view', () => {
+    // Given
     let elementDebugRows = elements.allScholarshipDebugRows;
     expect(elementDebugRows.length).toEqual(0);
+
+    // When
     component.scholarshipGridData = of(scholarshipViews);
     fixture.detectChanges();
 
+    // Then
     elementDebugRows = elements.allScholarshipDebugRows;
     expect(elementDebugRows.length).toBe(scholarshipViews.length);
 
-    let elementRows = elements.allScholarshipRows;
-    expect(elementRows.length).toBe(scholarshipViews.length);
-    elementRows.forEach((elementRow, idx) => {
-      const openTasks = elements.scholarshipOpenTasks(elementRow);
-      const totalTasks = elements.scholarshipTotalTasks(elementRow);
-      const expectedOpenTasks = (scholarshipViews[idx].openTasks?.length.toString() || '0');
-      const expectedTotalTasks = (scholarshipViews[idx].tasks?.length.toString() || '0');
-
-      expect(openTasks.textContent).toEqual(expectedOpenTasks);
-      expect(totalTasks.textContent).toEqual(expectedTotalTasks);
+    let rows = elements.allScholarshipRows;
+    expect(rows.length).toBe(scholarshipViews.length);
+    rows.forEach((row, idx) => {
+      expectScholarshipMatch(row, scholarshipViews[idx]);
     });
   });
 
+  it ('should properly display scholarships with no tasks', () => {
+    // Given
+    scholarshipViews = [];
+
+    appendScholarship({
+      ...(new ScholarshipRandomBuilder().build()),
+      tasks: []
+    });
+
+    // When
+    component.scholarshipGridData = of(scholarshipViews);
+    fixture.detectChanges();
+
+    // Then
+    let rows = elements.allScholarshipRows;
+    expect(rows.length).toBe(1);
+
+    expectScholarshipMatch(rows[0], scholarshipViews[0]);
+  });
+
+  function appendScholarship(scholarship: Scholarship) {
+    scholarshipViews.push({
+      ...scholarship
+    } as ScholarshipView);
+  }
+
+  function expectScholarshipMatch(elementRow: HTMLElement, expectedScholarship: ScholarshipView) {
+    expect(elements.scholarshipName(elementRow).textContent).toBe(expectedScholarship.scholarshipName);
+
+    const openTasks = elements.scholarshipOpenTasks(elementRow);
+    const totalTasks = elements.scholarshipTotalTasks(elementRow);
+    const expectedOpenTasks = (expectedScholarship.openTasks?.length.toString() || '0');
+    const expectedTotalTasks = (expectedScholarship.tasks?.length.toString() || '0');
+
+    expect(openTasks.textContent).toEqual(expectedOpenTasks);
+    expect(totalTasks.textContent).toEqual(expectedTotalTasks);
+  }
 });

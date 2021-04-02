@@ -22,19 +22,30 @@ export class ScholarshipListSpecPage {
     return this.fixture.debugElement.query(By.css(id));
   }
 
+  // -----------------------------------------------------------
+  scholarshipOpenTasks(row: HTMLElement): HTMLElement {
+    return row.querySelector('.ct-open-tasks');
+  }
+
   scholarshipDebugOpenTasks(row: DebugElement): DebugElement {
     return row.query(By.css('.ct-open-tasks'));
+  }
+
+  // -----------------------------------------------------------
+  scholarshipTotalTasks(row: HTMLElement): HTMLElement {
+    return row.querySelector('.ct-total-tasks');
   }
 
   scholarshipDebugTotalTasks(row: DebugElement): DebugElement {
     return row.query(By.css('.ct-total-tasks'));
   }
 
-  scholarshipOpenTasks(row: HTMLElement): HTMLElement {
-    return row.querySelector('.ct-open-tasks');
+  // -----------------------------------------------------------
+  scholarshipName(row: HTMLElement): HTMLElement {
+    return row.querySelector('.ct-scholarship-name');
   }
 
-  scholarshipTotalTasks(row: HTMLElement): HTMLElement {
-    return row.querySelector('.ct-total-tasks');
+  scholarshipDebugName(row: DebugElement): DebugElement {
+    return row.query(By.css('.ct-scholarship-name'));
   }
 }
