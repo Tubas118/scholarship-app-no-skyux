@@ -10,7 +10,7 @@
       <div class="lrock-cell-4">
         <div class='ct-scholarship-name'>{{ entry.scholarshipName }}</div>
         <div *ngIf="entry.openTasks?.length > 0 && isValidDeadlineDate(entry)" class="lrock-indent {{deadlineDateAlertLevelClass(entry)}}">
-          (Due: <div class="ct-deadline-date">{{ entry.deadlineDate }}</div>)
+          (Due: <span class="ct-deadline-date">{{ entry.deadlineDate }}</span>)
         </div>
         <div *ngIf="entry.webpage?.length > 0" class="lrock-stacked">
           <div class="lrock-task-label">
@@ -24,8 +24,8 @@
         <lrock-key-value keyResourceName='scholarship_targetAmount_label' class='ct-target-amount' value="{{entry.targetAmount | currency}}"></lrock-key-value>
       </div>
       <div class="lrock-cell-5">
-        {{ 'tasks_open_label.message' | translate }}: <div class='ct-open-tasks'>{{ entry.openTasks?.length || 0 }}</div>
-        - {{ 'tasks_total_label.message' | translate }}: <div class='ct-total-tasks'>{{ entry.tasks?.length || 0 }}</div>
+        {{ 'tasks_open_label.message' | translate }}: <span class='ct-open-tasks'>{{ entry.openTasks?.length || 0 }}</span>
+        - {{ 'tasks_total_label.message' | translate }}: <span class='ct-total-tasks'>{{ entry.tasks?.length || 0 }}</span>
         <div *ngFor="let taskEntry of entry.openTasks" class="lrock-task-entry-border">
           <div class="lrock-task-entry">
             {{ taskEntry?.summary }}
