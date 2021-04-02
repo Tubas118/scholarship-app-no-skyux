@@ -62,7 +62,7 @@ describe('scholarship-list component', () => {
 
   it('should populate the scholarship view', () => {
     // Given
-    let elementDebugRows = elements.allScholarshipDebugRows;
+    let elementDebugRows = elements.allScholarshipRows.debugElements;
     expect(elementDebugRows.length).toEqual(0);
 
     // When
@@ -70,10 +70,10 @@ describe('scholarship-list component', () => {
     fixture.detectChanges();
 
     // Then
-    elementDebugRows = elements.allScholarshipDebugRows;
+    elementDebugRows = elements.allScholarshipRows.debugElements;
     expect(elementDebugRows.length).toBe(scholarshipViews.length);
 
-    let rows = elements.allScholarshipRows;
+    let rows = elements.allScholarshipRows.elements;
     expect(rows.length).toBe(scholarshipViews.length);
     rows.forEach((row, idx) => {
       expectScholarshipMatch(row, scholarshipViews[idx]);
@@ -94,7 +94,10 @@ describe('scholarship-list component', () => {
     fixture.detectChanges();
 
     // Then
-    let rows = elements.allScholarshipRows;
+    let debugRows = elements.allScholarshipRows.debugElements;
+    expect(debugRows.length).toBe(1);
+
+    let rows = elements.allScholarshipRows.elements;
     expect(rows.length).toBe(1);
 
     expectScholarshipMatch(rows[0], scholarshipViews[0]);
@@ -107,10 +110,10 @@ describe('scholarship-list component', () => {
   }
 
   function expectScholarshipMatch(elementRow: HTMLElement, expectedScholarship: ScholarshipView) {
-    expect(elements.scholarshipName(elementRow).textContent).toBe(expectedScholarship.scholarshipName);
+    expect(elements.scholarshipName.element(elementRow).textContent).toBe(expectedScholarship.scholarshipName);
 
-    const openTasks = elements.scholarshipOpenTasks(elementRow);
-    const totalTasks = elements.scholarshipTotalTasks(elementRow);
+    const openTasks = elements.scholarshipOpenTasks.element(elementRow);
+    const totalTasks = elements.scholarshipTotalTasks.element(elementRow);
     const expectedOpenTasks = (expectedScholarship.openTasks?.length.toString() || '0');
     const expectedTotalTasks = (expectedScholarship.tasks?.length.toString() || '0');
 

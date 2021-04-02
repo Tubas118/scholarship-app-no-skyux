@@ -1,51 +1,17 @@
-import { DebugElement } from "@angular/core";
 import { ComponentFixture } from "@angular/core/testing";
-import { By } from "@angular/platform-browser";
+import { BaseSpecPage, ChildElementGetterByCssName, ElementArrayGetterByCssName } from "src/lib/utils/dom-utils";
 import { ScholarshipListComponent } from "../scholarship-list.component";
 
-export class ScholarshipListSpecPage {
-  constructor(private fixture: ComponentFixture<ScholarshipListComponent>) { }
-
-  get allScholarshipRows(): HTMLElement[] {
-    return this.fixture.nativeElement.querySelectorAll('.lrock-selectable');
+export class ScholarshipListSpecPage extends BaseSpecPage<ScholarshipListComponent> {
+  constructor(public fixture: ComponentFixture<ScholarshipListComponent>) {
+    super(fixture);
   }
 
-  get allScholarshipDebugRows(): DebugElement[] {
-    return this.fixture.debugElement.queryAll(By.css('.lrock-selectable'));
-  }
+  readonly allScholarshipRows = new ElementArrayGetterByCssName<HTMLElement[]>('.lrock-selectable', this);
 
-  scholarshipRow(id: string): HTMLElement {
-    return this.scholarshipDebugRow(id)?.nativeElement;
-  }
+  readonly scholarshipName = new ChildElementGetterByCssName<HTMLElement>('.ct-scholarship-name');
 
-  scholarshipDebugRow(id: string): DebugElement {
-    return this.fixture.debugElement.query(By.css(id));
-  }
+  readonly scholarshipOpenTasks = new ChildElementGetterByCssName<HTMLElement>('.ct-open-tasks');
 
-  // -----------------------------------------------------------
-  scholarshipOpenTasks(row: HTMLElement): HTMLElement {
-    return row.querySelector('.ct-open-tasks');
-  }
-
-  scholarshipDebugOpenTasks(row: DebugElement): DebugElement {
-    return row.query(By.css('.ct-open-tasks'));
-  }
-
-  // -----------------------------------------------------------
-  scholarshipTotalTasks(row: HTMLElement): HTMLElement {
-    return row.querySelector('.ct-total-tasks');
-  }
-
-  scholarshipDebugTotalTasks(row: DebugElement): DebugElement {
-    return row.query(By.css('.ct-total-tasks'));
-  }
-
-  // -----------------------------------------------------------
-  scholarshipName(row: HTMLElement): HTMLElement {
-    return row.querySelector('.ct-scholarship-name');
-  }
-
-  scholarshipDebugName(row: DebugElement): DebugElement {
-    return row.query(By.css('.ct-scholarship-name'));
-  }
+  readonly scholarshipTotalTasks = new ChildElementGetterByCssName<HTMLElement>('.ct-total-tasks');
 }
