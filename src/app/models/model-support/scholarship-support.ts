@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Scholarship, CURRENT_SCHOLARSHIP_SCHEMA } from '../scholarship';
+import { Task } from '../task';
 import { ScholarshipView } from '../views/scholarship-view';
 import { ModelSupport } from './all-generic-model-support';
 import { TaskSupport } from './task-support';
@@ -116,4 +117,26 @@ export class ScholarshipSupport extends ModelSupport<Scholarship, ScholarshipVie
     }
     return priority;
   }
+
+  toScholarshipView(scholarship: Scholarship): ScholarshipView {
+    return {
+      ...scholarship,
+      openTasks: this.sortedOpenTasks(scholarship)
+    } as ScholarshipView;
+  }
+
+  sortedOpenTasks(scholarship: Scholarship): Task[] {
+    if (scholarship.tasks === undefined) {
+      scholarship.tasks = [];
+    }
+    const answer: Task[] = scholarship.tasks
+      .filter(task => !this.checkBoolean(task?.done) && !this.checkBoolean(task?.invalid));
+
+    return answer.sort((a, b) => this.taskSupport.compare(a, b));
+  }
+
+  protected checkBoolean(flag: boolean, defaultValue: boolean = false): boolean {
+    return (flag !== undefined) ? flag : defaultValue;
+  }
+
 }

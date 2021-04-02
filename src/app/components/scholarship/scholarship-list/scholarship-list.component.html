@@ -10,7 +10,7 @@
       <div class="lrock-cell-4">
         <div class='ct-scholarship-name'>{{ entry.scholarshipName }}</div>
         <div *ngIf="entry.openTasks?.length > 0 && isValidDeadlineDate(entry)" class="lrock-indent {{deadlineDateAlertLevelClass(entry)}}">
-          (Due: {{ entry.deadlineDate }})
+          (Due: <div class="ct-deadline-date">{{ entry.deadlineDate }}</div>)
         </div>
         <div *ngIf="entry.webpage?.length > 0" class="lrock-stacked">
           <div class="lrock-task-label">
@@ -20,8 +20,8 @@
         </div>
       </div>
       <div class="lrock-cell-2 lrock-right">
-        <lrock-key-value keyResourceName='scholarship_code_short_label' value="{{entry.code}}"></lrock-key-value>
-        <lrock-key-value keyResourceName='scholarship_targetAmount_label' value="{{entry.targetAmount | currency}}"></lrock-key-value>
+        <lrock-key-value keyResourceName='scholarship_code_short_label' class='ct-code' value="{{entry.code}}"></lrock-key-value>
+        <lrock-key-value keyResourceName='scholarship_targetAmount_label' class='ct-target-amount' value="{{entry.targetAmount | currency}}"></lrock-key-value>
       </div>
       <div class="lrock-cell-5">
         {{ 'tasks_open_label.message' | translate }}: <div class='ct-open-tasks'>{{ entry.openTasks?.length || 0 }}</div>
@@ -29,7 +29,7 @@
         <div *ngFor="let taskEntry of entry.openTasks" class="lrock-task-entry-border">
           <div class="lrock-task-entry">
             {{ taskEntry?.summary }}
-            {{ taskEntry?.priority }}
+            <div class="ct-priority">{{ taskEntry?.priority }}</div>
             <span *ngIf="taskEntry?.deadlineDate !== undefined">
               <div class="{{deadlineDateAlertLevelClass(taskEntry)}}">
                 <div class="lrock-indent">

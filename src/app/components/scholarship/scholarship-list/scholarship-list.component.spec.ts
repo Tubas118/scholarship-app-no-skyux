@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ScholarshipListComponent } from './scholarship-list.component';
 import { ScholarshipListSpecPage } from './fixtures/scholarship-list.spec-page';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Scholarship } from 'src/app/models/scholarship';
@@ -12,22 +12,23 @@ import { of } from 'rxjs';
 import { HttpLoaderFactory } from 'src/shared/components/shared-components-module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { KeyValueComponent } from 'src/lib/components/key-value/key-value.component';
+import { randomTestData } from 'src/shared/test-utils/random-test-data';
+import { ScholarshipService } from 'src/app/services/scholarship-service';
+import { ScholarshipSupport } from 'src/app/models/model-support/scholarship-support';
+import { TaskSupport } from 'src/app/models/model-support/task-support';
 
 describe('scholarship-list component', () => {
   let fixture: ComponentFixture<ScholarshipListComponent>;
   let component: ScholarshipListComponent;
   let elements: ScholarshipListSpecPage;
+  let currencyPipe: CurrencyPipe;
+  let datePipe: DatePipe;
+  let scholarshipSupport: ScholarshipSupport;
+  let taskSupport: TaskSupport;
   let translate: TranslateService;
   let scholarshipViews: ScholarshipView[];
 
   beforeEach(() => {
-    const scholarships: Scholarship[] = randomData.itemList(10, () => new ScholarshipRandomBuilder().build());
-    scholarshipViews = [];
-
-    scholarships.forEach(scholarship => {
-      appendScholarship(scholarship);
-    });
-
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -48,14 +49,29 @@ describe('scholarship-list component', () => {
         ScholarshipListComponent
       ],
       providers: [
+        CurrencyPipe,
         DatePipe,
+        ScholarshipSupport,
+        TaskSupport,
         TranslateService
       ]
     });
 
+    datePipe = TestBed.inject(DatePipe);
+    taskSupport = new TaskSupport(datePipe);
+    scholarshipSupport = new ScholarshipSupport(datePipe, taskSupport);
     translate = TestBed.inject(TranslateService);
+
+    const scholarships: Scholarship[] = randomData.itemList(10, () => new ScholarshipRandomBuilder().build());
+    scholarshipViews = [];
+
+    scholarships.forEach(scholarship => {
+      appendScholarship(scholarship);
+    });
+
     fixture = TestBed.createComponent(ScholarshipListComponent);
     elements = new ScholarshipListSpecPage(fixture);
+    currencyPipe = TestBed.inject(CurrencyPipe);
     component = fixture.componentInstance;
     component.translate = translate;
   });
@@ -84,10 +100,10 @@ describe('scholarship-list component', () => {
     // Given
     scholarshipViews = [];
 
-    appendScholarship({
-      ...(new ScholarshipRandomBuilder().build()),
+    const expectedScholarship = new ScholarshipRandomBuilder().build({
       tasks: []
-    });
+    } as Scholarship);
+    appendScholarship(expectedScholarship);
 
     // When
     component.scholarshipGridData = of(scholarshipViews);
@@ -103,14 +119,80 @@ describe('scholarship-list component', () => {
     expectScholarshipMatch(rows[0], scholarshipViews[0]);
   });
 
+  it ('should properly display scholarships where optional values are undefined', () => {
+    // Given
+    scholarshipViews = [];
+
+    const expectedScholarship = new ScholarshipRandomBuilder()
+      .assignUndefinedToOptionalValues()
+      .build();
+    appendScholarship(expectedScholarship);
+
+    // When
+    component.scholarshipGridData = of(scholarshipViews);
+    fixture.detectChanges();
+
+    // Then
+    let rows = elements.allScholarshipRows.elements;
+    expect(rows.length).toBe(1);
+
+    let row = rows[0];
+    expect(elements.scholarshipCode.element(row)?.textContent).toBe('');
+    // Submit date not on page
+    expect(elements.scholarshipPriority.element(row)?.textContent).toBeFalsy();
+    expect(elements.scholarshipDeadlineDate.element(row)?.textContent).toBeFalsy();
+    expect(elements.scholarshipTargetAmount.element(row)?.textContent).toBeFalsy();
+    // Awarded amount not on page
+    // Submitted flag not on page
+    // Membership required flag not on page
+    // Qualified flag not on page
+    // Previously applied flag not on page
+    // Previously awarded flag not on page
+  })
+
+  it('should properly display scholarships where optional values are defined', () => {
+    // Given
+    scholarshipViews = [];
+
+    const expectedScholarship = new ScholarshipRandomBuilder()
+      .assignNoUndefinedOptionalValues()
+      .build();
+
+    appendScholarship(expectedScholarship);
+
+    expect(expectedScholarship.code).toBeTruthy();
+    expect(expectedScholarship.submitDate).toBeTruthy();
+    expect(expectedScholarship.priority).toBeTruthy();
+    expect(expectedScholarship.deadlineDate).toBeTruthy();
+    expect(expectedScholarship.targetAmount).toBeTruthy();
+    expect(expectedScholarship.awardedAmount).toBeTruthy();
+    expect(expectedScholarship.submitted).toBeTruthy();
+    expect(expectedScholarship.membershipRequired).toBeTruthy();
+    expect(expectedScholarship.qualified).toBeTruthy();
+    expect(expectedScholarship.previouslyApplied).toBeTruthy();
+    expect(expectedScholarship.previouslyAwarded).toBeTruthy();
+
+    // When
+    component.scholarshipGridData = of(scholarshipViews);
+    fixture.detectChanges();
+
+    // Then
+    let rows = elements.allScholarshipRows.elements;
+    expect(rows.length).toBe(1);
+    expectScholarshipMatch(rows[0], scholarshipViews[0]);
+  })
+
   function appendScholarship(scholarship: Scholarship) {
-    scholarshipViews.push({
-      ...scholarship
-    } as ScholarshipView);
+    scholarshipViews.push(scholarshipSupport.toScholarshipView(scholarship));
   }
 
   function expectScholarshipMatch(elementRow: HTMLElement, expectedScholarship: ScholarshipView) {
-    expect(elements.scholarshipName.element(elementRow).textContent).toBe(expectedScholarship.scholarshipName);
+    expect(elements.scholarshipName.element(elementRow)?.textContent).toBe(expectedScholarship.scholarshipName);
+
+    const expectedDeadlineDate = (expectedScholarship.tasks?.length === 0) ? undefined : expectedScholarship.deadlineDate;
+    expect(elements.scholarshipDeadlineDate.element(elementRow)?.textContent).toEqual(expectedDeadlineDate?.toString());
+    expect(elements.scholarshipCode.element(elementRow)?.textContent).toBe(expectedScholarship.code);
+    expect(elements.scholarshipTargetAmount.element(elementRow)?.textContent).toBe(currencyPipe.transform(expectedScholarship.targetAmount?.toString()));
 
     const openTasks = elements.scholarshipOpenTasks.element(elementRow);
     const totalTasks = elements.scholarshipTotalTasks.element(elementRow);

@@ -9,9 +9,19 @@ export class ScholarshipListSpecPage extends BaseSpecPage<ScholarshipListCompone
 
   readonly allScholarshipRows = new ElementArrayGetterByCssName<HTMLElement[]>('.lrock-selectable', this);
 
+  readonly scholarshipCode = new ChildElementGetterByCssName<HTMLElement>('.ct-code');
+
+  readonly scholarshipDeadlineDate = new ChildElementGetterByCssName<HTMLElement>('.ct-deadline-date');
+
   readonly scholarshipName = new ChildElementGetterByCssName<HTMLElement>('.ct-scholarship-name');
 
   readonly scholarshipOpenTasks = new ChildElementGetterByCssName<HTMLElement>('.ct-open-tasks');
+
+  readonly scholarshipPriority = new ChildElementGetterByCssName<HTMLElement>('.ct-priority');
+
+  //readonly scholarshipSubmitDate = new ChildElementGetterByCssName<HTMLElement>('ct-submit-date');
+
+  readonly scholarshipTargetAmount = new ChildElementGetterByCssName<HTMLElement>('.ct-target-amount');
 
   readonly scholarshipTotalTasks = new ChildElementGetterByCssName<HTMLElement>('.ct-total-tasks');
 }
