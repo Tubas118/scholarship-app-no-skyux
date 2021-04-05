@@ -8,7 +8,7 @@ import { SponsorDashboardComponent } from './components/sponsor/sponsor-dashboar
 import { SponsorEditComponent } from './components/sponsor/sponsor-edit/sponsor-edit.component';
 import { ValidateDeactivationGuard } from './components/scholarship/validate-deactivation.guard';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'sponsors', component: SponsorDashboardComponent },
   { path: 'sponsors/new', component: SponsorDashboardComponent },
   { path: 'sponsors/:id', component: SponsorEditComponent },

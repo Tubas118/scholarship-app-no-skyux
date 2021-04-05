@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { ScholarshipListComponent } from './scholarship-list.component';
 import { ScholarshipListSpecPage } from './fixtures/scholarship-list.spec-page';
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
@@ -12,10 +12,9 @@ import { of } from 'rxjs';
 import { HttpLoaderFactory } from 'src/shared/components/shared-components-module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { KeyValueComponent } from 'src/lib/components/key-value/key-value.component';
-import { randomTestData } from 'src/shared/test-utils/random-test-data';
-import { ScholarshipService } from 'src/app/services/scholarship-service';
 import { ScholarshipSupport } from 'src/app/models/model-support/scholarship-support';
 import { TaskSupport } from 'src/app/models/model-support/task-support';
+import { ScholarshipService } from 'src/app/services/scholarship-service';
 
 describe('scholarship-list component', () => {
   let fixture: ComponentFixture<ScholarshipListComponent>;
@@ -27,6 +26,7 @@ describe('scholarship-list component', () => {
   let taskSupport: TaskSupport;
   let translate: TranslateService;
   let scholarshipViews: ScholarshipView[];
+  let selectedScholarshipIdEmitted: string;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -51,6 +51,7 @@ describe('scholarship-list component', () => {
       providers: [
         CurrencyPipe,
         DatePipe,
+        ScholarshipService,
         ScholarshipSupport,
         TaskSupport,
         TranslateService
@@ -74,6 +75,11 @@ describe('scholarship-list component', () => {
     currencyPipe = TestBed.inject(CurrencyPipe);
     component = fixture.componentInstance;
     component.translate = translate;
+
+    selectedScholarshipIdEmitted = undefined;
+    component.selectedScholarship.subscribe(selectedScholarshipId => {
+      selectedScholarshipIdEmitted = selectedScholarshipId;
+    })
   });
 
   it('should populate the scholarship view', () => {
@@ -181,6 +187,52 @@ describe('scholarship-list component', () => {
     expect(rows.length).toBe(1);
     expectScholarshipMatch(rows[0], scholarshipViews[0]);
   })
+
+  it ('should fire click event for web link', fakeAsync(() => {
+    // Given
+    // TODO - cranky in attempt to call sanitize - const safeUrlString = sanitizer.sanitize(SecurityContext.URL, '#fake-site');
+    const expectedWebsite = new URL('#fake-site');
+    scholarshipViews[0].webpage = expectedWebsite;
+
+    component.scholarshipGridData = of(scholarshipViews);
+    fixture.detectChanges();
+
+    const firstRowElement = elements.allScholarshipRows.firstElement;
+    const linkElement = elements.scholarshipWebsite.element(firstRowElement);
+
+    // NOTE: if looking in browser console, it complains that it failed to launch.
+    //  This is okay because we don't want new tab opening during test.
+    linkElement.target = '';
+    expect(linkElement.textContent).toBe(expectedWebsite.toString());
+
+    const expectedOnUrlClickedCount = component.getOnUrlClickedCount() + 1;
+
+    // When
+    linkElement.click();
+    tick();
+
+    // Then
+    expect(component.getOnUrlClickedCount()).toBe(expectedOnUrlClickedCount);
+  }))
+
+  it ('should emit scholarship id for editing when row clicked', waitForAsync(() => {
+    // Given
+    component.scholarshipGridData = of(scholarshipViews);
+    fixture.detectChanges();
+
+    const firstRowElement = elements.allScholarshipRows.firstElement;
+    expect(selectedScholarshipIdEmitted).toBeUndefined();
+
+    // When
+    firstRowElement.click();
+    fixture.detectChanges();
+
+    // Then
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      expect(selectedScholarshipIdEmitted).toBe(scholarshipViews[0].id);
+    })
+  }))
 
   function appendScholarship(scholarship: Scholarship) {
     scholarshipViews.push(scholarshipSupport.toScholarshipView(scholarship));

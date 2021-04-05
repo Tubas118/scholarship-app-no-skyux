@@ -7,7 +7,7 @@ export class ScholarshipListSpecPage extends BaseSpecPage<ScholarshipListCompone
     super(fixture);
   }
 
-  readonly allScholarshipRows = new ElementArrayGetterByCssName<HTMLElement[]>('.lrock-selectable', this);
+  readonly allScholarshipRows = new ElementArrayGetterByCssName<HTMLElement>('.lrock-selectable', this);
 
   readonly scholarshipCode = new ChildElementGetterByCssName<HTMLElement>('.ct-code');
 
@@ -24,4 +24,10 @@ export class ScholarshipListSpecPage extends BaseSpecPage<ScholarshipListCompone
   readonly scholarshipTargetAmount = new ChildElementGetterByCssName<HTMLElement>('.ct-target-amount');
 
   readonly scholarshipTotalTasks = new ChildElementGetterByCssName<HTMLElement>('.ct-total-tasks');
+
+  readonly scholarshipWebsiteOuter = new ChildElementGetterByCssName<HTMLElement>('.ct-url-outer');
+
+  readonly scholarshipWebsite = new ChildElementGetterByCssName<HTMLLinkElement>('.ct-website');
+
+  readonly scholarshipWebsiteLabel = new ChildElementGetterByCssName<HTMLElement>('.ct-url-label');
 }
