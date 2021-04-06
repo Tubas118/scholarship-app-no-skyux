@@ -77,7 +77,7 @@
       </div>
     </div>
     <br/>
-    <task-dashboard [activeScholarship]="scholarshipDetails" (bulkTaskChangeEvent)="onBulkTaskChangeEvent($event)">
+    <task-dashboard *ngIf="showTaskDashboard" [activeScholarship]="scholarshipDetails" (bulkTaskChangeEvent)="onBulkTaskChangeEvent($event)">
     </task-dashboard>
   </form>
 </main>

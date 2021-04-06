@@ -18,7 +18,7 @@ import { ScholarshipSupport } from 'src/app/models/model-support/scholarship-sup
   templateUrl: './scholarship-edit.component.html',
   styleUrls: ['./scholarship-edit.component.scss']
 })
-export class ScholarshipEditComponent extends ValidateDeactivation implements OnChanges {
+export class ScholarshipEditComponent extends ValidateDeactivation implements OnInit, OnChanges {
   @Input()
   public scholarshipDetails: ScholarshipView;
 
@@ -27,6 +27,9 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
 
   public selectedTask: Task;
   public showTaskEditForm: boolean = false;
+
+  // Should always be true - provided for unit testing.
+  public showTaskDashboard = true;
 
   @Output()
   public closeEvent: EventEmitter<ScholarshipChangeEvent> = new EventEmitter<ScholarshipChangeEvent>();
@@ -49,6 +52,19 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
               private scholarshipService: ScholarshipService,
               private scholarshipSupport: ScholarshipSupport) {
     super();
+  }
+
+  public ngOnInit(): void {
+    this.ngOnChanges(undefined);
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (this.showScholarshipEditForm) {
+      this.tasksEvent.emit(this.scholarshipDetails?.tasks);
+
+      this.scholarshipForm = this.initializeFormGroup(this.scholarshipDetails);
+      // Deprecated in schema 11 -- this.selectedStatus = this.scholarshipDetails.status;
+    }
   }
 
   public get sponsorSelectList(): Observable<SelectedItem[]> {
@@ -91,15 +107,6 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
   public resetBulkTaskActionOccurred() {
     this.taskDashboard?.resetBulkTaskActionOccurred();
     this.bulkTaskActionOccurred = false;
-  }
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (this.showScholarshipEditForm) {
-      this.tasksEvent.emit(this.scholarshipDetails?.tasks);
-
-      this.scholarshipForm = this.intializeFormGroup(this.scholarshipDetails);
-      // Deprecated in schema 11 -- this.selectedStatus = this.scholarshipDetails.status;
-    }
   }
 
   public onBulkTaskChangeEvent(event: BulkTaskChangeEvent) {
@@ -176,14 +183,18 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
     return scholarship;
   }
 
-  private intializeFormGroup(scholarship: ScholarshipView): FormGroup {
+  public blankFormGroup(): FormGroup {
+    return this.initializeFormGroup(undefined);
+  }
+
+  public initializeFormGroup(scholarship: ScholarshipView): FormGroup {
     this.newEntryMode = (scholarship === undefined);
     this.scholarshipDetails = this.selectScholarshipView(scholarship);
     this.initialScholarshipDetails = {
       ...this.scholarshipDetails
     };
 
-    return this.formBuilder.group({
+    let fg = this.formBuilder.group({
       scholarshipName: new FormControl(this.scholarshipDetails.scholarshipName),
       scholarshipCode: new FormControl(this.scholarshipDetails.code),
       targetAmount: new FormControl(this.scholarshipDetails.targetAmount),
@@ -201,6 +212,8 @@ export class ScholarshipEditComponent extends ValidateDeactivation implements On
       membershipRequired: new FormControl(this.scholarshipDetails.membershipRequired || false),
       webpage: new FormControl(this.scholarshipDetails.webpage)
     });
+
+    return fg;
   }
 
   private updateInternalData(updatedScholarship: ScholarshipView) {

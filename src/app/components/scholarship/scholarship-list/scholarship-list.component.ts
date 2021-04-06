@@ -21,6 +21,7 @@ export class ScholarshipListComponent implements OnInit {
   protected errorDetail: any;
   protected pageNum: number;
   protected skipEditRecord = false;
+  protected onUrlClickedCount = 0;
 
   public constructor(public translate: TranslateService,
                       private scholarshipSupport: ScholarshipSupport) { }
@@ -29,8 +30,14 @@ export class ScholarshipListComponent implements OnInit {
     this.pageNum = 0;
   }
 
+  public getOnUrlClickedCount() {
+    return this.onUrlClickedCount;
+;
+  }
+
   public onUrlClicked(entry: ScholarshipView) {
     if (entry?.webpage !== undefined) {
+      this.onUrlClickedCount++;
       this.skipEditRecord = true;
     }
   }

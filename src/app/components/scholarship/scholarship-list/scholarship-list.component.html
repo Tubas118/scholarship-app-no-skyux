@@ -7,16 +7,17 @@
       <div class="lrock-cell-5">{{ 'tasks_label.message' | translate }}</div>
     </div>
     <div *ngFor="let entry of scholarshipGridData | async" class="lrock-row lrock-selectable" (click)="editRecord(entry.id)">
-      <div class="lrock-cell-4">
+      <div class="lrock-cell-4 ct-url-outer">
         <div class='ct-scholarship-name'>{{ entry.scholarshipName }}</div>
         <div *ngIf="entry.openTasks?.length > 0 && isValidDeadlineDate(entry)" class="lrock-indent {{deadlineDateAlertLevelClass(entry)}}">
           (Due: <span class="ct-deadline-date">{{ entry.deadlineDate }}</span>)
         </div>
-        <div *ngIf="entry.webpage?.length > 0" class="lrock-stacked">
-          <div class="lrock-task-label">
+        <div *ngIf="entry.webpage?.href?.length > 0" class="lrock-stacked">
+        <!-- <div class="lrock-stacked"> -->
+          <div class="lrock-task-label ct-url-label">
             {{ 'scholarship_webpage_label.message' | translate }}
           </div>
-          <a (click)="onUrlClicked(entry)" href="{{entry.webpage}}" class="lrock-url" target="_blank">{{entry.webpage}}</a>
+          <a (click)="onUrlClicked(entry)" href="{{entry.webpage}}" class="lrock-url ct-website" target="_blank">{{entry.webpage}}</a>
         </div>
       </div>
       <div class="lrock-cell-2 lrock-right">
