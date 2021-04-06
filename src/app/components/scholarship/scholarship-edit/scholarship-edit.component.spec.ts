@@ -113,9 +113,21 @@ describe('scholarship-edit component', () => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
-      let ctrl = elements.scholarshipName.input;
-      expect(ctrl.value).toBe(component.scholarshipDetails.scholarshipName);
-      // TODO - add remaining fields
+      expect(elements.scholarshipName.input.value).toBe(component.scholarshipDetails.scholarshipName);
+      expect(elements.scholarshipCode.input.value).toBe(component.scholarshipDetails.code);
+      expect(elements.targetAmount.input.value).toBe(component.scholarshipDetails.targetAmount?.toString());
+
+      // TODO - check sponsorId
+      // TODO - check webpage
+      // TODO - check deadlineDate
+      // TODO - check submitDate
+      // TODO - check submitted
+
+      expect(elements.minimumGpa.input.value).toBe(component.scholarshipDetails.minimumGpa);
+      expect(elements.contactInfo.input.value).toBe(component.scholarshipDetails.contactInfo);
+      expect(elements.contactPhone.input.value).toBe(component.scholarshipDetails.contactPhone);
+
+      // TODO - check contactEmail
     })
   }));
 
