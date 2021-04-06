@@ -14,7 +14,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { KeyValueComponent } from 'src/lib/components/key-value/key-value.component';
 import { ScholarshipSupport } from 'src/app/models/model-support/scholarship-support';
 import { TaskSupport } from 'src/app/models/model-support/task-support';
-import { ScholarshipService } from 'src/app/services/scholarship-service';
 
 describe('scholarship-list component', () => {
   let fixture: ComponentFixture<ScholarshipListComponent>;
@@ -51,7 +50,6 @@ describe('scholarship-list component', () => {
       providers: [
         CurrencyPipe,
         DatePipe,
-        ScholarshipService,
         ScholarshipSupport,
         TaskSupport,
         TranslateService
