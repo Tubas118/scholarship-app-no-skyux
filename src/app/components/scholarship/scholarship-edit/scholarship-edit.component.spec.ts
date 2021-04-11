@@ -3,7 +3,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader, TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { ScholarshipRandomBuilder } from 'src/app/models/model-support/scholarship-random-builder';
 import { ScholarshipSupport } from 'src/app/models/model-support/scholarship-support';
@@ -78,7 +78,6 @@ describe('scholarship-edit component', () => {
         TaskDashboardComponent,
         TaskListComponent,
         TaskSupport,
-        TranslateService,
         UuidIdService
       ]
     });
@@ -87,12 +86,47 @@ describe('scholarship-edit component', () => {
     taskSupport = new TaskSupport(datePipe);
     scholarshipSupport = new ScholarshipSupport(datePipe, taskSupport);
     sponsorService = TestBed.inject(SponsorService);
-    // translate = TestBed.inject(TranslateService);
 
     fixture = TestBed.createComponent(ScholarshipEditComponent);
     component = fixture.componentInstance;
 
     elements = new ScholarshipEditSpecPage(fixture);
+  });
+
+  it('should properly identify checkbox checked using dom-utils', () => {
+    let sponsor = new SponsorRandomBuilder().build();
+
+    let scholarship = new ScholarshipRandomBuilder().build({
+      sponsorId: sponsor.id,
+      tasks: []
+    } as Scholarship);
+    let expectedScholarshipView = scholarshipSupport.toScholarshipView(scholarship);
+
+    component.scholarshipDetails = expectedScholarshipView;
+    component.showScholarshipEditForm = true;
+    component.showTaskDashboard = false;
+
+    component.scholarshipDetails.submitted = true;
+    fixture.detectChanges();
+    expect(elements.submitted.input.checked).toBeTrue();
+  });
+
+  it('should properly identify checkbox unchecked using dom-utils', () => {
+    let sponsor = new SponsorRandomBuilder().build();
+
+    let scholarship = new ScholarshipRandomBuilder().build({
+      sponsorId: sponsor.id,
+      tasks: []
+    } as Scholarship);
+    let expectedScholarshipView = scholarshipSupport.toScholarshipView(scholarship);
+
+    component.scholarshipDetails = expectedScholarshipView;
+    component.showScholarshipEditForm = true;
+    component.showTaskDashboard = false;
+
+    component.scholarshipDetails.submitted = false;
+    fixture.detectChanges();
+    expect(elements.submitted.input.checked).toBeFalse();
   });
 
   it('should populate the form with component values', waitForAsync(() => {
@@ -122,6 +156,7 @@ describe('scholarship-edit component', () => {
       // TODO - check deadlineDate
       // TODO - check submitDate
       // TODO - check submitted
+      expect(elements.submitted.input.checked).toBe(component.scholarshipDetails.submitted);
 
       expect(elements.minimumGpa.input.value).toBe(component.scholarshipDetails.minimumGpa);
       expect(elements.contactInfo.input.value).toBe(component.scholarshipDetails.contactInfo);

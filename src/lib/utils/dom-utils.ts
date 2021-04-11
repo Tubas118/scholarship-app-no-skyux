@@ -19,7 +19,7 @@ export class ChildElementGetterByCssName<T extends HTMLElement> {
 }
 
 export class ElementGetterByCssName<T extends HTMLElement> {
-  constructor(public readonly cssName: string, private baseSpecPage: BaseSpecPage<any>) { }
+  constructor(public readonly cssName: string, protected baseSpecPage: BaseSpecPage<any>) { }
 
   get debugElement(): DebugElement {
     return this.baseSpecPage.fixture.debugElement.query(By.css(this.cssName));
@@ -52,29 +52,71 @@ export class ElementArrayGetterByCssName<T extends HTMLElement> {
   }
 }
 
-export class TextboxGetterByName {
-  constructor(public readonly name: string, private baseSpecPage: BaseSpecPage<any>) { }
+// export class LRockInputGetterByCssName<T extends HTMLElement> extends ElementGetterByCssName<T> {
+//   constructor(public readonly cssName: string, protected baseSpecPage: BaseSpecPage<any>) {
+//     super(cssName, baseSpecPage);
+//   }
+
+//   get labelDebug(): DebugElement {
+//     let elementDebug = this.baseSpecPage.fixture.debugElement.query(By.css(this.cssName));
+//     return elementDebug?.query(By.css('label'));
+//   }
+
+//   get label(): HTMLLabelElement {
+//     let element = this.baseSpecPage.fixture.nativeElement.querySelector(this.cssName) as HTMLElement;
+//     return element?.querySelector('label') as HTMLLabelElement;
+//   }
+
+//   get inputDebug(): DebugElement {
+//     return this.baseSpecPage.fixture.nativeElement?.query(By.css(`input[formControlName="${this.name}]"`));
+//   }
+
+//   get input(): HTMLInputElement {
+//     let textboxElement = this.baseSpecPage.fixture.nativeElement.querySelector(`lrock-textbox[name="${this.name}"]`);
+//     return textboxElement.querySelector('input') as HTMLInputElement;
+//   }
+// }
+
+export enum LRockInputTypes {
+  checkbox
+}
+
+export class LRockInputGetterByName {
+  private typeAttr: string;
+
+  constructor(public readonly tagname, public readonly name: string, public readonly type: LRockInputTypes, protected baseSpecPage: BaseSpecPage<any>) {
+    this.typeAttr = (type !== undefined) ? `[type="${LRockInputTypes[type]}"]` : "";
+  }
 
   get labelDebug(): DebugElement {
-    let elementDebug = this.baseSpecPage.fixture.debugElement.query(By.css(this.name));
-    return elementDebug?.query(By.css('label'));
+    let elementDebug = this.baseSpecPage.fixture.debugElement.query(By.css(`${this.tagname}[name="${this.name}"]`));
+    return elementDebug?.query(By.css(`label[for="${this.name}"]`));
   }
 
   get label(): HTMLLabelElement {
-    let element = this.baseSpecPage.fixture.nativeElement.querySelector(this.name) as HTMLElement;
-    return element?.querySelector('label') as HTMLLabelElement;
+    let element = this.baseSpecPage.fixture.nativeElement.querySelector(`${this.tagname}[name="${this.name}"]`) as HTMLElement;
+    return element?.querySelector(`label[for="${this.name}"]`) as HTMLLabelElement;
   }
 
   get inputDebug(): DebugElement {
-    // let elementDebug = this.baseSpecPage.fixture.debugElement.query(By.css(this.name));
-    // return elementDebug?.query(By.css(`input[formControlName="${this.name}"`));
-    return this.baseSpecPage.fixture.nativeElement?.query(By.css(`input[formControlName="${this.name}"`));
+    let elementDebug = this.baseSpecPage.fixture.nativeElement.query(By.css(`${this.tagname}[name="${this.name}"]`));
+    return elementDebug?.query(By.css(`input${this.typeAttr}`));
   }
 
   get input(): HTMLInputElement {
-    let textboxElement = this.baseSpecPage.fixture.nativeElement.querySelector(`lrock-textbox[name="${this.name}"]`);
-    // let elementSelector = `input[formControlName="${this.name}]"`;
-    // console.log(`elementSelector: ${elementSelector}`);
-    return textboxElement.querySelector('input') as HTMLInputElement;
+    let textboxElement = this.baseSpecPage.fixture.nativeElement.querySelector(`${this.tagname}[name="${this.name}"]`);
+    return textboxElement.querySelector(`input${this.typeAttr}`) as HTMLInputElement;
+  }
+}
+
+export class CheckboxGetterByName extends LRockInputGetterByName {
+  constructor(public readonly name: string, protected baseSpecPage: BaseSpecPage<any>) {
+    super('lrock-checkbox', name, LRockInputTypes.checkbox, baseSpecPage);
+  }
+}
+
+export class TextboxGetterByName extends LRockInputGetterByName {
+  constructor(public readonly name: string, protected baseSpecPage: BaseSpecPage<any>) {
+    super('lrock-textbox', name, undefined, baseSpecPage);
   }
 }

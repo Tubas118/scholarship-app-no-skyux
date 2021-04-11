@@ -1,5 +1,5 @@
 import { ComponentFixture } from "@angular/core/testing";
-import { BaseSpecPage, TextboxGetterByName } from "src/lib/utils/dom-utils";
+import { BaseSpecPage, CheckboxGetterByName, TextboxGetterByName } from "src/lib/utils/dom-utils";
 import { ScholarshipEditComponent } from "../scholarship-edit.component";
 //import { lrock.testing.TextboxGetterByCssName }
 
@@ -19,7 +19,8 @@ export class ScholarshipEditSpecPage extends BaseSpecPage<ScholarshipEditCompone
   // TODO - webpage
   // TODO - deadlineDate
   // TODO - submitDate
-  // TODO - submitted
+
+  readonly submitted = new CheckboxGetterByName('submitted', this);
 
   readonly minimumGpa = new TextboxGetterByName('minimumGpa', this);
 
